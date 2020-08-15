@@ -1,0 +1,296 @@
+/*
+
+Template Color CSS File
+
+Color code: #34495e
+
+Author: Codingest
+Template Name: Varient
+
+*/
+
+/*a tag*/
+a:hover {
+    color: #34495e;
+}
+
+a:focus, a:active {
+    color: #34495e;
+}
+
+/*navigation*/
+.navbar-toggle {
+    background-color: #34495e !important;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #34495e !important;
+}
+
+.navbar-default .navbar-nav > .active > a::after, .navbar-default .navbar-nav > li > a:hover:after {
+    background-color: #34495e;
+}
+
+/*button color style*/
+.btn-custom {
+    background-color: #34495e;
+    border-color: #34495e;
+}
+
+.btn-custom:hover {
+    background-color: #2d4156 !important;
+    border-color: #2d4156 !important;
+}
+
+.btn-custom:focus {
+    background-color: #2d4156 !important;
+    border-color: #2d4156 !important;
+}
+
+.btn-custom:active {
+    background-color: #2d4156 !important;
+    border-color: #2d4156 !important;
+}
+
+::selection {
+    background: #34495e !important; /* WebKit/Blink Browsers */
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #34495e !important; /* Gecko Browsers */
+    color: #fff;
+}
+
+/*navbar color style*/
+.navbar-inverse .navbar-nav .active a::after {
+    background-color: #34495e;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #34495e;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #34495e !important;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+    background-color: transparent;
+    color: #34495e;
+}
+
+.navbar-inverse .navbar-nav .dropdown-menu > li:hover > a,
+.navbar-inverse .navbar-nav .dropdown-menu > li:focus > a,
+.navbar-inverse .navbar-nav .dropdown-menu > li.active > a {
+    color: #34495e;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #34495e;
+}
+
+.form-input:focus {
+    border-color: #34495e;
+    outline: 0 none;
+}
+
+.post-content .post-tags .tag-list li a:hover {
+    border-color: #34495e;
+    background-color: #34495e;
+}
+
+.auth-form-input:focus {
+    border-color: #34495e;
+}
+
+.form-textarea:focus {
+    border-color: #34495e;
+}
+
+.profile-buttons ul li a:hover {
+    background-color: #34495e;
+    border-color: #34495e;
+}
+
+.add-post-modal .item-icon i {
+    color: #34495e;
+}
+
+.custom-checkbox:hover + label:before {
+    border-color: #34495e;
+}
+
+.custom-checkbox:checked + label:before {
+    background: #34495e;
+    border-color: #34495e;
+}
+
+.poll .result .progress .progress-bar {
+    background-color: #34495e;
+}
+
+/*Comments*/
+.comments .comments-title {
+    border-bottom: 2px solid #34495e;
+}
+
+.comment-lists li .btn-comment-reply {
+    color: #34495e;
+}
+
+.comment-lists li .btn-comment-like {
+    color: #34495e;
+}
+
+.comment-loader-container .loader {
+    border-top: 5px solid #34495e;
+}
+
+.sub-comment-loader-container .loader {
+    border-top: 5px solid #34495e;
+}
+
+.f-random-list li .title a:hover {
+    color: #34495e;
+}
+
+.leave-reply .form-control:focus {
+    border-color: #34495e;
+}
+
+.page-contact .form-control:focus {
+    border-color: #34495e;
+}
+
+.link-forget {
+    color: #34495e;
+}
+
+.captcha-refresh {
+    color: #34495e;
+}
+
+.newsletter .newsletter-button {
+    background-color: #34495e;
+    border: 1px solid #34495e;
+}
+
+.newsletter .newsletter-button:hover {
+    background-color: #2d4156;
+    border: 1px solid #2d4156;
+}
+
+.nav-footer li a:hover {
+    color: #34495e;
+}
+
+.video-label {
+    background: #34495e;
+}
+
+.post-author-meta a:hover {
+    color: #34495e !important;
+}
+
+.post-next-prev p span {
+    color: #34495e;
+}
+
+.filters .active::after {
+    background: #34495e;
+}
+
+.filters .btn:focus:after, .filters .btn:hover:after, .filters .btn:active:after {
+    background: #34495e;
+}
+
+.pagination .active a {
+    border: 1px solid #34495e !important;
+    background-color: #34495e !important;
+    color: #fff !important;
+}
+
+.pagination li a:hover, .pagination li a:focus, .pagination li a:active {
+    background-color: #34495e;
+    border: 1px solid #34495e;
+}
+
+.search-form {
+    border-top: 3px solid #34495e;
+}
+
+.search-form button {
+    background-color: #34495e !important;
+}
+
+.sidebar-widget .tag-list li a:hover {
+    background-color: #34495e;
+}
+
+.mobile-menu-social li a:hover, .mobile-menu-social li a:focus {
+    color: #34495e;
+}
+
+.comment-error {
+    border-color: #34495e !important;
+}
+
+.dropdown-more {
+    border-top: 3px solid #34495e;
+}
+
+.btn-load-more:hover {
+    color: #34495e;
+}
+
+.spinner > div {
+    background-color: #34495e;
+}
+
+.cookies-warning a {
+    color: #34495e !important;
+}
+
+.reactions .col-reaction:hover .btn-reaction {
+    background-color: #34495e;
+}
+
+.reactions .progress-bar-vertical .progress-bar {
+    background-color: #34495e;
+}
+
+.reactions .btn-reaction-voted {
+    background-color: #34495e;
+}
+
+.custom-checkbox input:checked + .checkbox-icon {
+    background-color: #34495e;
+    border: 1px solid #34495e;
+}
+
+.post-files .file button {
+    color: #34495e;
+}
+
+.icon-newsletter {
+    color: #34495e;
+}
+
+.swal-button--danger {
+    background-color: #34495e !important;
+}
+
+.post-item-no-image .caption-video-no-image .title a:hover {
+    color: #34495e !important;
+}
+.mobile-language-options li .selected, .mobile-language-options li a:hover {
+    color: #34495e;
+    border: 1px solid #34495e;
+}

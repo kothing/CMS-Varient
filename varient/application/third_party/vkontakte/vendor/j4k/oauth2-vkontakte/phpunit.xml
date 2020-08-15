@@ -1,0 +1,10 @@
+<phpunit colors="true" strict="false" backupGlobals="false" timeoutForSmallTests="1" timeoutForMediumTests="5" timeoutForLargeTests="10"  bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="All">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <ini name="error_reporting" value="32767" />
+    </php>
+</phpunit>

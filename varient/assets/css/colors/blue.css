@@ -1,0 +1,296 @@
+/*
+
+Template Color CSS File
+
+Color code: #1da7da
+
+Author: Codingest
+Template Name: Varient
+
+*/
+
+/*a tag*/
+a:hover {
+    color: #1da7da;
+}
+
+a:focus, a:active {
+    color: #1da7da;
+}
+
+/*navigation*/
+.navbar-toggle {
+    background-color: #1da7da !important;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #1da7da !important;
+}
+
+.navbar-default .navbar-nav > .active > a::after, .navbar-default .navbar-nav > li > a:hover:after {
+    background-color: #1da7da;
+}
+
+/*button color style*/
+.btn-custom {
+    background-color: #1da7da;
+    border-color: #1da7da;
+}
+
+.btn-custom:hover {
+    background-color: #1992bf !important;
+    border-color: #1992bf !important;
+}
+
+.btn-custom:focus {
+    background-color: #1992bf !important;
+    border-color: #1992bf !important;
+}
+
+.btn-custom:active {
+    background-color: #1992bf !important;
+    border-color: #1992bf !important;
+}
+
+::selection {
+    background: #1da7da !important; /* WebKit/Blink Browsers */
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #1da7da !important; /* Gecko Browsers */
+    color: #fff;
+}
+
+/*navbar color style*/
+.navbar-inverse .navbar-nav .active a::after {
+    background-color: #1da7da;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #1da7da;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+    color: #1da7da !important;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+    background-color: transparent;
+    color: #1da7da;
+}
+
+.navbar-inverse .navbar-nav .dropdown-menu > li:hover > a,
+.navbar-inverse .navbar-nav .dropdown-menu > li:focus > a,
+.navbar-inverse .navbar-nav .dropdown-menu > li.active > a {
+    color: #1da7da;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: #1da7da;
+}
+
+.form-input:focus {
+    border-color: #1da7da;
+    outline: 0 none;
+}
+
+.post-content .post-tags .tag-list li a:hover {
+    border-color: #1da7da;
+    background-color: #1da7da;
+}
+
+.auth-form-input:focus {
+    border-color: #1da7da;
+}
+
+.form-textarea:focus {
+    border-color: #1da7da;
+}
+
+.profile-buttons ul li a:hover {
+    background-color: #1da7da;
+    border-color: #1da7da;
+}
+
+.add-post-modal .item-icon i {
+    color: #1da7da;
+}
+
+.custom-checkbox:hover + label:before {
+    border-color: #1da7da;
+}
+
+.custom-checkbox:checked + label:before {
+    background: #1da7da;
+    border-color: #1da7da;
+}
+
+.poll .result .progress .progress-bar {
+    background-color: #1da7da;
+}
+
+/*Comments*/
+.comments .comments-title {
+    border-bottom: 2px solid #1da7da;
+}
+
+.comment-lists li .btn-comment-reply {
+    color: #1da7da;
+}
+
+.comment-lists li .btn-comment-like {
+    color: #1da7da;
+}
+
+.comment-loader-container .loader {
+    border-top: 5px solid #1da7da;
+}
+
+.sub-comment-loader-container .loader {
+    border-top: 5px solid #1da7da;
+}
+
+.f-random-list li .title a:hover {
+    color: #1da7da;
+}
+
+.leave-reply .form-control:focus {
+    border-color: #1da7da;
+}
+
+.page-contact .form-control:focus {
+    border-color: #1da7da;
+}
+
+.link-forget {
+    color: #1da7da;
+}
+
+.captcha-refresh {
+    color: #1da7da;
+}
+
+.newsletter .newsletter-button {
+    background-color: #1da7da;
+    border: 1px solid #1da7da;
+}
+
+.newsletter .newsletter-button:hover {
+    background-color: #1992bf;
+    border: 1px solid #1992bf;
+}
+
+.nav-footer li a:hover {
+    color: #1da7da;
+}
+
+.video-label {
+    background: #1da7da;
+}
+
+.post-author-meta a:hover {
+    color: #1da7da !important;
+}
+
+.post-next-prev p span {
+    color: #1da7da;
+}
+
+.filters .active::after {
+    background: #1da7da;
+}
+
+.filters .btn:focus:after, .filters .btn:hover:after, .filters .btn:active:after {
+    background: #1da7da;
+}
+
+.pagination .active a {
+    border: 1px solid #1da7da !important;
+    background-color: #1da7da !important;
+    color: #fff !important;
+}
+
+.pagination li a:hover, .pagination li a:focus, .pagination li a:active {
+    background-color: #1da7da;
+    border: 1px solid #1da7da;
+}
+
+.search-form {
+    border-top: 3px solid #1da7da;
+}
+
+.search-form button {
+    background-color: #1da7da !important;
+}
+
+.sidebar-widget .tag-list li a:hover {
+    background-color: #1da7da;
+}
+
+.mobile-menu-social li a:hover, .mobile-menu-social li a:focus {
+    color: #1da7da;
+}
+
+.comment-error {
+    border-color: #1da7da !important;
+}
+
+.dropdown-more {
+    border-top: 3px solid #1da7da;
+}
+
+.btn-load-more:hover {
+    color: #1da7da;
+}
+
+.spinner > div {
+    background-color: #1da7da;
+}
+
+.cookies-warning a {
+    color: #1da7da !important;
+}
+
+.reactions .col-reaction:hover .btn-reaction {
+    background-color: #1da7da;
+}
+
+.reactions .progress-bar-vertical .progress-bar {
+    background-color: #1da7da;
+}
+
+.reactions .btn-reaction-voted {
+    background-color: #1da7da;
+}
+
+.custom-checkbox input:checked + .checkbox-icon {
+    background-color: #1da7da;
+    border: 1px solid #1da7da;
+}
+
+.post-files .file button {
+    color: #1da7da;
+}
+
+.icon-newsletter {
+    color: #1da7da;
+}
+
+.swal-button--danger {
+    background-color: #1da7da !important;
+}
+
+.post-item-no-image .caption-video-no-image .title a:hover {
+    color: #1da7da !important;
+}
+.mobile-language-options li .selected, .mobile-language-options li a:hover {
+    color: #1da7da;
+    border: 1px solid #1da7da;
+}
