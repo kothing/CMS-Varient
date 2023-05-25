@@ -3,12 +3,6 @@
   padding-bottom: 80px;
 }
 
-.sidebar {
-  position: relative;
-  height: 100%;
-  min-height: 100%;
-}
-
 .sidebar .logo {
   -webkit-transition: width 0.3s ease-in-out;
   -o-transition: width 0.3s ease-in-out;
@@ -99,10 +93,6 @@ a {
 
 .m-l-10 {
   margin-left: 10px !important;
-}
-
-.sidebar-collapse .sidebar-menu > li > a {
-  padding: 12px 13px !important;
 }
 
 .main-header {
@@ -560,6 +550,10 @@ div.tagsinput {
 .user-panel .info {
 }
 
+.sidebar-collapse .sidebar-menu > li > a {
+  padding: 12px 13px !important;
+}
+
 .sidebar-collapse .user-panel {
   padding: 6px;
 }
@@ -577,6 +571,28 @@ div.tagsinput {
 .sidebar-collapse .user-panel .info .name,
 .sidebar-collapse .user-panel .info .status {
   display: none;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse
+  .sidebar-menu
+  > li:hover
+  > a
+  > span.label-name {
+  background-color: #222e33;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse
+  .sidebar-menu
+  > li.treeview:not(.menu-open)
+  .treeview-menu {
+  display: none !important;
+}
+
+.sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse
+  .sidebar-menu
+  > li.treeview.menu-open
+  .treeview-menu {
+  display: block;
 }
 
 .navbar-custom-menu .nav .btn-site-prev {
