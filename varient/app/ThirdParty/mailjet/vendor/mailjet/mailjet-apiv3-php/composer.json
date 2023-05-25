@@ -1,0 +1,30 @@
+{
+    "name": "mailjet/mailjet-apiv3-php",
+    "description": "PHP wrapper for the Mailjet API",
+    "keywords": ["mailjet", "api", "v3", "php", "email"],
+    "homepage": "https://github.com/mailjet/mailjet-apiv3-php/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mailjet",
+            "email": "dev@mailjet.com",
+            "homepage": "https://dev.mailjet.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.4.4",
+        "psr/http-client": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8|^9",
+        "mockery/mockery": "^1.4",
+        "php-coveralls/php-coveralls": "^2.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Mailjet": "src/"
+        }
+    }
+}

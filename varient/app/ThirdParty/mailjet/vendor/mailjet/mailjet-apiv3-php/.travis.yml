@@ -1,0 +1,15 @@
+language: php
+dist: trusty
+php:
+  - 7.2
+  - 7.3
+  - 7.4
+  - 8.0
+install:
+  - composer install
+script: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+after_success:
+  - travis_retry vendor/bin/coveralls -v
+notifications:
+  slack:
+    secure: woxqf55Y5XlEOr9WrXalAMQEay8Rqpd9RdvQXw28AZsySVIYP2btfdA7OJRTiC7znIaSXQZqAeIZhKYXCLUv6QqG/saNe9sV5MC9o6sC4FgqdaPU493X2C7KSiwMqeyY9v0bbeUUI9O/g0cnaQGD/NJmVIpvaYz6Tu0MM06fB4c=

@@ -1,0 +1,33 @@
+{
+    "name": "j4k/oauth2-vkontakte",
+    "description": "Vkontakte provider for league/oauth2-client",
+    "keywords": [
+        "league",
+        "package"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jack Wall",
+            "email": "jw@jack.gd"
+        }
+    ],
+    "require": {
+        "php" : ">=5.5",
+        "league/oauth2-client": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "~4.6",
+        "mockery/mockery": "~0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "J4k\\OAuth2\\Client\\Provider\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "J4k\\OAuth2\\Client\\Test\\Provider\\": "tests/"
+        }
+    }
+}
