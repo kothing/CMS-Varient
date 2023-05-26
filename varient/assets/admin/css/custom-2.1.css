@@ -531,6 +531,10 @@ div.tagsinput {
   padding: 4px 12px !important;
 }
 
+.sidebar-mini.sidebar-collapse .sidebar-menu .database-backup {
+  display: none;
+}
+
 .settings-tab-content {
   padding: 20px !important;
 }
