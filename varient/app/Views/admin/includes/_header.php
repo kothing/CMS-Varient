@@ -181,18 +181,6 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('add_post')): ?>
-                        <li class="nav-post-format nav-add-post">
-                            <a href="<?= adminUrl('post-format'); ?>">
-                                <i class="fa fa-file"></i>
-                                <span class="label-name"><?= trans("add_post"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-import-posts">
-                            <a href="<?= adminUrl('bulk-post-upload'); ?>">
-                                <i class="fa fa-cloud-upload"></i>
-                                <span class="label-name"><?= trans("bulk_post_upload"); ?></span>
-                            </a>
-                        </li>
                         <li class="treeview<?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
                             <a href="#">
                                 <i class="fa fa-bars"></i> 
@@ -244,12 +232,16 @@
                                 </li>
                             </ul>
                         </li>
-                    <?php endif;
-                    if (checkUserPermission('rss_feeds')): ?>
-                        <li class="nav-feeds">
-                            <a href="<?= adminUrl('feeds'); ?>">
-                                <i class="fa fa-rss" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("rss_feeds"); ?></span>
+                        <li class="nav-post-format nav-add-post">
+                            <a href="<?= adminUrl('post-format'); ?>">
+                                <i class="fa fa-file"></i>
+                                <span class="label-name"><?= trans("add_post"); ?></span>
+                            </a>
+                        </li>
+                        <li class="nav-import-posts">
+                            <a href="<?= adminUrl('bulk-post-upload'); ?>">
+                                <i class="fa fa-cloud-upload"></i>
+                                <span class="label-name"><?= trans("bulk_post_upload"); ?></span>
                             </a>
                         </li>
                     <?php endif;
@@ -274,6 +266,14 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                    <?php endif;
+                    if (checkUserPermission('rss_feeds')): ?>
+                        <li class="nav-feeds">
+                            <a href="<?= adminUrl('feeds'); ?>">
+                                <i class="fa fa-rss" aria-hidden="true"></i>
+                                <span class="label-name"><?= trans("rss_feeds"); ?></span>
+                            </a>
                         </li>
                     <?php endif;
                     if (checkUserPermission('widgets')): ?>
@@ -314,7 +314,7 @@
                                 </li>
                                 <li class="nav-gallery-categories">
                                     <a href="<?= adminUrl('gallery-categories'); ?>">
-                                        <?= trans("categories"); ?>
+                                        <?= trans("gallery_categories"); ?>
                                     </a>
                                 </li>
                             </ul>
