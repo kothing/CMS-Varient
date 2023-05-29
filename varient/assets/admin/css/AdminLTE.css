@@ -725,13 +725,6 @@ a:focus {
   }
 
   .sidebar-mini.sidebar-collapse .user-panel .info {
-    left: 12px;
-    bottom: 24px;
-    padding: 6px;
-  }
-
-  .sidebar-mini.sidebar-collapse .user-panel .info .name,
-  .sidebar-mini.sidebar-collapse .user-panel .info .status {
     display: none;
   }
 
