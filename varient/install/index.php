@@ -46,7 +46,7 @@ if (!isset($license_code)) {
     if (isset($_GET["license_code"])) {
         $license_code = $_GET["license_code"];
     } else {
-        $license_code = "";
+        $license_code = "Varient";
     }
 }
 ?>
