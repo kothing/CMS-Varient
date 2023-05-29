@@ -715,7 +715,7 @@ a:focus {
   }
 
   .sidebar-mini.sidebar-collapse .user-panel {
-    min-height: 0;
+    min-height: auto;
     padding: 6px;
   }
 
