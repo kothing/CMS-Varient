@@ -325,8 +325,7 @@ a:focus {
   -webkit-transition: width 0.3s ease-in-out;
   -o-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
-  display: block;
-  float: left;
+  display: inline-block;
   height: 60px;
   font-size: 20px;
   line-height: 60px;
