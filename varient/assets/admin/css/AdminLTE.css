@@ -584,7 +584,7 @@ a:focus {
 
 .sidebar-scrollbar {
   display: block;
-  height: calc(100% - 180px);
+  height: calc(100% - 200px);
   overflow-x: visible;
   overflow-y: scroll;
 }
