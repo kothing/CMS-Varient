@@ -130,19 +130,19 @@ if (isset($_POST["btn_install"])) {
 											<h1 class="step-title">Database</h1>
 											<div class="form-group">
 												<label for="email">Host</label>
-												<input type="text" class="form-control form-input" name="db_host" placeholder="Host" value="<?php echo isset($db_host) ? @$db_host : 'localhost'; ?>" required>
+												<input type="text" class="form-control form-input" name="db_host" placeholder="Host" value="<?php echo isset($db_host) ? @$db_host : 'localhost'; ?>" required <?php echo isset($installing) ? 'disabled': ''  ?> />
 											</div>
 											<div class="form-group">
 												<label for="email">Database Name</label>
-												<input type="text" class="form-control form-input" name="db_name" placeholder="Database Name" value="<?php echo @$db_name; ?>" required>
+												<input type="text" class="form-control form-input" name="db_name" placeholder="Database Name" value="<?php echo @$db_name; ?>" required <?php echo isset($installing) ? 'disabled': ''  ?> />
 											</div>
 											<div class="form-group">
 												<label for="email">Username</label>
-												<input type="text" class="form-control form-input" name="db_user" placeholder="Username" value="<?php echo @$db_user; ?>" required>
+												<input type="text" class="form-control form-input" name="db_user" placeholder="Username" value="<?php echo @$db_user; ?>" required <?php echo isset($installing) ? 'disabled': ''  ?> />
 											</div>
 											<div class="form-group">
 												<label for="email">Password</label>
-												<input type="text" class="form-control form-input" name="db_password" placeholder="Password" value="<?php echo @$db_password; ?>">
+												<input type="text" class="form-control form-input" name="db_password" placeholder="Password" value="<?php echo @$db_password; ?>" <?php echo isset($installing) ? 'disabled': ''  ?> />
 											</div>
 										</div>
 									</div>
