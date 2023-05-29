@@ -126,7 +126,7 @@
     </header>
     <aside class="main-sidebar">
         <section class="sidebar">
-            <a href="<?= adminUrl(); ?>" class="logo">
+            <a class="logo" href="<?= adminUrl(); ?>">
                 <span class="logo-mini">
                     <i class="fa fa-dashboard fa-lg"></i>
                 </span>
