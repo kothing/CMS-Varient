@@ -181,12 +181,12 @@ cookie.prefix = 'vr'";
                                             $root = str_replace('install/', '', $root); ?>
                                             <div class="form-group">
                                                 <label>Site URL (Examples: <span style='font-family: "Helvetica Neue", Helvetica, Arial, sans-serif'>https://abc.com, https://abc.com/blog, https://test.abc.com</span>)</label><br>
-                                                <input type="text" class="form-control form-input" name="base_url" placeholder="Base URL" value="<?php echo @$root; ?>" required>
+                                                <input type="text" class="form-control form-input" name="base_url" placeholder="Base URL" value="<?php echo @$root; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
                                                 <small class="text-danger">(If your site does not have SSL, you must enter your site URL with "http". Example: http://abc.com)</small>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Timezone</label>
-                                                <select name="timezone" class="form-control" required style="min-height: 44px;">
+                                                <select name="timezone" class="form-control" required <?php echo isset($success) ? 'disabled': '' ?> style="min-height: 44px;">
                                                     <option value="">Select Your Timezone</option>
                                                     <?php $timezones = timezone_identifiers_list();
                                                     if (!empty($timezones)):
@@ -200,15 +200,15 @@ cookie.prefix = 'vr'";
                                             <h1 class="step-title">Admin Account</h1>
                                             <div class="form-group">
                                                 <label for="email">Username</label>
-                                                <input type="text" class="form-control form-input" name="admin_username" placeholder="Username" value="<?php echo @$admin_username; ?>" required>
+                                                <input type="text" class="form-control form-input" name="admin_username" placeholder="Username" value="<?php echo @$admin_username; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control form-input" name="admin_email" placeholder="Email" value="<?php echo @$admin_email; ?>" required>
+                                                <input type="email" class="form-control form-input" name="admin_email" placeholder="Email" value="<?php echo @$admin_email; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Password</label>
-                                                <input type="text" class="form-control form-input" name="admin_password" placeholder="Password" value="<?php echo @$admin_password; ?>" required>
+                                                <input type="text" class="form-control form-input" name="admin_password" placeholder="Password" value="<?php echo @$admin_password; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
                                             </div>
                                         </div>
                                     </div>
