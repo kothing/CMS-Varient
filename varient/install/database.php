@@ -54,7 +54,7 @@ if (isset($_POST["btn_install"])) {
 	<title>Varient - Installer</title>
 	<link rel="stylesheet" href="../assets/vendor/bootstrap-v3/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700" rel="stylesheet">
-    <link href="../assets/admin/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+	<link href="../assets/admin/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
