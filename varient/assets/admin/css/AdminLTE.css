@@ -717,6 +717,10 @@ a:focus {
     display: none;
   }
 
+  .sidebar-scrollbar {
+    height: calc(100% - 110px);
+  }
+  
   .sidebar-mini.sidebar-collapse .sidebar-menu > li {
     position: relative;
   }
