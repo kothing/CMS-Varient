@@ -714,17 +714,6 @@ a:focus {
   }
 
   .sidebar-mini.sidebar-collapse .user-panel {
-    min-height: auto;
-    padding: 6px;
-  }
-
-  .sidebar-mini.sidebar-collapse .user-panel .image {
-    width: 28px;
-    float: none;
-    margin: 0 auto;
-  }
-
-  .sidebar-mini.sidebar-collapse .user-panel .info {
     display: none;
   }
 
