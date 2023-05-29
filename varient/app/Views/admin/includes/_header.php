@@ -141,10 +141,9 @@
                 </div>
                 <div class="pull-left info">
                     <p class="name"><?= esc(user()->username); ?></p>
-                    <a href="#">
-                        <i class="fa fa-circle text-success"></i> 
-                        <span class="status"><?= trans("online"); ?></span>
-                    </a>
+                    <span class="status">
+                        <i class="fa fa-circle text-success"></i> <?= trans("online"); ?>
+                    </span>
                 </div>
             </div>
             <dv class="sidebar-scrollbar">
