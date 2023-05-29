@@ -808,8 +808,8 @@ a:focus {
   overflow: hidden;
 }
 
-.sidebar-menu:hover {
-  overflow-x: visible;
+.main-sidebar .sidebar-footer {
+  height: 50px;
 }
 
 .sidebar-form,
