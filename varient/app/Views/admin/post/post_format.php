@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-12 form-header">
         <a href="<?= adminUrl('posts?lang_id=' . $activeLang->id); ?>"
            class="btn btn-success btn-add-new pull-right">
@@ -6,7 +6,7 @@
             <?= trans('posts'); ?>
         </a>
     </div>
-</div>
+</div> -->
 <div class="row">
     <div class="col-sm-12 form-header">
         <h1 class="form-title form-title-post-format"><?= trans('choose_post_format'); ?></h1>
