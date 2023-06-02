@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/file-uploader/css/jquery.dm-uploader.min.css'); ?>"/>
     <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/file-uploader/css/styles-1.0.css'); ?>"/>
+    <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/tippy/svg-arrow.css'); ?>"/>
     <link rel="stylesheet" href="<?= base_url('assets/admin/css/custom-2.1.css'); ?>">
     <script src="<?= base_url('assets/admin/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('assets/vendor/sweetalert/sweetalert.min.js'); ?>"></script>
@@ -180,7 +181,7 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('add_post')): ?>
-                        <li class="treeview<?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
+                        <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
                             <a href="#">
                                 <i class="fa fa-bars"></i> 
                                 <span class="label-name"><?= trans("posts"); ?></span>
@@ -245,7 +246,7 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('categories')): ?>
-                        <li class="treeview<?php isAdminNavActive(['categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory']); ?>">
+                        <li class="nav-treeview treeview<?php isAdminNavActive(['categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory']); ?>">
                             <a href="#">
                                 <i class="fa fa-folder-open"></i>
                                 <span class="label-name"><?= trans("categories"); ?></span>
@@ -327,7 +328,7 @@
                             </span>
                         </a>
                         </li>
-                        <li class="treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
+                        <li class="nav-treeview treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
                             <a href="#">
                                 <i class="fa fa-comments"></i> 
                                 <span class="label-name"><?= trans("comments"); ?></span>
@@ -358,7 +359,7 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('reward_system')): ?>
-                        <li class="treeview<?php isAdminNavActive(['reward-system']); ?>">
+                        <li class="nav-treeview treeview<?php isAdminNavActive(['reward-system']); ?>">
                             <a href="#">
                                 <i class="fa fa-money"></i> 
                                 <span class="label-name"><?= trans("reward_system"); ?></span>
@@ -399,7 +400,7 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('users')): ?>
-                        <li class="treeview<?php isAdminNavActive(['users', 'add-user', 'administrators', 'edit-user']); ?>">
+                        <li class="nav-treeview treeview<?php isAdminNavActive(['users', 'add-user', 'administrators', 'edit-user']); ?>">
                             <a href="#">
                                 <i class="fa fa-users"></i>
                                 <span class="label-name"><?= trans("users"); ?></span>
