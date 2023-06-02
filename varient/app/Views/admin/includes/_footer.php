@@ -26,6 +26,52 @@
 <script src="<?= base_url('assets/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/js/custom-2.0.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/js/post-types-2.1.js'); ?>"></script>
+<script src="<?= base_url('assets/admin/plugins/tippy/popper.min.js'); ?>"></script>
+<script src="<?= base_url('assets/admin/plugins/tippy/tippy-bundle.min.js'); ?>"></script>
+<script>
+    const { roundArrow } = tippy;
+    const tippyInst = [];
+    const sideMenuPopper = (isCollapse) => {
+        if(!isCollapse) {
+            tippyInst.forEach(item => item.destroy());
+            return;
+        }
+        const sidebarMenuList = document.querySelectorAll('.sidebar .sidebar-menu li');
+        Array.from(sidebarMenuList).forEach((listItem) => {
+            const listChildren = listItem.children;
+            const treeMenu = listItem.querySelector('.treeview-menu');
+            const label = listItem.querySelector('.label-name');
+            const tipContent = (treeMenu || label) ? (treeMenu || label).cloneNode(true) : null;
+            if(tipContent) {
+                tipContent.style.display = "block";
+                const inst = tippy(listItem, {
+                    appendTo: () => document.body,
+                    allowHTML: true,
+                    content: tipContent,
+                    placement: 'right',
+                    arrow: roundArrow,
+                    interactive: true,
+                });
+                tippyInst.push(inst);
+            }
+        }); 
+    }
+    const obsTarget = document.body;
+    const nodeListener = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes" && mutation.attributeName === "class") {
+          const mutationTarget = mutation.target;
+          const isCollapse = mutationTarget.classList.contains('sidebar-collapse');
+          sideMenuPopper(isCollapse);
+        }
+      });
+    });
+    nodeListener.observe(obsTarget, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+    });
+</script>
 <script src="<?= base_url('assets/admin/plugins/tinymce/tinymce.min.js'); ?>"></script>
 <script>
     function initTinyMCE(selector, minHeight) {
