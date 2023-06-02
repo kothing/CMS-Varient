@@ -113,7 +113,7 @@
                                         </td>
                                     <?php endif;
                                     if ($listType == "featured_posts"): ?>
-                                        <td style="max-width: 150px;">
+                                        <td style="max-width: 100px;">
                                             <input type="number" class="form-control input-featured-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->featured_order); ?>">
                                         </td>
                                     <?php endif; ?>
