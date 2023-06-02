@@ -113,7 +113,7 @@
             "order": [[0, "desc"]],
             "aLengthMenu": [[15, 30, 60, 100], [15, 30, 60, 100, "All"]]
         });
-        $('<label class="table-label"><label/>').text('Language').appendTo('#table_dropdown');
+        $('<label class="table-label"><label/>').text('<?= trans('language'); ?>').appendTo('#table_dropdown');
         $select = $('<select class="form-control input-sm"><select/>').appendTo('#table_dropdown');
         $('<option/>').val('').text('<?= trans("all"); ?>').appendTo($select);
         <?php foreach ($activeLanguages as $lang): ?>
