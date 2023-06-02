@@ -69,7 +69,11 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li><a class="btn btn-sm btn-success pull-left btn-site-prev" target="_blank" href="<?= base_url(); ?>"><i class="fa fa-eye"></i> <?= trans("view_site"); ?></a></li>
+                    <li>
+                        <a class="btn btn-sm btn-success pull-left btn-site-prev" target="_blank" href="<?= base_url(); ?>">
+                            <i class="fa fa-eye"></i> <?= trans("view_site"); ?>
+                        </a>
+                    </li>
                     <li class="dropdown user-menu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                             <i class="fa fa-globe"></i>&nbsp;
@@ -167,7 +171,7 @@
                     if (isAdmin()): ?>
                         <li class="nav-themes">
                             <a href="<?= adminUrl('themes'); ?>">
-                                <i class="fa fa-leaf"></i>
+                                <i class="fa fa-paint-brush"></i>
                                 <span class="label-name"><?= trans("themes"); ?></span>
                             </a>
                         </li>
@@ -234,13 +238,13 @@
                         </li>
                         <li class="nav-post-format nav-add-post">
                             <a href="<?= adminUrl('post-format'); ?>">
-                                <i class="fa fa-file"></i>
+                                <i class="fa fa-cubes"></i>
                                 <span class="label-name"><?= trans("add_post"); ?></span>
                             </a>
                         </li>
                         <li class="nav-import-posts">
                             <a href="<?= adminUrl('bulk-post-upload'); ?>">
-                                <i class="fa fa-cloud-upload"></i>
+                                <i class="fa fa-upload"></i>
                                 <span class="label-name"><?= trans("bulk_post_upload"); ?></span>
                             </a>
                         </li>
@@ -279,7 +283,7 @@
                     if (checkUserPermission('widgets')): ?>
                         <li class="nav-widgets">
                             <a href="<?= adminUrl('widgets'); ?>">
-                                <i class="fa fa-th" aria-hidden="true"></i>
+                                <i class="fa fa-tasks" aria-hidden="true"></i>
                                 <span class="label-name"><?= trans("widgets"); ?></span>
                             </a>
                         </li>
@@ -287,7 +291,7 @@
                     if (checkUserPermission('polls')): ?>
                         <li class="nav-polls">
                             <a href="<?= adminUrl('polls'); ?>">
-                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
                                 <span class="label-name"><?= trans("polls"); ?></span>
                             </a>
                         </li>
@@ -463,7 +467,7 @@
                         <li class="header"><?= trans("settings"); ?></li>
                         <li class="nav-preferences">
                             <a href="<?= adminUrl('preferences'); ?>">
-                                <i class="fa fa-check-square-o"></i>
+                                <i class="fa fa-sliders"></i>
                                 <span class="label-name"><?= trans("preferences"); ?></span>
                             </a>
                         </li>
@@ -475,7 +479,7 @@
                         </li>
                         <li class="nav-email-settings">
                             <a href="<?= adminUrl('email-settings'); ?>">
-                                <i class="fa fa-cog"></i>
+                                <i class="fa fa-inbox"></i>
                                 <span class="label-name"><?= trans("email_settings"); ?></span>
                             </a>
                         </li>
