@@ -108,7 +108,7 @@
                                         <?php endif; ?>
                                     </td>
                                     <?php if ($listType == "slider_posts"): ?>
-                                        <td style="max-width: 150px;">
+                                        <td style="max-width: 100px;">
                                             <input type="number" class="form-control input-slider-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->slider_order); ?>">
                                         </td>
                                     <?php endif;
@@ -119,7 +119,7 @@
                                     <?php endif; ?>
                                     <td><?= $item->pageviews; ?></td>
                                     <td><?= $item->created_at; ?></td>
-                                    <td style="width: 180px;">
+                                    <td style="width: 100px;">
                                         <form action="<?= base_url('PostController/postOptionsPost'); ?>" method="post">
                                             <?= csrf_field(); ?>
                                             <input type="hidden" name="id" value="<?= $item->id; ?>">
