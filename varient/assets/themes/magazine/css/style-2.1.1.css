@@ -2910,7 +2910,13 @@ div#amplitude-right div.song div.song-meta-data {
     position: relative;
     background-color: #fafafa;
     --bs-aspect-ratio: 61.9%;
+    transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
     overflow: hidden;
+}
+
+.post-item .image:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 transparent;
 }
 
 .post-item-no-image .badge-category {
