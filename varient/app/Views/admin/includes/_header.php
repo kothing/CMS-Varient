@@ -538,4 +538,4 @@
         endif;?>
     </style>
     <div class="content-wrapper">
-        <section class="content" style="min-height: 1180px;">
+        <section class="content">
