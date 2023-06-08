@@ -66,6 +66,9 @@ if ($generalSettings->pwa_status == 1): ?>
 <link href="<?= base_url($assetsPath . '/css/icons.min.css'); ?>" rel="stylesheet">
 <link href="<?= base_url($assetsPath . '/css/plugins.min.css'); ?>" rel="stylesheet">
 <link href="<?= base_url($assetsPath . '/css/style-2.1.1.min.css'); ?>" rel="stylesheet">
+<link href="<?= base_url('assets/vendor/prism/prism.min.css'); ?>" rel="stylesheet" />
+<link href="<?= base_url('assets/vendor/prism/themes/atom-dark.min.css'); ?>" rel="stylesheet" />
+<link href="<?= base_url('assets/vendor/prism/plugins/line-numbers/line-numbers.min.css'); ?>" rel="stylesheet" />
 <?php if ($rtl): ?>
 <link href="<?= base_url($assetsPath . '/css/rtl-2.1.1.min.css'); ?>" rel="stylesheet"/>
 <?php endif;
