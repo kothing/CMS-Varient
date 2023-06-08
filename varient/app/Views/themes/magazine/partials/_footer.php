@@ -82,6 +82,11 @@
 <?php endif; ?>
     <script src="<?= base_url($assetsPath . '/js/jquery-3.6.1.min.js'); ?> "></script>
     <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?> "></script>
+    <script src="<?= base_url('assets/vendor/prism/prism.js'); ?>"></script>
+    <script>
+        $(".post-content pre").addClass("line-numbers").css("white-space", "pre-wrap");
+    </script>
+    <script src="<?= base_url('assets/vendor/prism/plugins/line-numbers/line-numbers.min.js'); ?>"></script>
     <script src="<?= base_url($assetsPath . '/js/plugins.js'); ?> "></script>
     <script src="<?= base_url($assetsPath . '/js/main.min.js'); ?> "></script>
 <?= loadView('partials/_js_footer'); ?>
