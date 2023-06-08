@@ -639,7 +639,12 @@ h6,
   height: 144px;
   position: relative;
   margin-bottom: 10px;
+  transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
   overflow: hidden;
+}
+.mega-menu .menu-post-item .image:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 transparent;
 }
 .mega-menu .menu-post-item .image img {
   display: block;
@@ -2530,7 +2535,7 @@ div#amplitude-right div.song div.song-meta-data {
   object-fit: cover;
 }
 .post-item .title {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 26px;
   text-transform: none;
   font-weight: 600;
@@ -2565,6 +2570,11 @@ div#amplitude-right div.song div.song-meta-data {
   width: 130px;
   height: 91px;
   background-color: #fafafa;
+  transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+.post-item-small .left .image:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 0 0 transparent;
 }
 .post-item-small .left .image img {
   display: block;
@@ -2661,7 +2671,7 @@ div#amplitude-right div.song div.song-meta-data {
   width: 100%;
 }
 .section-cat-block .post-item-vr .caption .title {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 25px;
   margin-bottom: 5px;
 }
