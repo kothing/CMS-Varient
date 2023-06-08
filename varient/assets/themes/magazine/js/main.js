@@ -98,6 +98,7 @@ $(document).ready(function () {
 
     $('.nav-main .nav-item-category').hover(function () {
         var categoryId = $(this).attr('data-category-id');
+        $(this).addClass('sub-arrow');
         $('.mega-menu').css('display', 'none');
         $('.mega-menu .link-sub-category').removeClass('active');
         $('.mega-menu .menu-category-items').removeClass('active');
@@ -105,14 +106,17 @@ $(document).ready(function () {
         $('.mega-menu .menu-right .filter-all').addClass('active');
         $('.mega-menu-' + categoryId).css('display', 'flex');
     }, function () {
+        $(this).removeClass('sub-arrow');
         $('.mega-menu').css('display', 'none');
     });
     $('.mega-menu').hover(function () {
         $(this).css('display', 'flex');
+        $('.nav-main .nav-item-category').addClass('sub-arrow');
         var categoryId = $(this).attr('data-category-id');
         $('.nav-main .nav-item-category-' + categoryId).addClass('active');
     }, function () {
         $('.mega-menu').css('display', 'none');
+        $('.nav-main .nav-item-category').removeClass('sub-arrow');
         $('.nav-main .nav-item-category').removeClass('active');
     });
     $('.mega-menu .link-sub-category').hover(function () {
