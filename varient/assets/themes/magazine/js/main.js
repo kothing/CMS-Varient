@@ -111,8 +111,8 @@ $(document).ready(function () {
     });
     $('.mega-menu').hover(function () {
         $(this).css('display', 'flex');
-        $('.nav-main .nav-item-category').addClass('sub-arrow');
         var categoryId = $(this).attr('data-category-id');
+        $('.nav-main .nav-item-category-' + categoryId).addClass('sub-arrow');
         $('.nav-main .nav-item-category-' + categoryId).addClass('active');
     }, function () {
         $('.mega-menu').css('display', 'none');
