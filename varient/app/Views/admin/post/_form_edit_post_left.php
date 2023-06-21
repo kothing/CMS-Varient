@@ -54,25 +54,21 @@
             <?php endif;
         endif; ?>
 
-        <?php if ($activeTheme->theme == 'classic'): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-4 col-xs-12">
-                        <label><?= trans('show_right_column'); ?></label>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
-                        <input type="radio" name="show_right_column" value="1" id="right_column_enabled" class="square-purple" <?= $post->show_right_column == 1 ? 'checked' : ''; ?>>
-                        <label for="right_column_enabled" class="option-label"><?= trans('yes'); ?></label>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
-                        <input type="radio" name="show_right_column" value="0" id="right_column_disabled" class="square-purple" <?= $post->show_right_column == 0 ? 'checked' : ''; ?>>
-                        <label for="right_column_disabled" class="option-label"><?= trans('no'); ?></label>
-                    </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <label><?= trans('show_right_column'); ?></label>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                    <input type="radio" name="show_right_column" value="1" id="right_column_enabled" class="square-purple" <?= $post->show_right_column == 1 ? 'checked' : ''; ?>>
+                    <label for="right_column_enabled" class="option-label"><?= trans('yes'); ?></label>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                    <input type="radio" name="show_right_column" value="0" id="right_column_disabled" class="square-purple" <?= $post->show_right_column == 0 ? 'checked' : ''; ?>>
+                    <label for="right_column_disabled" class="option-label"><?= trans('no'); ?></label>
                 </div>
             </div>
-        <?php else: ?>
-            <input type="hidden" name="show_right_column" value="<?= $post->show_right_column; ?>">
-        <?php endif; ?>
+        </div>
 
         <?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">
