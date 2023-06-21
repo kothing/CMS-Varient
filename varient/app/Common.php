@@ -962,9 +962,9 @@ if (!function_exists('getSegmentValue')) {
 
 //check admin nav
 if (!function_exists('isAdminNavActive')) {
-    function isAdminNavActive($arrayNavItems)
+    function isAdminNavActive($arrayNavItems, $l = 2)
     {
-        $segment = getSegmentValue(2);
+        $segment = getSegmentValue($l);
         if (!empty($segment) && !empty($arrayNavItems)) {
             if (in_array($segment, $arrayNavItems)) {
                 echo ' ' . 'active';
