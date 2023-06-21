@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item active"> <?= esc(characterLimiter($post->title, 160, '...')); ?></li>
                 </ol>
             </nav>
-            <div class="col-md-12 col-lg-8">
+            <div class="<?php echo ($post->show_right_column == 1) ? 'col-sm-8' : 'col-sm-12'; ?> col-xs-12">
                 <div class="post-content">
                     <div class="d-flex justify-content-center align-items-center mb-3">
                         <div class="bd-highlight">
@@ -304,9 +304,11 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-4">
-                <?= loadView('partials/_sidebar'); ?>
-            </div>
+            <?php if ($post->show_right_column == 1): ?>
+                <div class="col-md-12 col-lg-4">
+                    <?= loadView('partials/_sidebar'); ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
