@@ -28,6 +28,7 @@
                             <?php endif; ?>
                             <th width="20"><?= trans('id'); ?></th>
                             <th><?= trans('post'); ?></th>
+                            <th><?= trans('preview'); ?></th>
                             <th><?= trans('language'); ?></th>
                             <th><?= trans('post_type'); ?></th>
                             <th><?= trans('category'); ?></th>
@@ -62,7 +63,7 @@
                                                 </a>
                                             </div>
                                             <div class="post-title">
-                                                <a href="<?= generatePostURL($item, generateBaseURLByLang($language)); ?>" target="_blank">
+                                                <a href="<?= adminUrl('edit-post/' . $item->id); ?>">
                                                     <?= esc($item->title); ?>
                                                 </a>
                                                 <div class="preview">
@@ -84,6 +85,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <a href="<?= generatePostURL($item, generateBaseURLByLang($language)); ?>" target="_blank">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
                                     </td>
                                     <td> <?= !empty($language) ? esc($language->name) : ''; ?></td>
                                     <td class="td-post-type"><?= trans($item->post_type); ?></td>
