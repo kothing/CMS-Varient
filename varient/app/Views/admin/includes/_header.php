@@ -61,18 +61,18 @@
         <nav class="navbar navbar-static-top" role="navigation">
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="menu-fold-icon">
-                    <path d="M6 9 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M19 19 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M19 29 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M11 19 L6 24 L11 29" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M6 39 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M6 9 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 19 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 29 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M11 19 L6 24 L11 29" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M6 39 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
                 <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="menu-unfold-icon">
-                    <path d="M6 9 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M19 19 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M19 29 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M6 19 L11 24 L6 29" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M6 39 H42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M6 9 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 19 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 29 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M6 19 L11 24 L6 29" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M6 39 H42" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </a>
             <div class="navbar-custom-menu">
