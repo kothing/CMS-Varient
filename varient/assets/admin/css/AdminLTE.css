@@ -376,7 +376,7 @@ a:focus {
   position: absolute;
   top: 15px;
   right: 10px;
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 .content-header > .breadcrumb > li > a {
@@ -595,12 +595,12 @@ a:focus {
 .sidebar-scrollbar::-webkit-scrollbar-thumb {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   background: #737c7f;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 .sidebar-scrollbar::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   background: hsla(0, 0%, 100%, 0.15);
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .sidebar-menu {
@@ -720,7 +720,7 @@ a:focus {
   .sidebar-mini.sidebar-collapse .sidebar-scrollbar {
     height: calc(100% - 110px);
   }
-  
+
   .sidebar-mini.sidebar-collapse .sidebar-menu > li {
     position: relative;
   }
@@ -731,17 +731,17 @@ a:focus {
   }
 
   .sidebar-mini.sidebar-collapse .sidebar-menu > li > a > span {
-    border-top-right-radius: 4px;
+    border-top-right-radius: 6px;
   }
 
   .sidebar-mini.sidebar-collapse .sidebar-menu > li:not(.treeview) > a > span {
-    border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 6px;
   }
 
   .sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 6px;
   }
 
   .sidebar-mini.sidebar-collapse .sidebar-form,
@@ -1076,7 +1076,7 @@ a:focus {
 }
 
 .dropdown-menu {
-  box-shadow: none;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
   border-color: #eee;
 }
 
@@ -1117,8 +1117,8 @@ a:focus {
 .navbar-nav > .notifications-menu > .dropdown-menu > li.header,
 .navbar-nav > .messages-menu > .dropdown-menu > li.header,
 .navbar-nav > .tasks-menu > .dropdown-menu > li.header {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   background-color: #ffffff;
@@ -1133,8 +1133,8 @@ a:focus {
 .navbar-nav > .tasks-menu > .dropdown-menu > li.footer > a {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
   font-size: 12px;
   background-color: #fff;
   padding: 7px 10px;
@@ -1276,8 +1276,8 @@ a:focus {
 
 .navbar-nav > .user-menu > .dropdown-menu,
 .navbar-nav > .user-menu > .dropdown-menu > .user-body {
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
@@ -2030,7 +2030,7 @@ a:focus {
 }
 
 .small-box {
-  border-radius: 2px;
+  border-radius: 6px;
   position: relative;
   display: block;
   margin-bottom: 20px;
@@ -2119,7 +2119,7 @@ a:focus {
 
 .box {
   position: relative;
-  border-radius: 3px;
+  border-radius: 6px;
   background: #ffffff;
   margin-bottom: 20px;
   width: 100%;
@@ -2316,7 +2316,7 @@ a:focus {
 .overlay-wrapper .overlay {
   z-index: 50;
   background: rgba(255, 255, 255, 0.7);
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .box .overlay > .fa,
@@ -2432,14 +2432,14 @@ a:focus {
 .box-body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
   padding: 20px;
 }
 
 .no-header .box-body {
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .box-body > .table {
@@ -2462,21 +2462,21 @@ a:focus {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 6px;
 }
 
 .box-body .box-pane-right {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 6px;
   border-bottom-left-radius: 0;
 }
 
 .box-footer {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
   padding: 20px;
   background-color: #fff;
 }
@@ -2557,7 +2557,7 @@ a:focus {
 }
 
 .todo-list > li {
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 10px;
   background: #f4f4f4;
   margin-bottom: 2px;
@@ -2694,7 +2694,7 @@ a:focus {
 }
 
 .chat .item > .attachment {
-  border-radius: 3px;
+  border-radius: 6px;
   background: #f4f4f4;
   margin-left: 65px;
   margin-right: 15px;
@@ -2749,7 +2749,7 @@ a:focus {
   background: #fff;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
+  border-radius: 6px;
   margin-bottom: 15px;
 }
 
@@ -2773,10 +2773,10 @@ a:focus {
 }
 
 .info-box-icon {
-  border-top-left-radius: 2px;
+  border-top-left-radius: 6px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-bottom-left-radius: 2px;
+  border-bottom-left-radius: 6px;
   display: block;
   float: left;
   height: 90px;
@@ -2839,7 +2839,7 @@ a:focus {
   background: #ddd;
   left: 31px;
   margin: 0;
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 .timeline > li {
@@ -2871,7 +2871,7 @@ a:focus {
 .timeline > li > .timeline-item {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
+  border-radius: 6px;
   margin-top: 0;
   background: #fff;
   color: #444;
@@ -2927,7 +2927,7 @@ a:focus {
   padding: 5px;
   display: inline-block;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .timeline-inverse > li > .timeline-item {
@@ -2942,7 +2942,7 @@ a:focus {
 }
 
 .btn {
-  border-radius: 3px;
+  border-radius: 6px;
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid transparent;
@@ -3081,7 +3081,7 @@ a:focus {
 }
 
 .btn-app {
-  border-radius: 3px;
+  border-radius: 6px;
   position: relative;
   padding: 15px 5px;
   margin: 0 0 10px 10px;
@@ -3123,7 +3123,7 @@ a:focus {
 }
 
 .callout {
-  border-radius: 3px;
+  border-radius: 6px;
   margin: 0 0 20px 0;
   padding: 15px 30px 15px 15px;
   border-left: 5px solid #eee;
@@ -3169,7 +3169,7 @@ a:focus {
 }
 
 .alert {
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .alert h4 {
@@ -3269,14 +3269,14 @@ a:focus {
   margin-bottom: 20px;
   background: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .nav-tabs-custom > .nav-tabs {
   margin: 0;
   border-bottom-color: #f4f4f4;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .nav-tabs-custom > .nav-tabs > li {
@@ -3375,8 +3375,8 @@ a:focus {
 .nav-tabs-custom > .tab-content {
   background: #fff;
   padding: 10px;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .nav-tabs-custom .dropdown.open > a:active,
@@ -3425,7 +3425,7 @@ a:focus {
 }
 
 .products-list > .item {
-  border-radius: 3px;
+  border-radius: 6px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   padding: 10px 0;
@@ -3612,7 +3612,7 @@ table.text-center th {
 }
 
 .direct-chat-text {
-  border-radius: 5px;
+  border-radius: 6px;
   position: relative;
   padding: 5px 10px;
   background: #d2d6de;
@@ -3931,8 +3931,8 @@ table.text-center th {
 .widget-user .widget-user-header {
   padding: 20px;
   height: 120px;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .widget-user .widget-user-username {
@@ -3966,8 +3966,8 @@ table.text-center th {
 
 .widget-user-2 .widget-user-header {
   padding: 20px;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .widget-user-2 .widget-user-username {
@@ -4135,7 +4135,7 @@ table.text-center th {
 }
 
 .lockscreen-item {
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 0;
   background: #fff;
   position: relative;
@@ -4215,7 +4215,7 @@ table.text-center th {
   padding: 20px;
   border-top: 0;
   color: #666;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .login-box-body .form-control-feedback,
@@ -5952,7 +5952,7 @@ table.text-center th {
   margin-bottom: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
+  border-radius: 6px;
   cursor: move;
 }
 
