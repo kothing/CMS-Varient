@@ -3507,6 +3507,8 @@ a:focus {
 
 .table-bordered {
   border: 1px solid #f4f4f4;
+  border-radius: 6px;
+  border-collapse: separate;
 }
 
 .table-bordered > thead > tr > th,
