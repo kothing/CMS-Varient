@@ -336,6 +336,11 @@ label {
   background-color: #eee !important;
 }
 
+.input-group.colorpicker-element .input-group-addon {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
 div.tagsinput {
   border: 1px solid #ced4da;
   background: #fff;
@@ -649,14 +654,9 @@ table.dataTable {
   min-height: 90px;
 }
 
-.btn {
-  box-shadow: none !important;
-}
-
 .btn-primary {
   color: #fff;
   background-color: #0084ce;
-  border-color: #0084ce;
 }
 
 .btn-primary:hover,
@@ -664,13 +664,11 @@ table.dataTable {
 .btn-primary:active {
   color: #fff;
   background-color: #0e7bb8 !important;
-  border-color: #0e7bb8 !important;
 }
 
 .btn-success {
   color: #fff;
   background-color: #19a185;
-  border-color: #19a185;
 }
 
 .btn-success:hover,
@@ -678,7 +676,6 @@ table.dataTable {
 .btn-success:active {
   color: #fff;
   background-color: #13967b !important;
-  border-color: #13967b !important;
 }
 
 .btn-success.active,
@@ -686,13 +683,11 @@ table.dataTable {
 .open > .dropdown-toggle.btn-success {
   color: #fff;
   background-color: #13967b !important;
-  border-color: #13967b !important;
 }
 
 .btn-info {
   color: #fff;
   background-color: #3aadd7;
-  border-color: #3aadd7;
 }
 
 .btn-info:hover,
@@ -700,13 +695,11 @@ table.dataTable {
 .btn-info:active {
   color: #fff;
   background-color: #2d98c0 !important;
-  border-color: #2d98c0 !important;
 }
 
 .btn-danger {
   color: #fff;
   background-color: #dd4b39;
-  border-color: #dd4b39;
 }
 
 .btn-danger:hover,
@@ -714,13 +707,11 @@ table.dataTable {
 .btn-danger:active {
   color: #fff;
   background-color: #b63e3e !important;
-  border-color: #b63e3e !important;
 }
 
 .btn-warning {
   color: #fff;
   background-color: #f1b740;
-  border-color: #f1b740;
 }
 
 .btn-warning:hover,
@@ -728,19 +719,16 @@ table.dataTable {
 .btn-warning:active {
   color: #fff;
   background-color: #dea530 !important;
-  border-color: #dea530 !important;
 }
 
 .btn-secondary {
   color: #fff;
   background-color: #6c757d;
-  border-color: #6c757d;
 }
 
 .btn-secondary:hover {
   color: #fff;
   background-color: #5a6268;
-  border-color: #545b62;
 }
 
 .btn-secondary:focus,
@@ -752,7 +740,6 @@ table.dataTable {
 .btn-secondary:disabled {
   color: #fff;
   background-color: #6c757d;
-  border-color: #6c757d;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active,
@@ -760,7 +747,6 @@ table.dataTable {
 .show > .btn-secondary.dropdown-toggle {
   color: #fff;
   background-color: #545b62;
-  border-color: #4e555b;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
@@ -2281,6 +2267,7 @@ textarea {
   background: white;
   transition: left 0.15s ease-in;
 }
+
 @media (min-width: 768px) {
   .main-sidebar {
     position: fixed;
