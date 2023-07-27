@@ -8,6 +8,7 @@
 <meta name="description" content="<?= escSls($description); ?>"/>
 <meta name="keywords" content="<?= escSls($keywords); ?>"/>
 <meta name="author" content="<?= escSls($baseSettings->application_name); ?>"/>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="<?= escSls($baseSettings->application_name); ?>"/>
 <?php if (isset($postType)): ?>
