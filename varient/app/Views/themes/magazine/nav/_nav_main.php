@@ -144,20 +144,14 @@ if (!empty($categoryPosts)):
 foreach ($categoryPosts as $item):
 if ($i < $postLimit): ?>
 <div class="col-sm-2 menu-post-item<?= $postLimit == 5 ? ' width20' : ' width25'; ?>">
-<?php if (checkPostImg($item)): ?>
+<?php /* if (checkPostImg($item)): */ ?>
   <div class="image">
     <a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>>
     <img src="<?= IMG_BASE64_1x1; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="232" height="140"/>
     <?php getMediaIcon($item, 'media-icon-sm'); ?>
     </a>
   </div>
-<?php else: ?>
-  <div class="image">
-    <a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>>
-      <img src="<?= IMG_BASE64_1x1; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="232" height="140"/>
-    </a>
-  </div>
-<?php endif; ?>
+<?php /* endif; */ ?>
 <h3 class="title"><a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>><?= esc(characterLimiter($item->title, 45, '...')); ?></a></h3>
 <p class="small-post-meta"><?= loadView('post/_post_meta', ['postItem' => $item]); ?></p>
 </div>
