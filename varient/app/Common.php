@@ -1696,6 +1696,9 @@ if (!function_exists('getPostImage')) {
                 } elseif ($imageSize == "small") {
                     $path = $post->image_small;
                 }
+                if(empty($path)) {
+                    $path = base_url("assets/img/default_image.svg");
+                }
                 if ($post->image_storage == 'aws_s3') {
                     $path = getAWSBaseURL() . $path;
                 } else {
@@ -1761,7 +1764,7 @@ if (!function_exists('checkPostImg')) {
             }
         }
         if ($isExist == false && $type == 'class') {
-            echo " post-item-no-image";
+            echo " post-item-no-image post-item-default-image";
         } else {
             if ($type != 'class') {
                 return $isExist;
