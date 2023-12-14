@@ -30,10 +30,17 @@
                 </div>
             </div>
             <div class="form-group">
+                <a class="btn btn-default" href="<?= adminUrl('posts/'); ?>">
+                    <?= trans('cancel'); ?>
+                </a>
                 <?php if ($post->status == 0): ?>
-                    <button type="submit" name="publish" value="1" class="btn btn-warning pull-right m-l-10" onclick="allowSubmitForm = true;"><?= trans('publish'); ?></button>
+                    <button type="submit" name="publish" value="1" class="btn btn-warning pull-right m-l-10" onclick="allowSubmitForm = true;">
+                        <?= trans('publish'); ?>
+                    </button>
                 <?php endif; ?>
-                <button type="submit" name="publish" value="0" class="btn btn-primary pull-right" onclick="allowSubmitForm = true;"><?= trans('save_changes'); ?></button>
+                <button type="submit" name="publish" value="0" class="btn btn-primary pull-right" onclick="allowSubmitForm = true;">
+                    <?= trans('save_changes'); ?>
+                </button>
             </div>
         <?php else: ?>
             <div class="form-group">
@@ -60,8 +67,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" name="status" value="1" class="btn btn-primary pull-right" onclick="allowSubmitForm = true;"><?= trans('btn_submit'); ?></button>
-                <button type="submit" name="status" value="0" class="btn btn-warning btn-draft pull-right" onclick="allowSubmitForm = true;"><?= trans('save_draft'); ?></button>
+                <a class="btn btn-default" href="<?= adminUrl('posts/'); ?>">
+                    <?= trans('cancel'); ?>
+                </a>
+                <button type="submit" name="status" value="1" class="btn btn-primary pull-right" onclick="allowSubmitForm = true;">
+                    <?= trans('btn_submit'); ?>
+                </button>
+                <button type="submit" name="status" value="0" class="btn btn-warning btn-draft pull-right" onclick="allowSubmitForm = true;">
+                    <?= trans('save_draft'); ?>
+                </button>
             </div>
         <?php endif; ?>
     </div>
