@@ -197,8 +197,10 @@
                 </div>
                 <div class="box-footer">
                     <?php if ($type == 'parent'): ?>
+                        <a class="btn btn-default" href="<?= adminUrl('categories/'); ?>"><?= trans('cancel'); ?></a>
                         <button type="submit" class="btn btn-primary pull-right"><?= trans('add_category'); ?></button>
                     <?php else: ?>
+                        <a class="btn btn-default" href="<?= adminUrl('subcategories/'); ?>"><?= trans('cancel'); ?></a>
                         <button type="submit" class="btn btn-primary pull-right"><?= trans('add_subcategory'); ?></button>
                     <?php endif; ?>
                 </div>

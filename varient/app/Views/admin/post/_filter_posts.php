@@ -1,8 +1,8 @@
 <?php $categoryModel = new \App\Models\CategoryModel(); ?>
 <div class="row table-filter-container">
-    <div class="col-sm-12">
+    <div class="col-sm-12 display-flex">
         <form action="<?= $formAction; ?>" method="get">
-            <div class="item-table-filter" style="width: 80px; min-width: 80px;">
+            <div class="item-table-filter">
                 <label><?= trans("show"); ?></label>
                 <select name="show" class="form-control">
                     <option value="15" <?= inputGet('show', true) == '15' ? 'selected' : ''; ?>>15</option>

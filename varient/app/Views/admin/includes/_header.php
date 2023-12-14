@@ -204,7 +204,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li class="nav-posts<?php isAdminNavActive(['posts']); ?>">
-                                    <a href="<?= adminUrl('posts'); ?>"><?= trans("posts"); ?></a>
+                                    <a href="<?= adminUrl('posts'); ?>"><?= trans("all_posts"); ?></a>
                                 </li>
                                 <?php if (checkUserPermission('manage_all_posts')): ?>
                                     <li class="nav-slider-posts<?php isAdminNavActive(['slider-posts']); ?>">

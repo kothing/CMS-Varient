@@ -187,6 +187,11 @@
                     <?php endif; ?>
                 </div>
                 <div class="box-footer">
+                    <?php if ($category->parent_id == 0): ?>
+                        <a class="btn btn-default" href="<?= adminUrl('categories/'); ?>"><?= trans('cancel'); ?></a>
+                    <?php else: ?>
+                        <a class="btn btn-default" href="<?= adminUrl('subcategories/'); ?>"><?= trans('cancel'); ?></a>
+                    <?php endif; ?>
                     <button type="submit" class="btn btn-primary pull-right"><?= trans('save_changes'); ?> </button>
                 </div>
             </form>

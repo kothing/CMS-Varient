@@ -185,6 +185,7 @@
                 </div>
 
                 <div class="box-footer">
+                    <a class="btn btn-default" href="<?= adminUrl('pages/'); ?>"><?= trans('cancel'); ?></a>
                     <button type="submit" class="btn btn-primary pull-right"><?= trans('add_page'); ?></button>
                 </div>
             </form>
