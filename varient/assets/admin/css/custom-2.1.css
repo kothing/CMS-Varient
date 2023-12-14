@@ -2762,6 +2762,14 @@ a {
   padding: 0 !important;
 }
 
+.p-r-10 {
+  padding-right: 10px;
+}
+
+.p-r-15 {
+  padding-right: 15px;
+}
+
 .m-0 {
   margin: 0 !important;
 }
