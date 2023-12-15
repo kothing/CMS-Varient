@@ -30,7 +30,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label><?= trans("language"); ?></label>
-                        <select name="lang_id" class="form-control" onchange="getParentCategoriesByLang(this.value); showWidgets(this.value);">
+                        <select name="lang_id" class="form-control" onchange="getParentCategoriesByLang(this.value);">
                             <?php foreach ($activeLanguages as $language): ?>
                                 <option value="<?= $language->id; ?>" <?= $activeLang->id == $language->id ? 'selected' : ''; ?>><?= $language->name; ?></option>
                             <?php endforeach; ?>
