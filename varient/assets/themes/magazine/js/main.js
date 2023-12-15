@@ -339,9 +339,13 @@ function addReaction(postId, reaction) {
         url: VrConfig.baseURL + '/AjaxController/addReaction',
         data: data,
         success: function (response) {
-            var obj = JSON.parse(response);
-            if (obj.result == 1) {
-                document.getElementById("reactions_result").innerHTML = obj.htmlContent
+            try {
+                var obj = JSON.parse(response);
+                if (obj.result == 1) {
+                    document.getElementById("reactions_result").innerHTML = obj.htmlContent
+                }
+            } catch(er) {
+                console.log(er);
             }
         }
     });
