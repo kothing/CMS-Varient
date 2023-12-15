@@ -116,7 +116,7 @@
             </div>
         <?php endif;
         if ($generalSettings->post_format_audio == 1): ?>
-            <div class="col-xs-12 col-sm-4 <?= $formatCount == 6 ? 'col-sm-offset-4 ' : ''; ?>col-add-post">
+            <div class="col-xs-12 col-sm-4 col-add-post">
                 <a href="<?= adminUrl('add-post?type=audio'); ?>">
                     <div class="item">
                         <div class="item-icon">
@@ -132,5 +132,18 @@
                 </a>
             </div>
         <?php endif; ?>
+        <div class="col-xs-12 col-sm-4 col-add-post">
+            <a href="<?= adminUrl('bulk-post-upload'); ?>">
+                <div class="item">
+                    <div class="item-icon">
+                        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c">
+                            <path d="M368 384c14.16 0 26.896-6.144 35.68-15.888L464 301.088V592a48 48 0 1 0 96 0V301.088l60.32 67.024a48 48 0 1 0 71.36-64.224l-144-160C538.912 134.144 526.16 128 512 128s-26.896 6.144-35.68 15.888l-144 160A48 48 0 0 0 368 384z m512 176a48 48 0 0 0-48 48v192H192V608a48 48 0 1 0-96 0v240a48 48 0 0 0 48 48h736a48 48 0 0 0 48-48V608a48 48 0 0 0-48-48z"></path>
+                        </svg>
+                    </div>
+                    <h5 class="title"><?= trans("bulk_post_upload"); ?></h5>
+                    <p class="desc"><?= trans("bulk_post_upload"); ?></p>
+                </div>
+            </a>
+        </div>
     </div>
 </div>

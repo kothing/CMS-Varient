@@ -194,7 +194,19 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('add_post')): ?>
-                        <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
+                        <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format', 'add-post', 'bulk-post-upload']); ?>">
+                            <a href="<?= adminUrl('post-format'); ?>">
+                                <i class="fa fa-cubes"></i>
+                                <span class="label-name"><?= trans("add_post"); ?></span>
+                            </a>
+                        </li>
+                        <!--<li class="nav-import-posts<?php isAdminNavActive(['bulk-post-upload']); ?>">-->
+                        <!--    <a href="<?= adminUrl('bulk-post-upload'); ?>">-->
+                        <!--        <i class="fa fa-upload"></i>-->
+                        <!--        <span class="label-name"><?= trans("bulk_post_upload"); ?></span>-->
+                        <!--    </a>-->
+                        <!--</li>-->
+                        <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
                             <a href="#">
                                 <i class="fa fa-bars"></i> 
                                 <span class="label-name"><?= trans("posts"); ?></span>
@@ -203,31 +215,9 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="nav-posts<?php isAdminNavActive(['posts']); ?>">
+                                <li class="nav-posts<?php isAdminNavActive(['posts', 'edit-post']); ?>">
                                     <a href="<?= adminUrl('posts'); ?>"><?= trans("all_posts"); ?></a>
                                 </li>
-                                <?php if (checkUserPermission('manage_all_posts')): ?>
-                                    <li class="nav-slider-posts<?php isAdminNavActive(['slider-posts']); ?>">
-                                        <a href="<?= adminUrl('slider-posts'); ?>">
-                                            <?= trans("slider_posts"); ?>
-                                        </a>
-                                    </li>
-                                    <li class="nav-featured-posts<?php isAdminNavActive(['featured-posts']); ?>">
-                                        <a href="<?= adminUrl('featured-posts'); ?>">
-                                            <?= trans("featured_posts"); ?>
-                                        </a>
-                                    </li>
-                                    <li class="nav-breaking-news<?php isAdminNavActive(['breaking-news']); ?>">
-                                        <a href="<?= adminUrl('breaking-news'); ?>">
-                                            <?= trans("breaking_news"); ?>
-                                        </a>
-                                    </li>
-                                    <li class="nav-recommended-posts<?php isAdminNavActive(['recommended-posts']); ?>">
-                                        <a href="<?= adminUrl('recommended-posts'); ?>">
-                                            <?= trans("recommended_posts"); ?>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
                                 <li class="nav-pending-posts<?php isAdminNavActive(['pending-posts']); ?>">
                                     <a href="<?= adminUrl('pending-posts'); ?>">
                                         <?= trans("pending_posts"); ?>
@@ -244,18 +234,6 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format']); ?>">
-                            <a href="<?= adminUrl('post-format'); ?>">
-                                <i class="fa fa-cubes"></i>
-                                <span class="label-name"><?= trans("add_post"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-import-posts<?php isAdminNavActive(['bulk-post-upload']); ?>">
-                            <a href="<?= adminUrl('bulk-post-upload'); ?>">
-                                <i class="fa fa-upload"></i>
-                                <span class="label-name"><?= trans("bulk_post_upload"); ?></span>
-                            </a>
                         </li>
                     <?php endif;
                     if (checkUserPermission('categories')): ?>
