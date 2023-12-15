@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap-v3/css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/admin/css/AdminLTE.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/admin/css/_all-skins.min.css'); ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/admin/css/custom-2.1.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/admin/css/custom-2.x.css'); ?>">
     <style>
         .alert button, 
         .alert i {

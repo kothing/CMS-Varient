@@ -4,7 +4,7 @@
     <div class="pull-right hidden-xs">
         <strong style="font-weight: 600;"><?= $baseSettings->copyright; ?>&nbsp;</strong>
     </div>
-    <b>Version</b>&nbsp;2.1.1
+    <b>Version</b>&nbsp;2.x
 </footer>
 </div>
 <script src="<?= base_url('assets/admin/js/jquery-ui.min.js'); ?>"></script>
@@ -16,7 +16,7 @@
 <script src="<?= base_url('assets/admin/js/lazysizes.min.js'); ?>"></script>
 <script src="<?= base_url('assets/vendor/icheck/icheck.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/pace/pace.min.js'); ?>"></script>
-<script src="<?= base_url('assets/admin/plugins/file-manager/file-manager-2.1.js'); ?>"></script>
+<script src="<?= base_url('assets/admin/plugins/file-manager/file-manager.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/tagsinput/jquery.tagsinput.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/file-uploader/js/jquery.dm-uploader.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/file-uploader/js/ui.js'); ?>"></script>

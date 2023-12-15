@@ -198,7 +198,7 @@ class PHPMailer
 
     /**
      * Word-wrap the message body to this number of chars.
-     * Set to 0 to not wrap. A useful value here is 78, for RFC2822 section 2.1.1 compliance.
+     * Set to 0 to not wrap. A useful value here is 78, for RFC2822 section 2.x compliance.
      *
      * @see static::STD_LINE_LENGTH
      *
@@ -802,14 +802,14 @@ class PHPMailer
     const MAIL_MAX_LINE_LENGTH = 63;
 
     /**
-     * The maximum line length allowed by RFC 2822 section 2.1.1.
+     * The maximum line length allowed by RFC 2822 section 2.x.
      *
      * @var int
      */
     const MAX_LINE_LENGTH = 998;
 
     /**
-     * The lower maximum line length allowed by RFC 2822 section 2.1.1.
+     * The lower maximum line length allowed by RFC 2822 section 2.x.
      * This length does NOT include the line break
      * 76 means that lines will be 77 or 78 chars depending on whether
      * the line break format is LF or CRLF; both are valid.
@@ -4944,7 +4944,7 @@ class PHPMailer
 
     /**
      * Detect if a string contains a line longer than the maximum line length
-     * allowed by RFC 2822 section 2.1.1.
+     * allowed by RFC 2822 section 2.x.
      *
      * @param string $str
      *

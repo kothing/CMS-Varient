@@ -161,346 +161,350 @@
                 </div>
             </div>
             <dv class="sidebar-scrollbar">
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header"><?= trans("main_navigation"); ?></li>
-                    <li class="nav-home<?php echo empty(getSegmentValue(2)) ? ' active' : '' ; ?>">
-                        <a href="<?= adminUrl(); ?>">
-                            <i class="fa fa-home"></i>
-                            <span class="label-name"><?= trans("home"); ?></span>
-                        </a>
+                <ul class="sidebar-group">
+                    <li class="group-item">
+                        <div class="header"><?= trans("main_navigation"); ?></div>
+                        <ul class="sidebar-menu" data-widget="tree">
+                            <li class="nav-home<?php echo empty(getSegmentValue(2)) ? ' active' : '' ; ?>">
+                                <a href="<?= adminUrl(); ?>">
+                                    <i class="fa fa-home"></i>
+                                    <span class="label-name"><?= trans("home"); ?></span>
+                                </a>
+                            </li>
+                            <?php if (checkUserPermission('navigation')): ?>
+                                <li class="nav-navigation<?php isAdminNavActive(['navigation']); ?>">
+                                    <a href="<?= adminUrl('navigation?lang=' . $activeLang->id); ?>">
+                                        <i class="fa fa-th"></i>
+                                        <span class="label-name"><?= trans("navigation"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (isAdmin()): ?>
+                                <li class="nav-themes<?php isAdminNavActive(['themes']); ?>">
+                                    <a href="<?= adminUrl('themes'); ?>">
+                                        <i class="fa fa-paint-brush"></i>
+                                        <span class="label-name"><?= trans("themes"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('pages')): ?>
+                                <li class="nav-pages<?php isAdminNavActive(['pages']); ?>">
+                                    <a href="<?= adminUrl('pages'); ?>">
+                                        <i class="fa fa-file-text"></i>
+                                        <span class="label-name"><?= trans("pages"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('add_post')): ?>
+                                <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format', 'add-post', 'bulk-post-upload']); ?>">
+                                    <a href="<?= adminUrl('post-format'); ?>">
+                                        <i class="fa fa-cubes"></i>
+                                        <span class="label-name"><?= trans("add_post"); ?></span>
+                                    </a>
+                                </li>
+                                <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-bars"></i> 
+                                        <span class="label-name"><?= trans("posts"); ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li class="nav-posts<?php isAdminNavActive(['posts', 'edit-post']); ?>">
+                                            <a href="<?= adminUrl('posts'); ?>"><?= trans("all_posts"); ?></a>
+                                        </li>
+                                        <li class="nav-pending-posts<?php isAdminNavActive(['pending-posts']); ?>">
+                                            <a href="<?= adminUrl('pending-posts'); ?>">
+                                                <?= trans("pending_posts"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-scheduled-posts<?php isAdminNavActive(['scheduled-posts']); ?>">
+                                            <a href="<?= adminUrl('scheduled-posts'); ?>">
+                                                <?= trans("scheduled_posts"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-drafts<?php isAdminNavActive(['drafts']); ?>">
+                                            <a href="<?= adminUrl('drafts'); ?>">
+                                                <?= trans("drafts"); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('categories')): ?>
+                                <li class="nav-treeview treeview<?php isAdminNavActive(['categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory']); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-folder-open"></i>
+                                        <span class="label-name"><?= trans("categories"); ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li class="nav-categories<?php isAdminNavActive(['categories']); ?>">
+                                            <a href="<?= adminUrl('categories'); ?>">
+                                                <?= trans("categories"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-subcategories<?php isAdminNavActive(['subcategories']); ?>">
+                                            <a href="<?= adminUrl('subcategories'); ?>">
+                                                <?= trans("subcategories"); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('rss_feeds')): ?>
+                                <li class="nav-feeds<?php isAdminNavActive(['feeds']); ?>">
+                                    <a href="<?= adminUrl('feeds'); ?>">
+                                        <i class="fa fa-rss" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("rss_feeds"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('widgets')): ?>
+                                <li class="nav-widgets<?php isAdminNavActive(['widgets']); ?>">
+                                    <a href="<?= adminUrl('widgets'); ?>">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("widgets"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('polls')): ?>
+                                <li class="nav-polls<?php isAdminNavActive(['polls']); ?>">
+                                    <a href="<?= adminUrl('polls'); ?>">
+                                        <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("polls"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('gallery')): ?>
+                                <li class="treeview<?php isAdminNavActive(['gallery-images', 'gallery-albums', 'gallery-categories', 'update-gallery-image', 'update-gallery-album', 'update-gallery-category', 'gallery-add-image']); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-image"></i> 
+                                        <span class="label-name"><?= trans("gallery"); ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li class="nav-gallery-images<?php isAdminNavActive(['gallery-images']); ?>">
+                                            <a href="<?= adminUrl('gallery-images'); ?>">
+                                                <?= trans("images"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-gallery-albums<?php isAdminNavActive(['gallery-albums']); ?>">
+                                            <a href="<?= adminUrl('gallery-albums'); ?>">
+                                                <?= trans("albums"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-gallery-categories<?php isAdminNavActive(['gallery-categories']); ?>">
+                                            <a href="<?= adminUrl('gallery-categories'); ?>">
+                                                <?= trans("gallery_categories"); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('comments_contact')): ?>
+                                <li class="nav-contact-messages<?php isAdminNavActive(['contact-messages']); ?>">
+                                    <a href="<?= adminUrl('contact-messages'); ?>">
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("contact_messages"); ?>
+                                    </span>
+                                </a>
+                                </li>
+                                <li class="nav-treeview treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-comments"></i> 
+                                        <span class="label-name"><?= trans("comments"); ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li class="nav-pending-comments<?php isAdminNavActive(['pending-comments']); ?>">
+                                            <a href="<?= adminUrl('pending-comments'); ?>">
+                                                <?= trans("pending_comments"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-comments<?php isAdminNavActive(['comments']); ?>">
+                                            <a href="<?= adminUrl('comments'); ?>">
+                                                <?= trans("approved_comments"); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('newsletter')): ?>
+                                <li class="nav-newsletter<?php isAdminNavActive(['newsletter']); ?>">
+                                    <a href="<?= adminUrl('newsletter'); ?>">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("newsletter"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('reward_system')): ?>
+                                <li class="nav-treeview treeview<?php isAdminNavActive(['reward-system']); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-money"></i> 
+                                        <span class="label-name"><?= trans("reward_system"); ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li class="nav-reward-system<?php isAdminNavActive(['reward-system']); ?>">
+                                            <a href="<?= adminUrl('reward-system'); ?>">
+                                                <?= trans("reward_system"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-reward-system-earnings<?php isAdminNavActive(['earnings'], 3); ?>">
+                                            <a href="<?= adminUrl('reward-system/earnings'); ?>">
+                                                <?= trans("earnings"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-reward-system-payouts<?php isAdminNavActive(['payouts'], 3); ?>">
+                                            <a href="<?= adminUrl('reward-system/payouts'); ?>">
+                                                <?= trans("payouts"); ?>
+                                            </a>
+                                        </li>
+                                        <li class="nav-reward-system-pageviews<?php isAdminNavActive(['pageviews'], 3); ?>">
+                                            <a href="<?= adminUrl('reward-system/pageviews'); ?>">
+                                                <?= trans("pageviews"); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('ad_spaces')): ?>
+                                <li class="nav-ad-spaces<?php isAdminNavActive(['ad-spaces']); ?>">
+                                    <a href="<?= adminUrl('ad-spaces'); ?>">
+                                        <i class="fa fa-dollar" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("ad_spaces"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (checkUserPermission('users')): ?>
+                                <li class="nav-treeview treeview<?php isAdminNavActive(['users', 'add-user', 'administrators', 'edit-user']); ?>">
+                                    <a href="#">
+                                        <i class="fa fa-users"></i>
+                                        <span class="label-name"><?= trans("users"); ?></span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <?php if (isAdmin()): ?>
+                                            <li class="nav-add-user<?php isAdminNavActive(['add-user']); ?>">
+                                                <a href="<?= adminUrl('add-user'); ?>"> 
+                                                    <?= trans("add_user"); ?>
+                                                </a>
+                                            </li>
+                                            <li class="nav-administrators<?php isAdminNavActive(['administrators']); ?>">
+                                                <a href="<?= adminUrl('administrators'); ?>"> 
+                                                    <?= trans("administrators"); ?>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                        <li class="nav-users<?php isAdminNavActive(['users']); ?>">
+                                            <a href="<?= adminUrl('users'); ?>"> 
+                                                <?= trans("users"); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif;
+                            if (isAdmin()): ?>
+                                <li class="nav-roles-permissions<?php isAdminNavActive(['roles-permissions']); ?>">
+                                    <a href="<?= adminUrl('roles-permissions'); ?>">
+                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("roles_permissions"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;
+                            if (isAdmin()): ?>
+                                <li class="nav-storage<?php isAdminNavActive(['storage']); ?>">
+                                    <a href="<?= adminUrl('storage'); ?>">
+                                        <i class="fa fa-cloud-upload"></i>
+                                        <span class="label-name"><?= trans("storage"); ?></span>
+                                    </a>
+                                </li>
+                                <li class="nav-cache-system<?php isAdminNavActive(['cache-system']); ?>">
+                                    <a href="<?= adminUrl('cache-system'); ?>">
+                                        <i class="fa fa-database"></i>
+                                        <span class="label-name"><?= trans("cache_system"); ?></span>
+                                    </a>
+                                </li>
+                            <?php endif;?>
+                        </ul>
                     </li>
-                    <?php if (checkUserPermission('navigation')): ?>
-                        <li class="nav-navigation<?php isAdminNavActive(['navigation']); ?>">
-                            <a href="<?= adminUrl('navigation?lang=' . $activeLang->id); ?>">
-                                <i class="fa fa-th"></i>
-                                <span class="label-name"><?= trans("navigation"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (isAdmin()): ?>
-                        <li class="nav-themes<?php isAdminNavActive(['themes']); ?>">
-                            <a href="<?= adminUrl('themes'); ?>">
-                                <i class="fa fa-paint-brush"></i>
-                                <span class="label-name"><?= trans("themes"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('pages')): ?>
-                        <li class="nav-pages<?php isAdminNavActive(['pages']); ?>">
-                            <a href="<?= adminUrl('pages'); ?>">
-                                <i class="fa fa-file-text"></i>
-                                <span class="label-name"><?= trans("pages"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('add_post')): ?>
-                        <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format', 'add-post', 'bulk-post-upload']); ?>">
-                            <a href="<?= adminUrl('post-format'); ?>">
-                                <i class="fa fa-cubes"></i>
-                                <span class="label-name"><?= trans("add_post"); ?></span>
-                            </a>
-                        </li>
-                        <!--<li class="nav-import-posts<?php isAdminNavActive(['bulk-post-upload']); ?>">-->
-                        <!--    <a href="<?= adminUrl('bulk-post-upload'); ?>">-->
-                        <!--        <i class="fa fa-upload"></i>-->
-                        <!--        <span class="label-name"><?= trans("bulk_post_upload"); ?></span>-->
-                        <!--    </a>-->
-                        <!--</li>-->
-                        <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
-                            <a href="#">
-                                <i class="fa fa-bars"></i> 
-                                <span class="label-name"><?= trans("posts"); ?></span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="nav-posts<?php isAdminNavActive(['posts', 'edit-post']); ?>">
-                                    <a href="<?= adminUrl('posts'); ?>"><?= trans("all_posts"); ?></a>
-                                </li>
-                                <li class="nav-pending-posts<?php isAdminNavActive(['pending-posts']); ?>">
-                                    <a href="<?= adminUrl('pending-posts'); ?>">
-                                        <?= trans("pending_posts"); ?>
+                    <li class="group-item">
+                        <div class="header"><?= trans("settings"); ?></div>
+                        <ul class="sidebar-menu" data-widget="tree">
+                            <?php if (checkUserPermission('settings')): ?>
+                                <li class="nav-general-settings<?php isAdminNavActive(['general-settings']); ?>">
+                                    <a href="<?= adminUrl('general-settings'); ?>">
+                                        <i class="fa fa-cogs"></i>
+                                        <span class="label-name"><?= trans("general_settings"); ?></span>
                                     </a>
                                 </li>
-                                <li class="nav-scheduled-posts<?php isAdminNavActive(['scheduled-posts']); ?>">
-                                    <a href="<?= adminUrl('scheduled-posts'); ?>">
-                                        <?= trans("scheduled_posts"); ?>
+                                <li class="nav-preferences<?php isAdminNavActive(['preferences']); ?>">
+                                    <a href="<?= adminUrl('preferences'); ?>">
+                                        <i class="fa fa-sliders"></i>
+                                        <span class="label-name"><?= trans("preferences"); ?></span>
                                     </a>
                                 </li>
-                                <li class="nav-drafts<?php isAdminNavActive(['drafts']); ?>">
-                                    <a href="<?= adminUrl('drafts'); ?>">
-                                        <?= trans("drafts"); ?>
+                                <li class="nav-route-settings<?php isAdminNavActive(['route-settings']); ?>">
+                                    <a href="<?= adminUrl('route-settings'); ?>">
+                                        <i class="fa fa-map-signs"></i>
+                                        <span class="label-name"><?= trans("route_settings"); ?></span>
                                     </a>
                                 </li>
-                            </ul>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('categories')): ?>
-                        <li class="nav-treeview treeview<?php isAdminNavActive(['categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory']); ?>">
-                            <a href="#">
-                                <i class="fa fa-folder-open"></i>
-                                <span class="label-name"><?= trans("categories"); ?></span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="nav-categories<?php isAdminNavActive(['categories']); ?>">
-                                    <a href="<?= adminUrl('categories'); ?>">
-                                        <?= trans("categories"); ?>
+                                <li class="nav-email-settings<?php isAdminNavActive(['email-settings']); ?>">
+                                    <a href="<?= adminUrl('email-settings'); ?>">
+                                        <i class="fa fa-inbox"></i>
+                                        <span class="label-name"><?= trans("email_settings"); ?></span>
                                     </a>
                                 </li>
-                                <li class="nav-subcategories<?php isAdminNavActive(['subcategories']); ?>">
-                                    <a href="<?= adminUrl('subcategories'); ?>">
-                                        <?= trans("subcategories"); ?>
+                                <li class="nav-font-settings<?php isAdminNavActive(['font-settings']); ?>">
+                                    <a href="<?= adminUrl('font-settings'); ?>">
+                                        <i class="fa fa-font" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("font_settings"); ?></span>
                                     </a>
                                 </li>
-                            </ul>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('rss_feeds')): ?>
-                        <li class="nav-feeds<?php isAdminNavActive(['feeds']); ?>">
-                            <a href="<?= adminUrl('feeds'); ?>">
-                                <i class="fa fa-rss" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("rss_feeds"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('widgets')): ?>
-                        <li class="nav-widgets<?php isAdminNavActive(['widgets']); ?>">
-                            <a href="<?= adminUrl('widgets'); ?>">
-                                <i class="fa fa-tasks" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("widgets"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('polls')): ?>
-                        <li class="nav-polls<?php isAdminNavActive(['polls']); ?>">
-                            <a href="<?= adminUrl('polls'); ?>">
-                                <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("polls"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('gallery')): ?>
-                        <li class="treeview<?php isAdminNavActive(['gallery-images', 'gallery-albums', 'gallery-categories', 'update-gallery-image', 'update-gallery-album', 'update-gallery-category', 'gallery-add-image']); ?>">
-                            <a href="#">
-                                <i class="fa fa-image"></i> 
-                                <span class="label-name"><?= trans("gallery"); ?></span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="nav-gallery-images<?php isAdminNavActive(['gallery-images']); ?>">
-                                    <a href="<?= adminUrl('gallery-images'); ?>">
-                                        <?= trans("images"); ?>
+                                <li class="nav-social-login-settings<?php isAdminNavActive(['social-login-settings']); ?>">
+                                    <a href="<?= adminUrl('social-login-settings'); ?>">
+                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                        <span class="label-name"><?= trans("social_login_settings"); ?></span>
                                     </a>
                                 </li>
-                                <li class="nav-gallery-albums<?php isAdminNavActive(['gallery-albums']); ?>">
-                                    <a href="<?= adminUrl('gallery-albums'); ?>">
-                                        <?= trans("albums"); ?>
+                                <li class="nav-language-settings<?php isAdminNavActive(['language-settings']); ?>">
+                                    <a href="<?= adminUrl('language-settings'); ?>">
+                                        <i class="fa fa-language"></i>
+                                        <span class="label-name"><?= trans("language_settings"); ?></span>
                                     </a>
                                 </li>
-                                <li class="nav-gallery-categories<?php isAdminNavActive(['gallery-categories']); ?>">
-                                    <a href="<?= adminUrl('gallery-categories'); ?>">
-                                        <?= trans("gallery_categories"); ?>
+                            <?php endif;
+                            if (checkUserPermission('seo_tools')): ?>
+                                <li class="nav-seo-tools<?php isAdminNavActive(['seo-tools']); ?>">
+                                    <a href="<?= adminUrl('seo-tools'); ?>">
+                                        <i class="fa fa-wrench"></i>
+                                        <span class="label-name"><?= trans("seo_tools"); ?></span>
                                     </a>
                                 </li>
-                            </ul>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('comments_contact')): ?>
-                        <li class="nav-contact-messages<?php isAdminNavActive(['contact-messages']); ?>">
-                            <a href="<?= adminUrl('contact-messages'); ?>">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("contact_messages"); ?>
-                            </span>
-                        </a>
-                        </li>
-                        <li class="nav-treeview treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
-                            <a href="#">
-                                <i class="fa fa-comments"></i> 
-                                <span class="label-name"><?= trans("comments"); ?></span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="nav-pending-comments<?php isAdminNavActive(['pending-comments']); ?>">
-                                    <a href="<?= adminUrl('pending-comments'); ?>">
-                                        <?= trans("pending_comments"); ?>
-                                    </a>
-                                </li>
-                                <li class="nav-comments<?php isAdminNavActive(['comments']); ?>">
-                                    <a href="<?= adminUrl('comments'); ?>">
-                                        <?= trans("approved_comments"); ?>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('newsletter')): ?>
-                        <li class="nav-newsletter<?php isAdminNavActive(['newsletter']); ?>">
-                            <a href="<?= adminUrl('newsletter'); ?>">
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("newsletter"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('reward_system')): ?>
-                        <li class="nav-treeview treeview<?php isAdminNavActive(['reward-system']); ?>">
-                            <a href="#">
-                                <i class="fa fa-money"></i> 
-                                <span class="label-name"><?= trans("reward_system"); ?></span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="nav-reward-system<?php isAdminNavActive(['reward-system']); ?>">
-                                    <a href="<?= adminUrl('reward-system'); ?>">
-                                        <?= trans("reward_system"); ?>
-                                    </a>
-                                </li>
-                                <li class="nav-reward-system-earnings<?php isAdminNavActive(['earnings'], 3); ?>">
-                                    <a href="<?= adminUrl('reward-system/earnings'); ?>">
-                                        <?= trans("earnings"); ?>
-                                    </a>
-                                </li>
-                                <li class="nav-reward-system-payouts<?php isAdminNavActive(['payouts'], 3); ?>">
-                                    <a href="<?= adminUrl('reward-system/payouts'); ?>">
-                                        <?= trans("payouts"); ?>
-                                    </a>
-                                </li>
-                                <li class="nav-reward-system-pageviews<?php isAdminNavActive(['pageviews'], 3); ?>">
-                                    <a href="<?= adminUrl('reward-system/pageviews'); ?>">
-                                        <?= trans("pageviews"); ?>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('ad_spaces')): ?>
-                        <li class="nav-ad-spaces<?php isAdminNavActive(['ad-spaces']); ?>">
-                            <a href="<?= adminUrl('ad-spaces'); ?>">
-                                <i class="fa fa-dollar" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("ad_spaces"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('users')): ?>
-                        <li class="nav-treeview treeview<?php isAdminNavActive(['users', 'add-user', 'administrators', 'edit-user']); ?>">
-                            <a href="#">
-                                <i class="fa fa-users"></i>
-                                <span class="label-name"><?= trans("users"); ?></span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <?php if (isAdmin()): ?>
-                                    <li class="nav-add-user<?php isAdminNavActive(['add-user']); ?>">
-                                        <a href="<?= adminUrl('add-user'); ?>"> 
-                                            <?= trans("add_user"); ?>
-                                        </a>
-                                    </li>
-                                    <li class="nav-administrators<?php isAdminNavActive(['administrators']); ?>">
-                                        <a href="<?= adminUrl('administrators'); ?>"> 
-                                            <?= trans("administrators"); ?>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-                                <li class="nav-users<?php isAdminNavActive(['users']); ?>">
-                                    <a href="<?= adminUrl('users'); ?>"> 
-                                        <?= trans("users"); ?>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    <?php endif;
-                    if (isAdmin()): ?>
-                        <li class="nav-roles-permissions<?php isAdminNavActive(['roles-permissions']); ?>">
-                            <a href="<?= adminUrl('roles-permissions'); ?>">
-                                <i class="fa fa-key" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("roles_permissions"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('seo_tools')): ?>
-                        <li class="nav-seo-tools<?php isAdminNavActive(['seo-tools']); ?>">
-                            <a href="<?= adminUrl('seo-tools'); ?>">
-                                <i class="fa fa-wrench"></i>
-                                <span class="label-name"><?= trans("seo_tools"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (isAdmin()): ?>
-                        <li class="nav-storage<?php isAdminNavActive(['storage']); ?>">
-                            <a href="<?= adminUrl('storage'); ?>">
-                                <i class="fa fa-cloud-upload"></i>
-                                <span class="label-name"><?= trans("storage"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-cache-system<?php isAdminNavActive(['cache-system']); ?>">
-                            <a href="<?= adminUrl('cache-system'); ?>">
-                                <i class="fa fa-database"></i>
-                                <span class="label-name"><?= trans("cache_system"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (checkUserPermission('settings')): ?>
-                        <li class="header"><?= trans("settings"); ?></li>
-                        <li class="nav-preferences<?php isAdminNavActive(['preferences']); ?>">
-                            <a href="<?= adminUrl('preferences'); ?>">
-                                <i class="fa fa-sliders"></i>
-                                <span class="label-name"><?= trans("preferences"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-route-settings<?php isAdminNavActive(['route-settings']); ?>">
-                            <a href="<?= adminUrl('route-settings'); ?>">
-                                <i class="fa fa-map-signs"></i>
-                                <span class="label-name"><?= trans("route_settings"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-email-settings<?php isAdminNavActive(['email-settings']); ?>">
-                            <a href="<?= adminUrl('email-settings'); ?>">
-                                <i class="fa fa-inbox"></i>
-                                <span class="label-name"><?= trans("email_settings"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-font-settings<?php isAdminNavActive(['font-settings']); ?>">
-                            <a href="<?= adminUrl('font-settings'); ?>">
-                                <i class="fa fa-font" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("font_settings"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-social-login-settings<?php isAdminNavActive(['social-login-settings']); ?>">
-                            <a href="<?= adminUrl('social-login-settings'); ?>">
-                                <i class="fa fa-share-alt" aria-hidden="true"></i>
-                                <span class="label-name"><?= trans("social_login_settings"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-language-settings<?php isAdminNavActive(['language-settings']); ?>">
-                            <a href="<?= adminUrl('language-settings'); ?>">
-                                <i class="fa fa-language"></i>
-                                <span class="label-name"><?= trans("language_settings"); ?></span>
-                            </a>
-                        </li>
-                        <li class="nav-general-settings<?php isAdminNavActive(['general-settings']); ?>">
-                            <a href="<?= adminUrl('general-settings'); ?>">
-                                <i class="fa fa-cogs"></i>
-                                <span class="label-name"><?= trans("general_settings"); ?></span>
-                            </a>
-                        </li>
-                    <?php endif;
-                    if (isAdmin()): ?>
-                        <li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+                    <?php if (isAdmin()): ?>
+                        <li class="group-item">
                             <div class="database-backup">
                                 <form action="<?= base_url('AdminController/downloadDatabaseBackup'); ?>" method="post">
                                     <?= csrf_field(); ?>
-                                    <button type="submit" class="btn btn-block"><i class="fa fa-download"></i>&nbsp;&nbsp;<?= trans("download_database_backup"); ?></button>
+                                    <button type="submit" class="btn btn-block">
+                                        <i class="fa fa-download"></i>&nbsp;&nbsp;<?= trans("download_database_backup"); ?>
+                                    </button>
                                 </form>
                             </div>
                         </li>

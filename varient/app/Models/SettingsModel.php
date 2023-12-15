@@ -684,7 +684,7 @@ class SettingsModel extends BaseModel
     //check version
     public function checkVersion()
     {
-        if ($this->generalSettings->version != '2.1.1') {
+        if ($this->generalSettings->version != '2.x') {
             $p = array();
             $p["ad_space_index_top"] = "Index (Top)";
             $p["ad_space_index_bottom"] = "Index (Bottom)";
@@ -710,7 +710,7 @@ class SettingsModel extends BaseModel
                     }
                 }
             }
-            $this->builderGeneral->where('id', 1)->update(['version' => '2.1.1']);
+            $this->builderGeneral->where('id', 1)->update(['version' => '2.x']);
         }
     }
 }

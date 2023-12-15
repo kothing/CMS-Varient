@@ -60,15 +60,15 @@ if ($generalSettings->pwa_status == 1): ?>
 <link rel="alternate" href="<?= currentFullURL(); ?>" hreflang="<?= $activeLang->language_code; ?>"/>
 <?= view('common/_fonts'); ?>
 <link href="<?= base_url('assets/vendor/bootstrap-v3/css/bootstrap.min.css'); ?>" rel="stylesheet"/>
-<link href="<?= base_url('assets/vendor/font-icons/css/font-icon-2.1.min.css'); ?>" rel="stylesheet"/>
-<link href="<?= base_url($assetsPath . '/css/style-2.1.min.css'); ?>" rel="stylesheet"/>
-<link href="<?= base_url($assetsPath . '/css/plugins-2.1.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url('assets/vendor/font-icons/css/font-icon-2.x.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/style-2.x.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/plugins.css'); ?>" rel="stylesheet"/>
 <?php if ($darkMode == true) : ?>
-<link href="<?= base_url($assetsPath . '/css/dark-2.1.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/dark-2.x.min.css'); ?>" rel="stylesheet"/>
 <?php endif; ?>
 <script>var rtl = false;</script>
 <?php if ($activeLang->text_direction == "rtl"): ?>
-<link href="<?= base_url($assetsPath . '/css/rtl-2.1.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/rtl-2.x.min.css'); ?>" rel="stylesheet"/>
 <script>var rtl = true;</script>
 <?php endif; ?>
 <?= loadView('partials/_css_js_header'); ?>

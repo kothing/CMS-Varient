@@ -535,7 +535,7 @@ function addTranslations($translations)
             <div class="row">
                 <div class="col-sm-12">
                     <div class="install-box">
-                        <h2 class="title">Update from v1.8.x to v2.1.1</h2>
+                        <h2 class="title">Update from v1.8.x to v2.x</h2>
                         <br><br>
                         <div class="messages">
                             <?php if (!empty($error)) { ?>

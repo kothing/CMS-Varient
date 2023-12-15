@@ -98,7 +98,7 @@
 <a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>
 
 <script src="<?= base_url($assetsPath. '/js/jquery-1.12.4.min.js'); ?>"></script>
-<script src="<?= base_url($assetsPath. '/js/plugins-2.1.js'); ?>"></script>
+<script src="<?= base_url($assetsPath. '/js/plugins.js'); ?>"></script>
 <?php if ($baseSettings->cookies_warning && empty(helperGetCookie('cookies_warning'))): ?>
     <div class="cookies-warning">
         <div class="text"><?= $baseSettings->cookies_warning_text; ?></div>
@@ -106,7 +106,7 @@
     </div>
 <?php endif; ?>
 <script>$("form[method='post']").append("<input type='hidden' name='sys_lang_id' value='<?= $activeLang->id; ?>'>");</script>
-<script src="<?= base_url($assetsPath. '/js/script-2.1.min.js'); ?>"></script>
+<script src="<?= base_url($assetsPath. '/js/script.min.js'); ?>"></script>
 <?= loadView('partials/_js_footer'); ?>
 <?php if ($generalSettings->pwa_status == 1): ?>
 <script>if ('serviceWorker' in navigator) {window.addEventListener('load', function () {navigator.serviceWorker.register('<?= base_url('pwa-sw.js');?>').then(function (registration) {}, function (err) {console.log('ServiceWorker registration failed: ', err);}).catch(function (err) {console.log(err);});});} else {console.log('service worker is not supported');}</script>
