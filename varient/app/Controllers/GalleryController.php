@@ -6,6 +6,8 @@ use App\Models\GalleryModel;
 
 class GalleryController extends BaseAdminController
 {
+    protected $galleryModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -21,7 +23,6 @@ class GalleryController extends BaseAdminController
         $data['title'] = trans("images");
         $numRows = $this->galleryModel->getImagesCount();
         $pager = paginate($this->perPage, $numRows);
-        
         $data['images'] = $this->galleryModel->getImagesPaginated($this->perPage, $pager->offset);
 
         echo view('admin/includes/_header', $data);
@@ -36,7 +37,6 @@ class GalleryController extends BaseAdminController
     {
         $data['title'] = trans("add_image");
         $data['albums'] = $this->galleryModel->getAlbumsByLang($this->activeLang->id);
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/gallery/add_image', $data);
@@ -75,7 +75,6 @@ class GalleryController extends BaseAdminController
         if (empty($data['image'])) {
             return redirect()->to(adminUrl('gallery-images'));
         }
-        
         $data['albums'] = $this->galleryModel->getAlbumsByLang($this->activeLang->id);
         $data['categories'] = $this->galleryModel->getCategoriesByAlbum($data['image']->album_id);
 
@@ -127,7 +126,6 @@ class GalleryController extends BaseAdminController
         $data['title'] = trans("albums");
         $data['albums'] = $this->galleryModel->getAlbums();
         $data['langSearchColumn'] = 2;
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/gallery/albums', $data);
@@ -165,7 +163,6 @@ class GalleryController extends BaseAdminController
         if (empty($data['album'])) {
             return redirect()->to(adminUrl('gallery-albums'));
         }
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/gallery/edit_album', $data);
@@ -240,7 +237,6 @@ class GalleryController extends BaseAdminController
         $data['title'] = trans("gallery_categories");
         $data['categories'] = $this->galleryModel->getCategories();
         $data['albums'] = $this->galleryModel->getAlbumsByLang($this->activeLang->id);
-        
         $data['langSearchColumn'] = 3;
 
         echo view('admin/includes/_header', $data);
@@ -279,7 +275,6 @@ class GalleryController extends BaseAdminController
         if (empty($data['category'])) {
             return redirect()->to(adminUrl('gallery-categories'));
         }
-        
         $data['albums'] = $this->galleryModel->getAlbumsByLang($data['category']->lang_id);
 
         echo view('admin/includes/_header', $data);

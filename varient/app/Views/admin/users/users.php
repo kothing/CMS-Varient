@@ -9,12 +9,14 @@
         <div class="left">
             <h3 class="box-title"><?= trans("users"); ?></h3>
         </div>
-        <div class="right">
-            <a href="<?= adminUrl('add-user'); ?>" class="btn btn-success btn-add-new">
-                <i class="fa fa-plus"></i>
-                <?= trans("add_user"); ?>
-            </a>
-        </div>
+        <?php if (user()->role == 'admin'): ?>
+            <div class="right">
+                <a href="<?= adminUrl('add-user'); ?>" class="btn btn-success btn-add-new">
+                    <i class="fa fa-plus"></i>
+                    <?= trans("add_user"); ?>
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="box-body">
         <div class="row">
@@ -58,12 +60,13 @@
                                     <td>
                                         <?php $role = $authModel->getRoleByKey($user->role);
                                         if (!empty($role)):
+                                            $roleName = parseSerializedNameArray($role->role_name, $activeLang->id);
                                             if ($user->role == 'moderator'):?>
-                                                <label class="label bg-olive"><?= esc($role->role_name); ?></label>
+                                                <label class="label bg-olive"><?= esc($roleName); ?></label>
                                             <?php elseif ($user->role == 'author'): ?>
-                                                <label class="label label-warning"><?= esc($role->role_name); ?></label>
+                                                <label class="label label-warning"><?= esc($roleName); ?></label>
                                             <?php elseif ($user->role == 'user'): ?>
-                                                <label class="label label-default"><?= esc($role->role_name); ?></label>
+                                                <label class="label label-default"><?= esc($roleName); ?></label>
                                             <?php endif;
                                         endif; ?>
                                     </td>
@@ -154,26 +157,16 @@
                     <div class="form-group">
                         <div class="row">
                             <input type="hidden" name="user_id" id="modal_user_id" value="">
-                            <div class="col-sm-3">
-                                <input type="radio" name="role" value="admin" id="role_admin" class="square-purple" required>&nbsp;&nbsp;
-                                <?php $role = $authModel->getRoleByKey('admin'); ?>
-                                <label for="role_admin" class="option-label cursor-pointer"><?= !empty($role) ? esc($role->role_name) : ''; ?></label>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="radio" name="role" value="moderator" id="role_moderator" class="square-purple" required>&nbsp;&nbsp;
-                                <?php $role = $authModel->getRoleByKey('moderator'); ?>
-                                <label for="role_moderator" class="option-label cursor-pointer"><?= !empty($role) ? esc($role->role_name) : ''; ?></label>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="radio" name="role" value="author" id="role_editor" class="square-purple" required>&nbsp;&nbsp;
-                                <?php $role = $authModel->getRoleByKey('author'); ?>
-                                <label for="role_editor" class="option-label cursor-pointer"><?= !empty($role) ? esc($role->role_name) : ''; ?></label>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="radio" name="role" value="user" id="role_user" class="square-purple" required>&nbsp;&nbsp;
-                                <?php $role = $authModel->getRoleByKey('user'); ?>
-                                <label for="role_user" class="option-label cursor-pointer"><?= !empty($role) ? esc($role->role_name) : ''; ?></label>
-                            </div>
+                            <?php $roles = $authModel->getRolesPermissions();
+                            if (!empty($roles)):
+                                foreach ($roles as $role):
+                                    $roleName = parseSerializedNameArray($role->role_name, $activeLang->id); ?>
+                                    <div class="col-sm-3">
+                                        <input type="radio" name="role" value="<?= esc($role->role); ?>" id="role_<?= esc($role->role); ?>" class="square-purple" required>&nbsp;&nbsp;
+                                        <label for="role_<?= esc($role->role); ?>" class="option-label cursor-pointer"><?= esc($roleName); ?></label>
+                                    </div>
+                                <?php endforeach;
+                            endif; ?>
                         </div>
                     </div>
                 </div>

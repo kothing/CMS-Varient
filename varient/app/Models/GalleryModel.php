@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class GalleryModel extends BaseModel
 {
+    protected $builder;
+    protected $builderAlbum;
+    protected $builderCategory;
 
     public function __construct()
     {

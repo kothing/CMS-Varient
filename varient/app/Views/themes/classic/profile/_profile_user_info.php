@@ -36,34 +36,16 @@
                         </form>
                     <?php endif;
                 else: ?>
-                    <button class="btn btn-md btn-custom btn-follow" data-toggle="modal" data-target="#modal-login"><i class="icon-user-plus"></i><?= trans("follow"); ?></button>
+                    <button class="btn btn-md btn-custom btn-follow" data-toggle="modal" data-target="#modalLogin"><i class="icon-user-plus"></i><?= trans("follow"); ?></button>
                 <?php endif; ?>
                 <div class="social">
                     <ul>
-                        <?php if (!empty($user->facebook_url)): ?>
-                            <li><a href="<?= esc($user->facebook_url); ?>" target="_blank"><i class="icon-facebook"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->twitter_url)): ?>
-                            <li><a href="<?= esc($user->twitter_url); ?>" target="_blank"><i class="icon-twitter"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->instagram_url)): ?>
-                            <li><a href="<?= esc($user->instagram_url); ?>" target="_blank"><i class="icon-instagram"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->pinterest_url)): ?>
-                            <li><a href="<?= esc($user->pinterest_url); ?>" target="_blank"><i class="icon-pinterest"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->linkedin_url)): ?>
-                            <li><a href="<?= esc($user->linkedin_url); ?>" target="_blank"><i class="icon-linkedin"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->vk_url)): ?>
-                            <li><a href="<?= esc($user->vk_url); ?>" target="_blank"><i class="icon-vk"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->telegram_url)): ?>
-                            <li><a href="<?= esc($user->telegram_url); ?>" target="_blank"><i class="icon-telegram"></i></a></li>
-                        <?php endif;
-                        if (!empty($user->youtube_url)): ?>
-                            <li><a href="<?= esc($user->youtube_url); ?>" target="_blank"><i class="icon-youtube"></i></a></li>
-                        <?php endif;
+                        <?php $socialLinks = getSocialLinksArray($user, true);
+                        if (!empty($socialLinks)):
+                            foreach ($socialLinks as $socialLink): ?>
+                                <li><a class="<?= esc($socialLink['key']); ?>" href="<?= $socialLink['url']; ?>" target="_blank"><i class="icon-<?= esc($socialLink['key']); ?>"></i></a></li>
+                            <?php endforeach;
+                        endif;
                         if ($user->show_rss_feeds): ?>
                             <li><a href="<?= langBaseUrl('rss/author/' . $user->slug); ?>"><i class="icon-rss"></i></a></li>
                         <?php endif; ?>

@@ -20,12 +20,13 @@
                     <div class="form-group">
                         <?php $role = $authModel->getRoleByKey($user->role);
                         if (!empty($role)):
+                            $roleName = parseSerializedNameArray($role->role_name, $activeLang->id);
                             if ($user->role == 'moderator'):?>
-                                <label class="label bg-olive"><?= $role->role_name; ?></label>
+                                <label class="label bg-olive"><?= esc($roleName); ?></label>
                             <?php elseif ($user->role == 'author'): ?>
-                                <label class="label label-warning"><?= $role->role_name; ?></label>
+                                <label class="label label-warning"><?= esc($roleName); ?></label>
                             <?php elseif ($user->role == 'user'): ?>
-                                <label class="label label-default"><?= $role->role_name; ?></label>
+                                <label class="label label-default"><?= esc($roleName); ?></label>
                             <?php endif;
                         endif; ?>
                     </div>

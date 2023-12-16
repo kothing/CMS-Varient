@@ -55,102 +55,16 @@
     </div>
 <?php endif; ?>
 
-    <div class="row">
-        <div class="col-sm-12 no-padding">
-            <?php if (checkUserPermission('comments_contact')):
-                if ($generalSettings->comment_approval_system != 1): ?>
-                    <div class="col-lg-6 col-sm-12 col-xs-12">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title"><?= trans("comments"); ?></h3>
-                                <br>
-                                <small><?= trans("recently_added_comments"); ?></small>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-                            <div class="box-body index-table">
-                                <div class="table-responsive">
-                                    <table class="table no-margin">
-                                        <thead>
-                                        <tr>
-                                            <th><?= trans("id"); ?></th>
-                                            <th><?= trans("name"); ?></th>
-                                            <th style="width: 60%"><?= trans("comment"); ?></th>
-                                            <th style="min-width: 13%"><?= trans("date"); ?></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php if (!empty($latestComments)):
-                                            foreach ($latestComments as $item): ?>
-                                                <tr>
-                                                    <td><?= esc($item->id); ?> </td>
-                                                    <td><?= esc($item->name); ?></td>
-                                                    <td style="width: 60%" class="break-word"><?= esc($item->comment); ?></td>
-                                                    <td class="nowrap"><?= formatDate($item->created_at); ?></td>
-                                                </tr>
-                                            <?php endforeach;
-                                        endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="box-footer clearfix">
-                                <a href="<?= adminURL('comments'); ?>" class="btn btn-sm btn-default btn-flat pull-right"><?= trans("view_all"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <div class="col-lg-6 col-sm-12 col-xs-12">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title"><?= trans("pending_comments"); ?></h3>
-                                <br>
-                                <small><?= trans("recently_added_unapproved_comments"); ?></small>
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                                </div>
-                            </div>
-                            <div class="box-body index-table">
-                                <div class="table-responsive">
-                                    <table class="table no-margin">
-                                        <thead>
-                                        <tr>
-                                            <th><?= trans("id"); ?></th>
-                                            <th><?= trans("name"); ?></th>
-                                            <th style="width: 60%"><?= trans("comment"); ?></th>
-                                            <th style="min-width: 13%"><?= trans("date"); ?></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php if (!empty($latestPendingComments)):
-                                            foreach ($latestPendingComments as $item): ?>
-                                                <tr>
-                                                    <td><?= esc($item->id); ?> </td>
-                                                    <td><?= esc($item->name); ?></td>
-                                                    <td style="width: 60%" class="break-word"><?= esc($item->comment); ?></td>
-                                                    <td class="nowrap"><?= formatDate($item->created_at); ?></td>
-                                                </tr>
-                                            <?php endforeach;
-                                        endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="box-footer clearfix">
-                                <a href="<?= adminURL('pending-comments'); ?>" class="btn btn-sm btn-default btn-flat pull-right"><?= trans("view_all"); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+<div class="row">
+    <div class="col-sm-12 no-padding">
+        <?php if (checkUserPermission('comments_contact')):
+            if ($generalSettings->comment_approval_system != 1): ?>
                 <div class="col-lg-6 col-sm-12 col-xs-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><?= trans("last_contact_messages"); ?></h3>
+                            <h3 class="box-title"><?= trans("comments"); ?></h3>
                             <br>
-                            <small><?= trans("recently_added_contact_messages"); ?></small>
+                            <small><?= trans("recently_added_comments"); ?></small>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -163,18 +77,18 @@
                                     <tr>
                                         <th><?= trans("id"); ?></th>
                                         <th><?= trans("name"); ?></th>
-                                        <th style="width: 60%"><?= trans("message"); ?></th>
+                                        <th style="width: 60%"><?= trans("comment"); ?></th>
                                         <th style="min-width: 13%"><?= trans("date"); ?></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <?php if (!empty($latestContactMessages)):
-                                        foreach ($latestContactMessages as $item): ?>
+                                    <?php if (!empty($latestComments)):
+                                        foreach ($latestComments as $item): ?>
                                             <tr>
-                                                <td><?= esc($item->id); ?></td>
+                                                <td><?= esc($item->id); ?> </td>
                                                 <td><?= esc($item->name); ?></td>
-                                                <td style="width: 60%" class="break-word"><?= esc($item->message); ?></td>
-                                                <td style="min-width: 16%" class="nowrap"><?= formatDate($item->created_at); ?></td>
+                                                <td style="width: 60%" class="break-word"><?= esc($item->comment); ?></td>
+                                                <td class="nowrap"><?= formatDate($item->created_at); ?></td>
                                             </tr>
                                         <?php endforeach;
                                     endif; ?>
@@ -183,13 +97,99 @@
                             </div>
                         </div>
                         <div class="box-footer clearfix">
-                            <a href="<?= adminURL('contact-messages'); ?>" class="btn btn-sm btn-default btn-flat pull-right"><?= trans("view_all"); ?></a>
+                            <a href="<?= adminURL('comments'); ?>" class="btn btn-sm btn-default btn-flat pull-right"><?= trans("view_all"); ?></a>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><?= trans("pending_comments"); ?></h3>
+                            <br>
+                            <small><?= trans("recently_added_unapproved_comments"); ?></small>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body index-table">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead>
+                                    <tr>
+                                        <th><?= trans("id"); ?></th>
+                                        <th><?= trans("name"); ?></th>
+                                        <th style="width: 60%"><?= trans("comment"); ?></th>
+                                        <th style="min-width: 13%"><?= trans("date"); ?></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if (!empty($latestPendingComments)):
+                                        foreach ($latestPendingComments as $item): ?>
+                                            <tr>
+                                                <td><?= esc($item->id); ?> </td>
+                                                <td><?= esc($item->name); ?></td>
+                                                <td style="width: 60%" class="break-word"><?= esc($item->comment); ?></td>
+                                                <td class="nowrap"><?= formatDate($item->created_at); ?></td>
+                                            </tr>
+                                        <?php endforeach;
+                                    endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <a href="<?= adminURL('pending-comments'); ?>" class="btn btn-sm btn-default btn-flat pull-right"><?= trans("view_all"); ?></a>
                         </div>
                     </div>
                 </div>
             <?php endif; ?>
-        </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><?= trans("last_contact_messages"); ?></h3>
+                        <br>
+                        <small><?= trans("recently_added_contact_messages"); ?></small>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body index-table">
+                        <div class="table-responsive">
+                            <table class="table no-margin">
+                                <thead>
+                                <tr>
+                                    <th><?= trans("id"); ?></th>
+                                    <th><?= trans("name"); ?></th>
+                                    <th style="width: 60%"><?= trans("message"); ?></th>
+                                    <th style="min-width: 13%"><?= trans("date"); ?></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if (!empty($latestContactMessages)):
+                                    foreach ($latestContactMessages as $item): ?>
+                                        <tr>
+                                            <td><?= esc($item->id); ?></td>
+                                            <td><?= esc($item->name); ?></td>
+                                            <td style="width: 60%" class="break-word"><?= esc($item->message); ?></td>
+                                            <td style="min-width: 16%" class="nowrap"><?= formatDate($item->created_at); ?></td>
+                                        </tr>
+                                    <?php endforeach;
+                                endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="box-footer clearfix">
+                        <a href="<?= adminURL('contact-messages'); ?>" class="btn btn-sm btn-default btn-flat pull-right"><?= trans("view_all"); ?></a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
+</div>
 <?php if (checkUserPermission('users')): ?>
     <div class="row">
         <div class="no-padding margin-bottom-20">

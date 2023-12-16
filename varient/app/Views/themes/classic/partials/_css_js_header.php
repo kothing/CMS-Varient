@@ -8,4 +8,4 @@ echo '.bn-mb-'.$item->id. '{width: ' . $item->mobile_width . 'px; height: ' . $i
 endif;
 endforeach;
 endif; ?></style>
-<script>var VrConfig = {baseURL: '<?= base_url(); ?>', csrfTokenName: '<?= csrf_token() ?>', csrfCookieName: '<?= config('App')->CSRFCookieName; ?>', sysLangId: '<?= $activeLang->id; ?>', isRecaptchaEnabled: '<?= isRecaptchaEnabled($generalSettings) ? 1 : 0; ?>', textOk: "<?= clrQuotes(trans("ok")); ?>", textCancel: "<?= clrQuotes(trans("cancel")); ?>", textCorrectAnswer : "<?= clrQuotes(trans("correct_answer")); ?>", textWrongAnswer : "<?= clrQuotes(trans("wrong_answer")); ?>"};</script>
+<script>var VrConfig = {baseURL: '<?= base_url(); ?>', csrfTokenName: '<?= csrf_token() ?>', authCheck: <?= authCheck() ? 1 : 0; ?>, sysLangId: '<?= $activeLang->id; ?>', isRecaptchaEnabled: '<?= isRecaptchaEnabled($generalSettings) ? 1 : 0; ?>', textOk: "<?= clrQuotes(trans("ok")); ?>", textCancel: "<?= clrQuotes(trans("cancel")); ?>", textCorrectAnswer : "<?= clrQuotes(trans("correct_answer")); ?>", textWrongAnswer : "<?= clrQuotes(trans("wrong_answer")); ?>"};</script>

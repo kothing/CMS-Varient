@@ -96,12 +96,11 @@
                 'email': email,
                 'submit': "<?= $submit ?>"
             };
-            addCsrf(data);
             $.ajax({
                 type: "POST",
                 url: VrConfig.baseURL + '/AdminController/newsletterSendEmailPost',
                 cache: false,
-                data: data,
+                data: setAjaxData(data),
                 success: function (response) {
                     var obj = JSON.parse(response);
                     if (obj.result == 1) {

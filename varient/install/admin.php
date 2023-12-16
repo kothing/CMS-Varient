@@ -12,6 +12,7 @@ $db_host = '';
 $db_user = '';
 $db_password = '';
 $db_name = '';
+$timezone = '';
 if (!empty($dbArray) && !empty($dbArray->default)) {
     $db_host = $dbArray->default['hostname'];
     $db_user = $dbArray->default['username'];
@@ -71,7 +72,7 @@ LICENSE_KEY = " . trim($license_code) . "
 #--------------------------------------------------------------------
 # COOKIE
 #--------------------------------------------------------------------  
-cookie.prefix = 'vr'";
+cookie.prefix = 'vr_'";
         $handle = fopen("../.env", "w");
         fwrite($handle, trim($env));
         fclose($handle);
@@ -143,31 +144,32 @@ cookie.prefix = 'vr'";
                                 <p>Settings</p>
                             </div>
                         </div>
-                        <div class="messages">
-                            <?php if (isset($error)) { ?>
+                        <?php if (isset($error)): ?>
+                            <div class="messages">
                                 <div class="alert alert-danger">
                                     <strong>Connect failed! Please check your database credentials.</strong>
                                 </div>
-                            <?php } ?>
-                            <?php if (isset($success)) { ?>
-                                <div class="alert alert-success">
-                                    <strong>Completing installation... Please wait!</strong>
-                                </div>
-                            <?php } ?>
-                        </div>
-                        <?php if (isset($success)) { ?>
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="spinner">
-                                        <div class="rect1"></div>
-                                        <div class="rect2"></div>
-                                        <div class="rect3"></div>
-                                        <div class="rect4"></div>
-                                        <div class="rect5"></div>
+                            </div>
+                        <?php else:
+                            if (isset($success)):?>
+                                <div class="messages">
+                                    <div class="alert alert-success">
+                                        <strong>Completing installation... Please wait!</strong>
                                     </div>
                                 </div>
-                            </div>
-                        <?php } ?>
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="spinner">
+                                            <div class="rect1"></div>
+                                            <div class="rect2"></div>
+                                            <div class="rect3"></div>
+                                            <div class="rect4"></div>
+                                            <div class="rect5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif;
+                        endif; ?>
                         <div class="step-contents">
                             <div class="tab-1">
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -181,17 +183,17 @@ cookie.prefix = 'vr'";
                                             $root = str_replace('install/', '', $root); ?>
                                             <div class="form-group">
                                                 <label>Site URL (Examples: <span style='font-family: "Helvetica Neue", Helvetica, Arial, sans-serif'>https://abc.com, https://abc.com/blog, https://test.abc.com</span>)</label><br>
-                                                <input type="text" class="form-control form-input" name="base_url" placeholder="Base URL" value="<?php echo @$root; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
+                                                <input type="text" class="form-control form-input" name="base_url" placeholder="Base URL" value="<?php echo @$root; ?>" required>
                                                 <small class="text-danger">(If your site does not have SSL, you must enter your site URL with "http". Example: http://abc.com)</small>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Timezone</label>
-                                                <select name="timezone" class="form-control" required <?php echo isset($success) ? 'disabled': '' ?> style="min-height: 44px;">
+                                                <select name="timezone" class="form-control" required style="min-height: 44px;">
                                                     <option value="">Select Your Timezone</option>
                                                     <?php $timezones = timezone_identifiers_list();
                                                     if (!empty($timezones)):
-                                                        foreach ($timezones as $timezone):?>
-                                                            <option value="<?php echo $timezone; ?>"><?php echo $timezone; ?></option>
+                                                        foreach ($timezones as $item):?>
+                                                            <option value="<?php echo $item; ?>" <?= $timezone == $item ? 'selected' : ''; ?>><?php echo $item; ?></option>
                                                         <?php endforeach;
                                                     endif; ?>
                                                 </select>
@@ -200,15 +202,15 @@ cookie.prefix = 'vr'";
                                             <h1 class="step-title">Admin Account</h1>
                                             <div class="form-group">
                                                 <label for="email">Username</label>
-                                                <input type="text" class="form-control form-input" name="admin_username" placeholder="Username" value="<?php echo @$admin_username; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
+                                                <input type="text" class="form-control form-input" name="admin_username" placeholder="Username" value="<?php echo @$admin_username; ?>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control form-input" name="admin_email" placeholder="Email" value="<?php echo @$admin_email; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
+                                                <input type="email" class="form-control form-input" name="admin_email" placeholder="Email" value="<?php echo @$admin_email; ?>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Password</label>
-                                                <input type="text" class="form-control form-input" name="admin_password" placeholder="Password" value="<?php echo @$admin_password; ?>" required <?php echo isset($success) ? 'disabled': '' ?> />
+                                                <input type="text" class="form-control form-input" name="admin_password" placeholder="Password" value="<?php echo @$admin_password; ?>" required>
                                             </div>
                                         </div>
                                     </div>

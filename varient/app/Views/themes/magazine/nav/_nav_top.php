@@ -1,5 +1,5 @@
 <div id="nav-top" class="d-flex align-items-center">
-<div class="container d-flex justify-content-center justify-content-between">
+<div class="container-xl d-flex justify-content-center justify-content-between">
 <div class="d-flex align-items-center">
 <ul class="navbar-nav flex-row top-left">
 <?php if (!empty($baseMenuLinks)):

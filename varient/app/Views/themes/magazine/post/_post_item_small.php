@@ -1,14 +1,14 @@
 <div class="tbl-container post-item-small<?= checkPostImg($postItem, 'class'); ?>">
     <?php if (checkPostImg($postItem)): ?>
         <div class="tbl-cell left">
-            <?php /* if (checkPostImg($postItem)): */ ?>
+            <?php if (checkPostImg($postItem)): ?>
                 <div class="image">
                     <a href="<?= generatePostURL($postItem); ?>"<?php postURLNewTab($postItem); ?>>
                         <img src="<?= IMG_BASE64_1x1; ?>" data-src="<?= getPostImage($postItem, 'small'); ?>" alt="<?= esc($postItem->title); ?>" class="img-fluid lazyload" width="130" height="91"/>
                         <?php getMediaIcon($postItem, 'media-icon'); ?>
                     </a>
                 </div>
-            <?php /* endif; */ ?>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
     <div class="tbl-cell right">

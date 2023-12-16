@@ -87,7 +87,7 @@
                             <?php $i = 0;
                             if (!empty($featuredPosts)):
                                 foreach ($featuredPosts as $item):
-                                    if ($i > 1): ?>
+                                    if ($i > 1 && $i <= 9): ?>
                                         <div class="item <?= $i == 2 ? ' item-first' : ''; ?>">
                                             <h3 class="title">
                                                 <a href="<?= generatePostURL($item); ?>" <?php postURLNewTab($item); ?>>

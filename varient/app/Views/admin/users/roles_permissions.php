@@ -23,9 +23,10 @@
                         </thead>
                         <tbody>
                         <?php if (!empty($roles)):
-                            foreach ($roles as $role): ?>
+                            foreach ($roles as $role):
+                                $roleName = parseSerializedNameArray($role->role_name, $activeLang->id);?>
                                 <tr>
-                                    <td><strong style="font-weight: 600;"><?= $role->role_name; ?></strong></td>
+                                    <td><strong style="font-weight: 600;"><?= esc($roleName); ?></strong></td>
                                     <td style="height: 50px;">
                                         <?php if ($role->role == "admin"): ?>
                                             <label class="label label-success"><?= trans("all_permissions") ?></label>
@@ -81,9 +82,7 @@
                                         endif; ?>
                                     </td>
                                     <td>
-                                        <?php if ($role->role != "admin"): ?>
-                                            <a href="<?= adminUrl('edit-role/' . $role->id); ?>" class="btn btn-success"><i class="fa fa-edit"></i>&nbsp;&nbsp;<?= trans("edit"); ?></a>
-                                        <?php endif; ?>
+                                        <a href="<?= adminUrl('edit-role/' . $role->id); ?>" class="btn btn-success"><i class="fa fa-edit"></i>&nbsp;&nbsp;<?= trans("edit"); ?></a>
                                     </td>
                                 </tr>
                             <?php endforeach;

@@ -19,7 +19,7 @@ $categoryPosts = getPostsByCategoryId($category->id, $baseCategories, $baseLates
                         <div class="col-lg-3 slider-col">
                             <div class="post-item">
                                 <a href="<?= generateCategoryURLById($item->category_id, $baseCategories); ?>">
-                                    <span class="badge badge-category" style="background-color: <?= esc($postItem->category_color); ?>"><?= esc($item->category_name); ?></span>
+                                    <span class="badge badge-category" style="background-color: <?= esc($item->category_color); ?>"><?= esc($item->category_name); ?></span>
                                 </a>
                                 <?php if (checkPostImg($item)): ?>
                                     <div class="image ratio img-slider-ratio">

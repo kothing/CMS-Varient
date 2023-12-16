@@ -1,21 +1,30 @@
 <?php namespace App\Models;
 
 require_once APPPATH . "ThirdParty/intervention-image/vendor/autoload.php";
+require_once APPPATH . "ThirdParty/webp-convert/vendor/autoload.php";
 
 use CodeIgniter\Model;
 use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
+use WebPConvert\WebPConvert;
 
 class UploadModel extends BaseModel
 {
+    protected $imgQuality;
+    protected $imgExt;
+
     public function __construct()
     {
         parent::__construct();
         $this->imgQuality = 85;
+        $this->imgExt = '.jpg';
+        if ($this->generalSettings->image_file_format == 'PNG') {
+            $this->imgExt = '.png';
+        }
     }
 
     //upload file
-    private function upload($inputName, $directory, $namePrefix, $allowedExtensions = null, $keepOrjName = false)
+    private function upload($inputName, $directory, $namePrefix, $allowedExtensions = null)
     {
         if ($allowedExtensions != null && is_array($allowedExtensions) && !empty($allowedExtensions[0])) {
             if (!$this->checkAllowedFileTypes($inputName, $allowedExtensions)) {
@@ -27,22 +36,10 @@ class UploadModel extends BaseModel
             $orjName = $file->getName();
             $name = pathinfo($orjName, PATHINFO_FILENAME);
             $ext = pathinfo($orjName, PATHINFO_EXTENSION);
-            $name = strSlug($name);
-            if (empty($name)) {
-                $name = generateToken();
-            }
-            $uniqiName = $namePrefix . generateToken() . '.' . $ext;
-            if ($keepOrjName == true) {
-                $fullName = $name . '.' . $ext;
-                if (file_exists(FCPATH . $directory . '/' . $fullName)) {
-                    $fullName = $name . '-' . uniqid() . '.' . $ext;
-                }
-                $uniqiName = $fullName;
-            }
-            $path = $directory . $uniqiName;
+            $uniqueName = $namePrefix . generateToken(true) . '.' . $ext;
             if (!$file->hasMoved()) {
-                if ($file->move(FCPATH . $directory, $uniqiName)) {
-                    return ['name' => $uniqiName, 'orjName' => $orjName, 'path' => $path, 'ext' => $ext];
+                if ($file->move(FCPATH . $directory, $uniqueName)) {
+                    return ['name' => $uniqueName, 'orjName' => $orjName, 'path' => $directory . $uniqueName, 'ext' => $ext];
                 }
             }
         }
@@ -54,7 +51,7 @@ class UploadModel extends BaseModel
     {
         $allowedExtensions = array();
         if ($isImage) {
-            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            $allowedExtensions = ['jpg', 'jpeg', 'webp', 'png', 'gif'];
         }
         return $this->upload($inputName, 'uploads/tmp/', 'temp_', $allowedExtensions);
     }
@@ -67,7 +64,7 @@ class UploadModel extends BaseModel
         if (!empty($extensions)) {
             $extArray = @explode(',', $extensions);
         }
-        return $this->upload($inputName, "uploads/files/", "file_", $extArray, true);
+        return $this->upload($inputName, "uploads/files/", "file_", $extArray);
     }
 
     //upload GIF image
@@ -108,9 +105,12 @@ class UploadModel extends BaseModel
             $name = 'image_140x98_';
             $img->fit(140, 98);
         }
-        $newPath = 'uploads/images/' . $this->createUploadDirectory('images') . $name . uniqid() . '.jpg';
-        $img->save(FCPATH . $newPath, $this->imgQuality);
-        return $newPath;
+        if ($this->getFileExtension($tempPath) == 'webp') {
+            $this->imgQuality = 100;
+        }
+        $newPath = 'uploads/images/' . $this->createUploadDirectory('images') . $name . uniqid();
+        $img->save(FCPATH . $newPath . $this->imgExt, $this->imgQuality);
+        return $this->convertImageFormat($newPath);
     }
 
     //upload quiz image
@@ -125,43 +125,49 @@ class UploadModel extends BaseModel
             $name = 'image_420x420_';
             $img->fit(420, 420);
         }
-        $newPath = 'uploads/quiz/' . $this->createUploadDirectory('quiz') . $name . uniqid() . '.jpg';
-        $img->save(FCPATH . $newPath, $this->imgQuality);
-        return $newPath;
+        if ($this->getFileExtension($tempPath) == 'webp') {
+            $this->imgQuality = 100;
+        }
+        $newPath = 'uploads/quiz/' . $this->createUploadDirectory('quiz') . $name . uniqid();
+        $img->save(FCPATH . $newPath . $this->imgExt, $this->imgQuality);
+        return $this->convertImageFormat($newPath);
     }
 
     //gallery image upload
     public function uploadGalleryImage($tempPath, $width)
     {
-        $newPath = 'uploads/gallery/' . $this->createUploadDirectory('gallery') . 'image_' . $width . 'x_' . uniqid() . '.jpg';
+        $newPath = 'uploads/gallery/' . $this->createUploadDirectory('gallery') . 'image_' . $width . 'x_' . uniqid();
         $img = Image::make($tempPath)->orientate();
         $img->resize($width, null, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $img->save(FCPATH . $newPath, $this->imgQuality);
-        return $newPath;
+        $img->save(FCPATH . $newPath . $this->imgExt, 100);
+        return $this->convertImageFormat($newPath);
     }
 
     //avatar image upload
     public function uploadAvatar($userId, $path)
     {
         $directory = $this->createUploadDirectory('profile');
-        $newPath = 'uploads/profile/' . $directory . 'avatar_' . $userId . '_' . uniqid() . '.jpg';
+        $newPath = 'uploads/profile/' . $directory . 'avatar_' . $userId . '_' . uniqid();
         $img = Image::make($path)->orientate();
         $img->fit(240, 240);
-        $img->save(FCPATH . $newPath, 100);
-        return $newPath;
+        $img->save(FCPATH . $newPath . $this->imgExt, 100);
+        return $this->convertImageFormat($newPath);
     }
 
     //cover image upload
     public function uploadCoverImage($userId, $path)
     {
         $directory = $this->createUploadDirectory('profile');
-        $newPath = 'uploads/profile/' . $directory . 'cover_' . $userId . '_' . uniqid() . '.jpg';
+        $newPath = 'uploads/profile/' . $directory . 'cover_' . $userId . '_' . uniqid();
         $img = Image::make($path)->orientate();
         $img->fit(1920, 600);
-        $img->save(FCPATH . $newPath, $this->imgQuality);
-        return $newPath;
+        if ($this->getFileExtension($tempPath) == 'webp') {
+            $this->imgQuality = 100;
+        }
+        $img->save(FCPATH . $newPath . $this->imgExt, $this->imgQuality);
+        return $this->convertImageFormat($newPath);
     }
 
     //upload video
@@ -175,7 +181,7 @@ class UploadModel extends BaseModel
     public function uploadAudio($inputName)
     {
         $directory = $this->createUploadDirectory('audios');
-        return $this->upload($inputName, 'uploads/audios/' . $directory, 'audio_', null, true);
+        return $this->upload($inputName, 'uploads/audios/' . $directory, 'audio_', null);
     }
 
     //logo upload
@@ -184,8 +190,7 @@ class UploadModel extends BaseModel
         return $this->upload($inputName, "uploads/logo/", "logo_", ['jpg', 'jpeg', 'png', 'gif', 'svg']);
     }
 
-    //favicon image upload
-    //logo upload
+    //favicon upload
     public function uploadFavicon($inputName)
     {
         return $this->upload($inputName, "uploads/logo/", "favicon_", ['jpg', 'jpeg', 'png', 'gif']);
@@ -195,6 +200,17 @@ class UploadModel extends BaseModel
     public function uploadAd($inputName)
     {
         return $this->upload($inputName, "uploads/blocks/", "block_", ['jpg', 'jpeg', 'png', 'gif']);
+    }
+
+    //convert image format
+    public function convertImageFormat($sourcePath)
+    {
+        if ($this->generalSettings->image_file_format == 'WEBP') {
+            WebPConvert::convert($sourcePath . $this->imgExt, $sourcePath . '.webp');
+            @unlink($sourcePath . $this->imgExt);
+            return $sourcePath . '.webp';
+        }
+        return $sourcePath . $this->imgExt;
     }
 
     //download temp image
@@ -248,7 +264,7 @@ class UploadModel extends BaseModel
         }
 
         $ext = pathinfo($_FILES[$fileName]['name'], PATHINFO_EXTENSION);
-        if(!empty($ext)){
+        if (!empty($ext)) {
             $ext = strtolower($ext);
         }
         $extArray = array();
@@ -272,7 +288,7 @@ class UploadModel extends BaseModel
     //get file extension
     public function getFileExtension($name)
     {
-        $ext = '';
+        $ext = 'jpg';
         if (!empty($name)) {
             $ext = pathinfo($name, PATHINFO_EXTENSION);
         }
@@ -280,6 +296,18 @@ class UploadModel extends BaseModel
             $ext = strtolower($ext);
         }
         return $ext;
+    }
+
+    //create file name by extension
+    public function createFileNameByExt($name, $ext)
+    {
+        if (empty($name)) {
+            return 'file.jpg';
+        }
+        if (empty($ext)) {
+            $ext = 'jpg';
+        }
+        return pathinfo($name, PATHINFO_FILENAME) . '.' . $ext;
     }
 
     //delete temp file

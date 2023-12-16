@@ -22,7 +22,7 @@ if (!function_exists('curl_init')) {
 }
 if (isset($_POST["btn_license_code"])) {
     $license_code = $_POST['license_code'];
-    $purchase_code = "Varient";
+    $purchase_code = "";
     $response = "";
 
     $current_url = currentUrl($_SERVER);
@@ -32,7 +32,7 @@ if (isset($_POST["btn_license_code"])) {
         if ($data->code == "error") {
             $error = "Invalid License Code!";
         } else {
-            // $purchase_code = $data->code;
+            $purchase_code = $data->code;
             header("Location: system-requirements.php?license_code=" . $license_code . "&purchase_code=" . $purchase_code);
             exit();
         }
@@ -46,7 +46,7 @@ if (!isset($license_code)) {
     if (isset($_GET["license_code"])) {
         $license_code = $_GET["license_code"];
     } else {
-        $license_code = "Varient";
+        $license_code = "";
     }
 }
 ?>

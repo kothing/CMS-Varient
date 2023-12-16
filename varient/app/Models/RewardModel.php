@@ -4,6 +4,12 @@ use CodeIgniter\Model;
 
 class RewardModel extends BaseModel
 {
+    protected $builderUsers;
+    protected $builderPayouts;
+    protected $builderPayoutAccounts;
+    protected $builderGeneral;
+    protected $builderPageviews;
+
     public function __construct()
     {
         parent::__construct();

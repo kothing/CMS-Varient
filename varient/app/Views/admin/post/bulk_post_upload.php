@@ -188,7 +188,7 @@
             extFilter: ["csv"],
             extraData: function (id) {
                 return {
-                    '<?= csrf_token() ?>': getCsrfHash()
+                    '<?= csrf_token() ?>': '<?= csrf_hash(); ?>'
                 };
             },
             onDragEnter: function () {
@@ -234,11 +234,10 @@
                 'txtFileName': txtFileName,
                 'index': index
             };
-            addCsrf(data);
             $.ajax({
                 type: "POST",
                 url: VrConfig.baseURL + "/PostController/importCSVItemPost",
-                data: data,
+                data: setAjaxData(data),
                 success: function (response) {
                     var objSub = JSON.parse(response);
                     if (objSub.result == 1) {

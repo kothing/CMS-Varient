@@ -98,7 +98,7 @@ define('EVENT_PRIORITY_HIGH', 10);
 | CUSTOM CONSTANTS
 |--------------------------------------------------------------------------
 */
-defined('VARIENT_VERSION')     || define('VARIENT_VERSION', '2.x');
+defined('VARIENT_VERSION')     || define('VARIENT_VERSION', '2.2');
 defined('IMG_PATH_BG_LG')      || define('IMG_PATH_BG_LG', 'assets/img/img_bg_lg.png');
 defined('IMG_PATH_BG_MD')      || define('IMG_PATH_BG_MD', 'assets/img/img_bg_md.png');
 defined('IMG_BASE64_1x1')      || define('IMG_BASE64_1x1', 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');

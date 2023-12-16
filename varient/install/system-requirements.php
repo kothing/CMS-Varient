@@ -107,7 +107,7 @@ if (!isset($license_code) || !isset($purchase_code)) {
                                     </div>
                                     <div class="col-sm-1 text-right">
                                         <p>
-                                            <?php if (phpversion() >= 5.6): ?>
+                                            <?php if (phpversion() >= 7.4): ?>
                                                 <i class="fa fa-check color-success"></i>
                                             <?php else: ?>
                                                 <i class="fa fa-times color-danger"></i>

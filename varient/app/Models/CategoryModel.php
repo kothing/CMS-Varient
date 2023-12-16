@@ -4,6 +4,8 @@ use CodeIgniter\Model;
 
 class CategoryModel extends BaseModel
 {
+    protected $builder;
+
     public function __construct()
     {
         parent::__construct();
@@ -13,7 +15,7 @@ class CategoryModel extends BaseModel
     //input values
     public function inputValues()
     {
-        return [
+        $data = [
             'lang_id' => inputPost('lang_id'),
             'name' => inputPost('name'),
             'name_slug' => inputPost('name_slug'),
@@ -26,6 +28,10 @@ class CategoryModel extends BaseModel
             'show_on_menu' => inputPost('show_on_menu'),
             'block_type' => inputPost('block_type')
         ];
+        if (empty($data['color'])) {
+            $data['color'] = '#2d65fe';
+        }
+        return $data;
     }
 
     //add category
@@ -40,13 +46,12 @@ class CategoryModel extends BaseModel
                 $data['name_slug'] = str_replace(' ', '-', $data['name_slug']);
             }
         }
-        if ($type == 'sub') {
-            $parent = $this->getCategory($data["parent_id"]);
+        if (!empty($data['parent_id'])) {
+            $parent = $this->getCategory($data['parent_id']);
             if (!empty($parent)) {
-                $data["color"] = $parent->color;
+                $data['color'] = $parent->color;
             }
-            $data['block_type'] = "";
-            $data['category_order'] = 1;
+            $data['block_type'] = '';
             $data['show_at_homepage'] = 0;
         } else {
             $data['parent_id'] = 0;
@@ -73,19 +78,18 @@ class CategoryModel extends BaseModel
                     $data['name_slug'] = str_replace(' ', '-', $data['name_slug']);
                 }
             }
-            if ($category->parent_id == 0) {
-                $this->updateSubCategoriesColor($id, $data["color"]);
-            } else {
-                $parent = $this->getCategory($data["parent_id"]);
+            if (!empty($data['parent_id'])) {
+                $parent = $this->getCategory($data['parent_id']);
                 if (!empty($parent)) {
-                    $data["color"] = $parent->color;
+                    $data['color'] = $parent->color;
                 }
-                $data['block_type'] = "";
-                $data['category_order'] = 1;
+                $data['block_type'] = '';
                 $data['show_at_homepage'] = 0;
-            }
-            if (empty($data['parent_id'])) {
+            } else {
                 $data['parent_id'] = 0;
+                $this->updateSubCategoriesColor($id, $data['color']);
+                //update subcategories lang_id
+                $this->builder->where('parent_id', $category->id)->update(['lang_id' => $data['lang_id']]);
             }
             $this->builder->where('id', $category->id)->update($data);
             $this->updateSlug($category->id);
@@ -130,7 +134,7 @@ class CategoryModel extends BaseModel
         $categories = $this->getSubCategoriesByParentId($parentId);
         if (!empty($categories)) {
             foreach ($categories as $item) {
-                $this->builder->where('parent_id', $item->id)->update(['color' => $color]);
+                $this->builder->where('id', $item->id)->update(['color' => $color]);
             }
         }
     }
@@ -155,7 +159,7 @@ class CategoryModel extends BaseModel
         return $this->builder->where('categories.name_slug', cleanSlug($slug))->where('categories.lang_id', cleanNumber($this->activeLang->id))->orderBy('category_order')->get()->getRow();
     }
 
-    //input values
+    //get categories
     public function getCategories()
     {
         $this->buildQuery();
@@ -191,6 +195,37 @@ class CategoryModel extends BaseModel
     public function getSubCategoriesByParentId($parentId)
     {
         return $this->builder->where('parent_id', cleanNumber($parentId))->orderBy('name')->get()->getResult();
+    }
+
+    //get categories count
+    public function getCategoriesCount()
+    {
+        $this->filterCategories();
+        return $this->builder->countAllResults();
+    }
+
+    //get paginated categories
+    public function getCategoriesPaginated($perPage, $offset)
+    {
+        $this->filterCategories();
+        return $this->builder->orderBy('id DESC')->limit($perPage, $offset)->get()->getResult();
+    }
+
+    //filter categories
+    public function filterCategories()
+    {
+        $q = inputGet('q');
+        $langId = cleanNumber(inputGet('lang_id'));
+        $parentId = cleanNumber(inputGet('category'));
+        if (!empty($q)) {
+            $this->builder->like('name', cleanStr($q));
+        }
+        if (!empty($langId)) {
+            $this->builder->where('lang_id', cleanNumber($langId));
+        }
+        if (!empty($parentId)) {
+            $this->builder->where('parent_id', cleanNumber($parentId));
+        }
     }
 
     //delete category

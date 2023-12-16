@@ -71,7 +71,7 @@ class Encryption
     /**
      * Handlers that are to be installed
      *
-     * @var array<string, boolean>
+     * @var array<string, bool>
      */
     protected $handlers = [];
 
@@ -149,7 +149,7 @@ class Encryption
      *
      * @param string $key Property name
      *
-     * @return mixed
+     * @return array|string|null
      */
     public function __get($key)
     {

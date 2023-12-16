@@ -93,7 +93,7 @@
 <div class="wrapper">
     <div class="center">
         <h1 class="title">Varient</h1>
-        <p class="version">Version 2.x</p>
+        <p class="version">Version 2.2</p>
         <a href="index.php" class="button">Install</a>
     </div>
 </div>

@@ -12,18 +12,28 @@
             <form action="<?= base_url('CategoryController/editCategoryPost'); ?>" method="post">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="id" value="<?= esc($category->id); ?>">
-                <input type="hidden" name="parent_id" value="0">
                 <input type="hidden" name="back_url" value="<?= currentFullURL(); ?>">
-                <input type="hidden" name="type" value="<?= $category->parent_id == 0 ? 'parent' : 'sub'; ?>">
                 <div class="box-body">
                     <div class="form-group">
                         <label><?= trans("language"); ?></label>
-                        <select name="lang_id" class="form-control">
+                        <select name="lang_id" class="form-control" onchange="getParentCategoriesByLang(this.value, false);">
                             <?php foreach ($activeLanguages as $language): ?>
                                 <option value="<?= $language->id; ?>" <?= $category->lang_id == $language->id ? 'selected' : ''; ?>><?= $language->name; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+                    <?php if (!empty($category->parent_id)): ?>
+                        <div class="form-group">
+                            <label><?= trans('parent_category'); ?></label>
+                            <select id="categories" class="form-control" name="parent_id" required>
+                                <?php if (!empty($parentCategories)):
+                                    foreach ($parentCategories as $item): ?>
+                                        <option value="<?= $item->id; ?>" <?= $category->parent_id == $item->id ? 'selected' : ''; ?>><?= esc($item->name); ?></option>
+                                    <?php endforeach;
+                                endif; ?>
+                            </select>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="form-group">
                         <label><?= trans("category_name"); ?></label>
@@ -50,28 +60,16 @@
                         <div class="form-group">
                             <label><?= trans('color'); ?></label>
                             <div class="input-group my-colorpicker">
-                                <input type="text" class="form-control" name="color" maxlength="200" value="<?= esc($category->color); ?>" placeholder="<?= trans('color'); ?>" required>
+                                <input type="text" class="form-control" name="color" maxlength="200" value="<?= esc($category->color); ?>" placeholder="<?= trans('color'); ?>">
                                 <div class="input-group-addon"><i></i></div>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label><?= trans('order'); ?></label>
-                            <input type="number" class="form-control" name="category_order" placeholder="<?= trans('order'); ?>" value="<?= esc($category->category_order); ?>" min="1" required>
-                        </div>
-                    <?php else: ?>
-                        <div class="form-group">
-                            <label><?= trans('parent_category'); ?></label>
-                            <select id="categories" class="form-control" name="parent_id" required>
-                                <option value=""><?= trans('select'); ?></option>
-                                <?php if (!empty($parentCategories)):
-                                    foreach ($parentCategories as $item): ?>
-                                        <option value="<?= $item->id; ?>" <?= $category->parent_id == $item->id ? 'selected' : ''; ?>><?= $item->name; ?></option>
-                                    <?php endforeach;
-                                endif; ?>
-                            </select>
-                        </div>
                     <?php endif; ?>
+
+                    <div class="form-group">
+                        <label><?= trans('order_1'); ?></label>
+                        <input type="number" class="form-control" name="category_order" placeholder="<?= trans('order'); ?>" value="<?= esc($category->category_order); ?>" min="1" required>
+                    </div>
 
                     <div class="form-group">
                         <div class="row">
@@ -187,11 +185,6 @@
                     <?php endif; ?>
                 </div>
                 <div class="box-footer">
-                    <?php if ($category->parent_id == 0): ?>
-                        <a class="btn btn-default" href="<?= adminUrl('categories/'); ?>"><?= trans('cancel'); ?></a>
-                    <?php else: ?>
-                        <a class="btn btn-default" href="<?= adminUrl('subcategories/'); ?>"><?= trans('cancel'); ?></a>
-                    <?php endif; ?>
                     <button type="submit" class="btn btn-primary pull-right"><?= trans('save_changes'); ?> </button>
                 </div>
             </form>

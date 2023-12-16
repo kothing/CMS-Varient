@@ -8,9 +8,9 @@
 <meta name="description" content="<?= escSls($description); ?>"/>
 <meta name="keywords" content="<?= escSls($keywords); ?>"/>
 <meta name="author" content="<?= escSls($baseSettings->application_name); ?>"/>
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="<?= escSls($baseSettings->application_name); ?>"/>
+<?= csrf_meta(); ?>
 <?php if (isset($postType)): ?>
 <meta property="og:type" content="<?= $ogType; ?>"/>
 <meta property="og:title" content="<?= $ogTitle; ?>"/>
@@ -64,17 +64,14 @@ if ($generalSettings->pwa_status == 1): ?>
 <?php else: ?>
 <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
 <?php endif; ?>
-<link href="<?= base_url($assetsPath . '/css/icons.min.css'); ?>" rel="stylesheet">
-<link href="<?= base_url($assetsPath . '/css/plugins.min.css'); ?>" rel="stylesheet">
-<link href="<?= base_url($assetsPath . '/css/style-2.x.min.css'); ?>" rel="stylesheet">
-<link href="<?= base_url('assets/vendor/prism/prism.min.css'); ?>" rel="stylesheet" />
-<link href="<?= base_url('assets/vendor/prism/themes/atom-dark.min.css'); ?>" rel="stylesheet" />
-<link href="<?= base_url('assets/vendor/prism/plugins/line-numbers/line-numbers.min.css'); ?>" rel="stylesheet" />
+<link href="<?= base_url($assetsPath . '/css/icons-2.2.min.css'); ?>" rel="stylesheet">
+<link href="<?= base_url($assetsPath . '/css/plugins-2.2.min.css'); ?>" rel="stylesheet">
+<link href="<?= base_url($assetsPath . '/css/style-2.2.min.css'); ?>" rel="stylesheet">
 <?php if ($rtl): ?>
-<link href="<?= base_url($assetsPath . '/css/rtl-2.x.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/rtl-2.2.min.css'); ?>" rel="stylesheet"/>
 <?php endif;
 if ($darkMode == true) : ?>
-<link href="<?= base_url($assetsPath . '/css/dark-2.x.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/dark-2.2.min.css'); ?>" rel="stylesheet"/>
 <?php endif; ?>
 <?= loadView('partials/_css_js_header'); ?>
 <?= $generalSettings->custom_header_codes; ?>

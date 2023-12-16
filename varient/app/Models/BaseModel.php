@@ -5,6 +5,12 @@ use Config\Globals;
 
 class BaseModel extends Model
 {
+    public $request;
+    public $session;
+    public $activeLang;
+    public $generalSettings;
+    public $activeLanguages;
+
     public function __construct()
     {
         parent::__construct();
@@ -12,5 +18,6 @@ class BaseModel extends Model
         $this->session = \Config\Services::session();
         $this->activeLang = Globals::$activeLang;
         $this->generalSettings = Globals::$generalSettings;
+        $this->activeLanguages = Globals::$languages;
     }
 }

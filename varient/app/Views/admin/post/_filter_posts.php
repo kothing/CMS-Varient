@@ -1,8 +1,8 @@
 <?php $categoryModel = new \App\Models\CategoryModel(); ?>
 <div class="row table-filter-container">
-    <div class="col-sm-12 display-flex">
+    <div class="col-sm-12">
         <form action="<?= $formAction; ?>" method="get">
-            <div class="item-table-filter">
+            <div class="item-table-filter" style="width: 80px; min-width: 80px;">
                 <label><?= trans("show"); ?></label>
                 <select name="show" class="form-control">
                     <option value="15" <?= inputGet('show', true) == '15' ? 'selected' : ''; ?>>15</option>
@@ -27,10 +27,11 @@
                     <option value="article" <?= inputGet('post_type', true) == 'article' ? 'selected' : ''; ?>><?= trans("article"); ?></option>
                     <option value="gallery" <?= inputGet('post_type', true) == 'gallery' ? 'selected' : ''; ?>><?= trans("gallery"); ?></option>
                     <option value="sorted_list" <?= inputGet('post_type', true) == 'sorted_list' ? 'selected' : ''; ?>><?= trans("sorted_list"); ?></option>
-                    <option value="trivia_quiz" <?= inputGet('post_type', true) == 'trivia_quiz' ? 'selected' : ''; ?>><?= trans("trivia_quiz"); ?></option>
-                    <option value="personality_quiz" <?= inputGet('post_type', true) == 'personality_quiz' ? 'selected' : ''; ?>><?= trans("personality_quiz"); ?></option>
                     <option value="video" <?= inputGet('post_type', true) == 'video' ? 'selected' : ''; ?>><?= trans("video"); ?></option>
                     <option value="audio" <?= inputGet('post_type', true) == 'audio' ? 'selected' : ''; ?>><?= trans("audio"); ?></option>
+                    <option value="trivia_quiz" <?= inputGet('post_type', true) == 'trivia_quiz' ? 'selected' : ''; ?>><?= trans("trivia_quiz"); ?></option>
+                    <option value="personality_quiz" <?= inputGet('post_type', true) == 'personality_quiz' ? 'selected' : ''; ?>><?= trans("personality_quiz"); ?></option>
+                    <option value="poll" <?= inputGet('post_type', true) == 'poll' ? 'selected' : ''; ?>><?= trans("poll"); ?></option>
                 </select>
             </div>
             <?php if (checkUserPermission('manage_all_posts')): ?>

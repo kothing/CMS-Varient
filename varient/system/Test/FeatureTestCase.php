@@ -18,7 +18,6 @@ use CodeIgniter\HTTP\URI;
 use CodeIgniter\HTTP\UserAgent;
 use CodeIgniter\Router\Exceptions\RedirectException;
 use CodeIgniter\Router\RouteCollection;
-use Config\App;
 use Config\Services;
 use Exception;
 use ReflectionException;
@@ -149,9 +148,6 @@ class FeatureTestCase extends CIUnitTestCase
      * instance that can be used to run many assertions against.
      *
      * @return FeatureResponse
-     *
-     * @throws Exception
-     * @throws RedirectException
      */
     public function call(string $method, string $path, ?array $params = null)
     {
@@ -174,12 +170,7 @@ class FeatureTestCase extends CIUnitTestCase
 
         // Initialize the RouteCollection
         if (! $routes = $this->routes) {
-            require APPPATH . 'Config/Routes.php';
-
-            /**
-             * @var RouteCollection $routes
-             */
-            $routes->getRoutes('*');
+            $routes = Services::routes()->loadRoutes();
         }
 
         $routes->setHTTPVerb($method);
@@ -300,7 +291,7 @@ class FeatureTestCase extends CIUnitTestCase
      */
     protected function setupRequest(string $method, ?string $path = null): IncomingRequest
     {
-        $config = config(App::class);
+        $config = config('App');
         $uri    = new URI(rtrim($config->baseURL, '/') . '/' . trim($path, '/ '));
 
         $request      = new IncomingRequest($config, clone $uri, null, new UserAgent());

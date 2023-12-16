@@ -10,6 +10,10 @@ use Config\Globals;
 
 class CommonController extends Controller
 {
+    protected $session;
+    protected $generalSettings;
+    protected $settings;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -88,7 +92,7 @@ class CommonController extends Controller
         if ($fileType == 'file') {
             $row = $fileModel->getFile($id);
             if (!empty($row)) {
-                $path = FCPATH . $row->file_path;
+                $path = $row->file_path;
                 $name = $row->file_name;
                 $storage = $row->storage;
             }
@@ -96,7 +100,7 @@ class CommonController extends Controller
         if ($fileType == 'audio') {
             $row = $fileModel->getAudio($id);
             if (!empty($row)) {
-                $path = FCPATH . $row->audio_path;
+                $path = $row->audio_path;
                 $name = $row->audio_name;
                 $storage = $row->storage;
             }
@@ -112,8 +116,9 @@ class CommonController extends Controller
         $response = \Config\Services::response();
         if ($storage == 'aws_s3') {
             $awsModel = new AwsModel();
-            $awsModel->downloadFile($path);
+            $awsModel->downloadFile($name, $path);
         } else {
+            $path = FCPATH . $path;
             if (file_exists($path)) {
                 if (!empty($name)) {
                     return $this->response->download($path, null)->setFileName($name);

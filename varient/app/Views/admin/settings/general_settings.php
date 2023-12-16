@@ -193,6 +193,11 @@ endif; ?>
                             <label class="control-label">Youtube <?= trans('url'); ?></label>
                             <input type="text" class="form-control" name="youtube_url" placeholder="Youtube <?= trans('url'); ?>" value="<?= esc($settings->youtube_url); ?>">
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label">TikTok <?= trans('url'); ?></label>
+                            <input type="text" class="form-control" name="tiktok_url" placeholder="TikTok <?= trans('url'); ?>" value="<?= esc($settings->tiktok_url); ?>">
+                        </div>
                     </div>
 
                     <div class="tab-pane<?= $activeTab == '5' ? ' active' : ''; ?>" id="tab_5">

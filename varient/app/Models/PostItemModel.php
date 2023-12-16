@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class PostItemModel extends BaseModel
 {
+    protected $builderGalleryItems;
+    protected $builderSortedListItems;
+
     public function __construct()
     {
         parent::__construct();

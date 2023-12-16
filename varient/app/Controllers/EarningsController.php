@@ -6,6 +6,9 @@ use App\Models\RewardModel;
 
 class EarningsController extends BaseController
 {
+    protected $rewardModel;
+    protected $perPage;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -30,7 +33,6 @@ class EarningsController extends BaseController
         $data['description'] = trans("earnings") . ' - ' . $this->settings->site_title;
         $data['keywords'] = trans("earnings") . ', ' . $this->settings->application_name;
         $data['activeTab'] = 'earnings';
-
         $data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
         $data['pageViewsCounts'] = $this->rewardModel->getPageViewsCountByDate(user()->id);
         $data['numberOfDays'] = date('t');
@@ -53,7 +55,6 @@ class EarningsController extends BaseController
         $data['description'] = trans("payouts") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("payouts") . ', ' . $this->settings->application_name;
         $data['activeTab'] = 'payouts';
-
         $data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
         $data['numRows'] = $this->rewardModel->geUserPayoutsCount(user()->id);
         $pager = paginate($this->perPage, $data['numRows']);
@@ -73,7 +74,6 @@ class EarningsController extends BaseController
         $data['description'] = trans("set_payout_account") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("set_payout_account") . "," . $this->settings->application_name;
         $data['activeTab'] = 'setPayoutAccount';
-
         $data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
         $data['userPayout'] = $this->rewardModel->getUserPayoutAccount(user()->id);
         $data['selectedPayout'] = inputGet('payout');

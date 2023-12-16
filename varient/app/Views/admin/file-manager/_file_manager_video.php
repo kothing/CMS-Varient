@@ -80,7 +80,7 @@
             extraData: function (id) {
                 return {
                     "file_id": id,
-                    '<?= csrf_token() ?>': getCsrfHash()
+                    '<?= csrf_token() ?>': '<?= csrf_hash(); ?>'
                 };
             },
             onDragEnter: function () {

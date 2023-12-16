@@ -12,7 +12,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= trans('users'); ?></h3>
+                <h3 class="box-title"><?= trans('users'); ?>&nbsp;(<?= countItems($users); ?>)</h3>
             </div>
             <form action="<?= adminUrl('newsletter-send-email'); ?>" method="post">
                 <?= csrf_field(); ?>
@@ -52,7 +52,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= trans('subscribers'); ?></h3>
+                <h3 class="box-title"><?= trans('subscribers'); ?>&nbsp;(<?= countItems($subscribers); ?>)</h3>
             </div>
             <form action="<?= adminUrl('newsletter-send-email'); ?>" method="post">
                 <?= csrf_field(); ?>
@@ -107,11 +107,11 @@
                                 <label><?= trans('status'); ?></label>
                             </div>
                             <div class="col-sm-4 col-xs-12 col-option">
-                                <input type="radio" name="newsletter_status" value="1" id="newsletter_status_1" class="square-purple" <?= $generalSettings->newsletter_status == '1' ? 'checked' : ''; ?>>
+                                <input type="radio" name="newsletter_status" value="1" id="newsletter_status_1" class="square-purple" <?= $generalSettings->newsletter_status == 1 ? 'checked' : ''; ?>>
                                 <label for="newsletter_status_1" class="option-label"><?= trans('enable'); ?></label>
                             </div>
                             <div class="col-sm-4 col-xs-12 col-option">
-                                <input type="radio" name="newsletter_status" value="0" id="newsletter_status_2" class="square-purple" <?= $generalSettings->newsletter_status == '0' ? 'checked' : ''; ?>>
+                                <input type="radio" name="newsletter_status" value="0" id="newsletter_status_2" class="square-purple" <?= $generalSettings->newsletter_status != 1 ? 'checked' : ''; ?>>
                                 <label for="newsletter_status_2" class="option-label"><?= trans('disable'); ?></label>
                             </div>
                         </div>
@@ -122,11 +122,11 @@
                                 <label><?= trans('newsletter_popup'); ?></label>
                             </div>
                             <div class="col-sm-4 col-xs-12 col-option">
-                                <input type="radio" name="newsletter_popup" value="1" id="newsletter_popup_1" class="square-purple" <?= $generalSettings->newsletter_popup == '1' ? 'checked' : ''; ?>>
+                                <input type="radio" name="newsletter_popup" value="1" id="newsletter_popup_1" class="square-purple" <?= $generalSettings->newsletter_popup == 1 ? 'checked' : ''; ?>>
                                 <label for="newsletter_popup_1" class="option-label"><?= trans('enable'); ?></label>
                             </div>
                             <div class="col-sm-4 col-xs-12 col-option">
-                                <input type="radio" name="newsletter_popup" value="0" id="newsletter_popup_2" class="square-purple" <?= $generalSettings->newsletter_popup == '0' ? 'checked' : ''; ?>>
+                                <input type="radio" name="newsletter_popup" value="0" id="newsletter_popup_2" class="square-purple" <?= $generalSettings->newsletter_popup != 1 ? 'checked' : ''; ?>>
                                 <label for="newsletter_popup_2" class="option-label"><?= trans('disable'); ?></label>
                             </div>
                         </div>

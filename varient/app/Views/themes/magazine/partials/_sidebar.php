@@ -7,7 +7,7 @@
                     if ($i == 1) {
                         echo loadView('partials/_ad_spaces', ['adSpace' => 'sidebar_1', 'class' => 'mb-5']);
                     }
-                    echo loadView('partials/_load_widget', ['widgetKey' => $widget->type]);
+                    echo loadView('partials/_load_widget', ['widget' => $widget]);
                     $i++;
                 endforeach;
             endif;

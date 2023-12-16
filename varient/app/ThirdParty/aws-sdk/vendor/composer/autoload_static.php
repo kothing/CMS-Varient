@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit12742ed2a4f942b531af9519a04a4c52
+class ComposerStaticInit933ef8379ab505629687438075619659
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -49,8 +49,8 @@ class ComposerStaticInit12742ed2a4f942b531af9519a04a4c52
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -102,14 +102,15 @@ class ComposerStaticInit12742ed2a4f942b531af9519a04a4c52
         'AWS\\CRT\\NativeResource' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/NativeResource.php',
         'AWS\\CRT\\OptionValue' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
         'AWS\\CRT\\Options' => __DIR__ . '/..' . '/aws/aws-crt-php/src/AWS/CRT/Options.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit12742ed2a4f942b531af9519a04a4c52::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit12742ed2a4f942b531af9519a04a4c52::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit12742ed2a4f942b531af9519a04a4c52::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit933ef8379ab505629687438075619659::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit933ef8379ab505629687438075619659::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit933ef8379ab505629687438075619659::$classMap;
 
         }, null, ClassLoader::class);
     }

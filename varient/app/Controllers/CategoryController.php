@@ -8,6 +8,8 @@ use App\Models\SettingsModel;
 
 class CategoryController extends BaseAdminController
 {
+    protected $categoryModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -47,9 +49,6 @@ class CategoryController extends BaseAdminController
         }
         $val = \Config\Services::validation();
         $val->setRule('name', trans("category_name"), 'required|max_length[200]');
-        if ($type == 'parent') {
-            $val->setRule('color', trans("category_color"), 'required|max_length[200]');
-        }
 
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
@@ -73,8 +72,16 @@ class CategoryController extends BaseAdminController
         checkPermission('categories');
         $data['title'] = trans("categories");
 
-        $data['categories'] = $this->categoryModel->getParentCategories();
-        $data['langSearchColumn'] = 2;
+        $numRows = $this->categoryModel->getCategoriesCount();
+        $pager = paginate($this->perPage, $numRows);
+        $data['categories'] = $this->categoryModel->getCategoriesPaginated($this->perPage, $pager->offset);
+
+        $langId = cleanNumber(inputGet('lang_id'));
+        if(!empty($langId)){
+            $data['parentCategories'] = $this->categoryModel->getParentCategoriesByLang($langId);
+        }else{
+            $data['parentCategories'] = $this->categoryModel->getParentCategories();
+        }
 
         echo view('admin/includes/_header', $data);
         echo view('admin/category/categories', $data);
@@ -88,7 +95,6 @@ class CategoryController extends BaseAdminController
     {
         checkPermission('categories');
         $data['title'] = trans("update_category");
-
         $data['category'] = $this->categoryModel->getCategory($id);
         if (empty($data['category'])) {
             return redirect()->to(adminUrl('categories'));
@@ -108,15 +114,8 @@ class CategoryController extends BaseAdminController
     public function editCategoryPost()
     {
         checkPermission('categories');
-        $type = inputPost('type');
-        if (empty($type) || $type != 'sub') {
-            $type = 'parent';
-        }
         $val = \Config\Services::validation();
         $val->setRule('name', trans("category_name"), 'required|max_length[200]');
-        if ($type == 'parent') {
-            $val->setRule('color', trans("category_color"), 'required|max_length[200]');
-        }
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
             redirectToBackURL();
@@ -140,7 +139,6 @@ class CategoryController extends BaseAdminController
         checkPermission('categories');
         $data['title'] = trans("subcategories");
         $data['categories'] = $this->categoryModel->getSubCategories();
-
         $data['parentCategories'] = $this->categoryModel->getParentCategoriesByLang($this->activeLang->id);
         $data['langSearchColumn'] = 2;
 

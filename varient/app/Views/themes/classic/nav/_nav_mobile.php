@@ -14,7 +14,7 @@ if (checkUserPermission('add_post')): ?>
 <?php endif;
 else:
 if ($generalSettings->registration_system == 1): ?>
-<a href="javascript:void(0)" data-toggle="modal" data-target="#modal-login" class="btn btn-custom btn-mobile-nav close-menu-click btn_open_login_modal m-r-5"><i class="icon-login"></i><?= trans("login"); ?></a>
+<a href="javascript:void(0)" data-toggle="modal" data-target="#modalLogin" class="btn btn-custom btn-mobile-nav close-menu-click btn_open_login_modal m-r-5"><i class="icon-login"></i><?= trans("login"); ?></a>
 <a href="<?= generateURL('register'); ?>" class="btn btn-custom btn-mobile-nav"><i class="icon-user-plus-o"></i><?= trans("register"); ?></a>
 <?php endif;
 endif; ?>

@@ -23,22 +23,22 @@
 
                     <div class="form-group">
                         <label class="control-label"><?= trans('site_title'); ?></label>
-                        <input type="text" class="form-control" name="site_title" placeholder="<?= trans('site_title'); ?>" value="<?= esc($baseSettings->site_title); ?>">
+                        <input type="text" class="form-control" name="site_title" placeholder="<?= trans('site_title'); ?>" value="<?= esc($seoSettings->site_title); ?>">
                     </div>
 
                     <div class="form-group">
                         <label class="control-label"><?= trans('home_title'); ?></label>
-                        <input type="text" class="form-control" name="home_title" placeholder="<?= trans('home_title'); ?>" value="<?= esc($baseSettings->home_title); ?>">
+                        <input type="text" class="form-control" name="home_title" placeholder="<?= trans('home_title'); ?>" value="<?= esc($seoSettings->home_title); ?>">
                     </div>
 
                     <div class="form-group">
                         <label class="control-label"><?= trans('site_description'); ?></label>
-                        <input type="text" class="form-control" name="site_description" placeholder="<?= trans('site_description'); ?>" value="<?= esc($baseSettings->site_description); ?>">
+                        <input type="text" class="form-control" name="site_description" placeholder="<?= trans('site_description'); ?>" value="<?= esc($seoSettings->site_description); ?>">
                     </div>
 
                     <div class="form-group">
                         <label class="control-label"><?= trans('keywords'); ?></label>
-                        <textarea class="form-control text-area" name="keywords" placeholder="<?= trans('keywords'); ?>" style="min-height: 70px;"><?= esc($baseSettings->keywords); ?></textarea>
+                        <textarea class="form-control text-area" name="keywords" placeholder="<?= trans('keywords'); ?>" style="min-height: 70px;"><?= esc($seoSettings->keywords); ?></textarea>
                     </div>
 
                     <div class="box-footer" style="padding-left: 0; padding-right: 0;">

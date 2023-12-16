@@ -8,12 +8,6 @@ $languages = Globals::$languages;
 $generalSettings = Globals::$generalSettings;
 $customRoutes = Globals::$customRoutes;
 
-// Load the system's routing file first, so that the app and ENVIRONMENT
-// can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
-    require SYSTEMPATH . 'Config/Routes.php';
-}
-
 /*
  * --------------------------------------------------------------------
  * Router Setup
@@ -25,6 +19,11 @@ $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
+// The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
+// where controller filters or CSRF protection are bypassed.
+// If you don't want to define all routes, please use the Auto Routing (Improved).
+// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
+// $routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -43,6 +42,7 @@ $routes->get('connect-with-facebook', 'AuthController::connectWithFacebook');
 $routes->get('facebook-callback', 'AuthController::facebookCallback');
 $routes->get('connect-with-google', 'AuthController::connectWithGoogle');
 $routes->get('connect-with-vk', 'AuthController::connectWithVK');
+$routes->get('gnews/feed', 'HomeController::googleNewsFeeds');
 
 /*
  * --------------------------------------------------------------------
@@ -67,7 +67,7 @@ $routes->post('set-swift-payout-account-post', 'EarningsController::setSwiftPayo
 $routes->post('add-newsletter-post', 'AjaxController::addNewsletterPost');
 $routes->post('close-cookies-warning-post', 'AjaxController::closeCookiesWarningPost');
 
-/*
+/*f
  * --------------------------------------------------------------------
  * ADMIN ROUTES
  * --------------------------------------------------------------------
@@ -104,7 +104,6 @@ $routes->get($customRoutes->admin . '/edit-feed/(:num)', 'RssController::editFee
 $routes->get($customRoutes->admin . '/add-category', 'CategoryController::addCategory');
 $routes->get($customRoutes->admin . '/categories', 'CategoryController::categories');
 $routes->get($customRoutes->admin . '/edit-category/(:num)', 'CategoryController::editCategory/$1');
-$routes->get($customRoutes->admin . '/subcategories', 'CategoryController::subCategories');
 //widgets
 $routes->get($customRoutes->admin . '/widgets', 'AdminController::widgets');
 $routes->get($customRoutes->admin . '/add-widget', 'AdminController::addWidget');
@@ -151,6 +150,8 @@ $routes->get($customRoutes->admin . '/seo-tools', 'AdminController::seoTools');
 $routes->get($customRoutes->admin . '/storage', 'AdminController::storage');
 //cache system
 $routes->get($customRoutes->admin . '/cache-system', 'AdminController::cacheSystem');
+//google news
+$routes->get($customRoutes->admin . '/google-news', 'AdminController::googleNews');
 //settings
 $routes->get($customRoutes->admin . '/preferences', 'AdminController::preferences');
 $routes->get($customRoutes->admin . '/route-settings', 'AdminController::routeSettings');
@@ -202,16 +203,26 @@ if (!empty($languages)) {
         $routes->get($key . 'reset-password', 'AuthController::resetPassword');
         $routes->get($key . 'confirm-email', 'AuthController::confirmEmail');
         if ($generalSettings->site_lang != $language->id) {
-            $routes->get($key . '(:any)/(:num)', 'HomeController::galleryPost/$1/$2');
             $routes->get($key . '(:any)/(:any)', 'HomeController::subCategory/$1/$2');
             $routes->get($key . '(:any)', 'HomeController::any/$1');
         }
     }
 }
 
-$routes->get('(:any)/(:num)', 'HomeController::galleryPost/$1/$2');
-$routes->get('(:any)/(:any)', 'HomeController::subCategory/$1/$2');
-$routes->get('(:any)', 'HomeController::any/$1');
+$enableAny = true;
+$uri = $_SERVER['REQUEST_URI'];
+$controllers = ['Admin', 'Ajax', 'Auth', 'Category', 'Common', 'Cron', 'Earnings', 'File', 'Gallery', 'Home', 'Language', 'Post', 'Profile', 'Reward', 'Rss'];
+foreach ($controllers as $controller) {
+    $controller = '/' . $controller . 'Controller/';
+    if (strpos($uri, $controller) !== false) {
+        $enableAny = false;
+    }
+}
+if ($enableAny) {
+    $routes->get('(:any)/(:any)', 'HomeController::subCategory/$1/$2');
+    $routes->get('(:any)', 'HomeController::any/$1');
+}
+
 
 /*
  * --------------------------------------------------------------------
@@ -226,6 +237,6 @@ $routes->get('(:any)', 'HomeController::any/$1');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

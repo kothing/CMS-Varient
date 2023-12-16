@@ -36,8 +36,9 @@
                         <label><?= trans("role"); ?></label>
                         <select name="role" class="form-control">
                             <?php if (!empty($roles)):
-                                foreach ($roles as $role): ?>
-                                    <option value="<?= $role->role; ?>"><?= esc($role->role_name); ?></option>
+                                foreach ($roles as $role):
+                                    $roleName = parseSerializedNameArray($role->role_name, $activeLang->id); ?>
+                                    <option value="<?= $role->role; ?>"><?= esc($roleName); ?></option>
                                 <?php endforeach;
                             endif; ?>
                         </select>

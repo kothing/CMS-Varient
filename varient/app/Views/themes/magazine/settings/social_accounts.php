@@ -51,6 +51,14 @@
                                 <label class="form-label">Youtube <?= trans('url'); ?></label>
                                 <input type="text" class="form-control form-input" name="youtube_url" placeholder="Youtube <?= trans('url'); ?>" value="<?= esc(user()->youtube_url); ?>">
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">TikTok <?= trans('url'); ?></label>
+                                <input type="text" class="form-control form-input" name="tiktok_url" placeholder="TikTok <?= trans('url'); ?>" value="<?= esc(user()->tiktok_url); ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><?= trans('personal_website_url'); ?></label>
+                                <input type="text" class="form-control form-input" name="personal_website_url" placeholder="<?= trans('personal_website_url'); ?>" value="<?= esc(user()->personal_website_url); ?>">
+                            </div>
                             <button type="submit" class="btn btn-md btn-custom"><?= trans("save_changes") ?></button>
                         </form>
                     </div>

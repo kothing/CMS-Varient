@@ -14,6 +14,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Config\Globals;
 use Psr\Log\LoggerInterface;
 
+
 /**
  * Class BaseController
  *
@@ -24,7 +25,7 @@ use Psr\Log\LoggerInterface;
  *
  * For security be sure to declare any new methods as protected or private.
  */
-class BaseAdminController extends Controller
+abstract class BaseAdminController extends Controller
 {
     /**
      * Instance of the main Request object.
@@ -43,6 +44,21 @@ class BaseAdminController extends Controller
     protected $helpers = [
         'text', 'cookie', 'security'
     ];
+
+    public $session;
+    public $generalSettings;
+    public $settings;
+    public $activeLanguages;
+    public $activeTheme;
+    public $activeLang;
+    public $categories;
+    public $perPage;
+
+    /**
+     * Be sure to declare properties for any property fetch you initialized.
+     * The creation of dynamic property is deprecated in PHP 8.2.
+     */
+    // protected $session;
 
     /**
      * Constructor.

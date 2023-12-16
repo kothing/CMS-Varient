@@ -24,7 +24,7 @@ use Psr\Log\LoggerInterface;
  *
  * For security be sure to declare any new methods as protected or private.
  */
-class BaseController extends Controller
+abstract class BaseController extends Controller
 {
     /**
      * Instance of the main Request object.
@@ -41,8 +41,31 @@ class BaseController extends Controller
      * @var array
      */
     protected $helpers = [
-        'text', 'cookie', 'security'
+        'text', 'cookie', 'security', 'xml'
     ];
+
+    public $session;
+    public $settingsModel;
+    public $commonModel;
+    public $postModel;
+    public $generalSettings;
+    public $settings;
+    public $activeLanguages;
+    public $activeLang;
+    public $activeFonts;
+    public $activeTheme;
+    public $rtl;
+    public $darkMode;
+    public $widgets;
+    public $categories;
+    public $latestCategoryPosts;
+    public $adSpaces;
+
+    /**
+     * Be sure to declare properties for any property fetch you initialized.
+     * The creation of dynamic property is deprecated in PHP 8.2.
+     */
+    // protected $session;
 
     /**
      * Constructor.
@@ -90,14 +113,7 @@ class BaseController extends Controller
         if ($this->activeLang->text_direction == 'rtl') {
             $this->rtl = true;
         }
-        $this->darkMode = 0;
-        $mode = $this->generalSettings->theme_mode;
-        if (!empty(helperGetCookie('theme_mode'))) {
-            $mode = helperGetCookie('theme_mode');
-        }
-        if ($mode == 'dark') {
-            $this->darkMode = 1;
-        }
+        $this->darkMode = Globals::$darkMode;
 
         //menu links
         $menuLinks = getCachedData('menu_links');

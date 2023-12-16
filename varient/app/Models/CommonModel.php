@@ -4,6 +4,10 @@ use CodeIgniter\Model;
 
 class CommonModel extends BaseModel
 {
+    protected $builderContact;
+    protected $builderComments;
+    protected $builderAds;
+
     public function __construct()
     {
         parent::__construct();
@@ -314,8 +318,7 @@ class CommonModel extends BaseModel
             'desktop_height' => 90,
             'ad_code_mobile' => '',
             'mobile_width' => 300,
-            'mobile_height' => 250,
-            'mobile_width' => 300,
+            'mobile_height' => 250
         ];
         if ($adSpace == 'sidebar_1' || $adSpace == 'sidebar_2') {
             $data['desktop_width'] = 336;

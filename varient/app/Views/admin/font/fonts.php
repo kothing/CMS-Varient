@@ -149,10 +149,3 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-9">
-        <div class="alert alert-info alert-large m-t-10">
-            <strong><?= trans("warning"); ?>!</strong>&nbsp;&nbsp;<?= trans("font_warning"); ?>
-        </div>
-    </div>
-</div>

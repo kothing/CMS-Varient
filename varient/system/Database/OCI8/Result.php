@@ -13,9 +13,12 @@ namespace CodeIgniter\Database\OCI8;
 
 use CodeIgniter\Database\BaseResult;
 use CodeIgniter\Entity\Entity;
+use stdClass;
 
 /**
  * Result for OCI8
+ *
+ * @extends BaseResult<resource, resource>
  */
 class Result extends BaseResult
 {
@@ -78,7 +81,7 @@ class Result extends BaseResult
      *
      * Overridden by driver classes.
      *
-     * @return mixed
+     * @return array|false
      */
     protected function fetchAssoc()
     {
@@ -90,7 +93,7 @@ class Result extends BaseResult
      *
      * Overridden by child classes.
      *
-     * @return bool|Entity|object
+     * @return Entity|false|object|stdClass
      */
     protected function fetchObject(string $className = 'stdClass')
     {

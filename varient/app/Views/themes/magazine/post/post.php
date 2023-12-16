@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item active"> <?= esc(characterLimiter($post->title, 160, '...')); ?></li>
                 </ol>
             </nav>
-            <div class="<?php echo ($post->show_right_column == 1) ? 'col-sm-8' : 'col-sm-12'; ?> col-xs-12">
+            <div class="col-md-12 col-lg-8">
                 <div class="post-content">
                     <div class="d-flex justify-content-center align-items-center mb-3">
                         <div class="bd-highlight">
@@ -87,6 +87,8 @@
                         echo loadView('post/details/_sorted_list', ['post' => $post]);
                     elseif ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz'):
                         echo loadView('post/details/_quiz', ['post' => $post]);
+                    elseif ($post->post_type == 'poll'):
+                        echo loadView('post/details/_poll', ['post' => $post]);
                     else:
                         echo loadView('post/details/_article', ['post' => $post]);
                     endif;
@@ -197,38 +199,20 @@
                             </div>
                             <div class="flex-grow-1 ms-3">
                                 <strong class="username"><a href="<?= generateProfileURL($postUser->slug); ?>"> <?= esc($postUser->username); ?> </a></strong>
-                                <?= esc($postUser->about_me); ?>
-                                <div class="social">
-                                    <ul class="profile-social-links">
-                                        <?php if (!empty($postUser->facebook_url)): ?>
-                                            <li><a href="<?= esc($postUser->facebook_url); ?>" target="_blank"><i class="icon-facebook"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->twitter_url)): ?>
-                                            <li><a href="<?= esc($postUser->twitter_url); ?>" target="_blank"><i class="icon-twitter"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->instagram_url)): ?>
-                                            <li><a href="<?= esc($postUser->instagram_url); ?>" target="_blank"><i class="icon-instagram"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->pinterest_url)): ?>
-                                            <li><a href="<?= esc($postUser->pinterest_url); ?>" target="_blank"><i class="icon-pinterest"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->linkedin_url)): ?>
-                                            <li><a href="<?= esc($postUser->linkedin_url); ?>" target="_blank"><i class="icon-linkedin"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->vk_url)): ?>
-                                            <li><a href="<?= esc($postUser->vk_url); ?>" target="_blank"><i class="icon-vk"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->telegram_url)): ?>
-                                            <li><a href="<?= esc($postUser->telegram_url); ?>" target="_blank"><i class="icon-telegram"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($postUser->youtube_url)): ?>
-                                            <li><a href="<?= esc($postUser->youtube_url); ?>" target="_blank"><i class="icon-youtube"></i></a></li>
-                                        <?php endif;
-                                        if ($postUser->show_rss_feeds): ?>
-                                            <li><a href="<?= langBaseUrl('rss/author/' . $postUser->slug); ?>"><i class="icon-rss"></i></a></li>
-                                        <?php endif; ?>
-                                    </ul>
-                                </div>
+                                <?= esc($postUser->about_me);
+                                $socialLinks = getSocialLinksArray($postUser, true);
+                                if (!empty($socialLinks)):?>
+                                    <div class="social">
+                                        <ul class="profile-social-links">
+                                            <?php foreach ($socialLinks as $socialLink): ?>
+                                                <li><a href="<?= $socialLink['url']; ?>" target="_blank"><i class="icon-<?= esc($socialLink['key']); ?>"></i></a></li>
+                                            <?php endforeach;
+                                            if ($postUser->show_rss_feeds): ?>
+                                                <li><a href="<?= langBaseUrl('rss/author/' . $postUser->slug); ?>"><i class="icon-rss"></i></a></li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endif;
@@ -249,14 +233,14 @@
                                                 if ($i < 3):?>
                                                     <div class="col-sm-12 col-md-6 col-lg-4">
                                                         <div class="post-item<?= checkPostImg($item, 'class'); ?>">
-                                                            <?php /* if (checkPostImg($item)): */ ?>
+                                                            <?php if (checkPostImg($item)): ?>
                                                                 <div class="image ratio">
                                                                     <a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>>
                                                                         <img src="<?= IMG_BASE64_450x280; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="269" height="160"/>
                                                                         <?php getMediaIcon($item, 'media-icon'); ?>
                                                                     </a>
                                                                 </div>
-                                                            <?php /* endif; */ ?>
+                                                            <?php endif; ?>
                                                             <h3 class="title fsize-16"><a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($this, $item); ?>><?= esc(characterLimiter($item->title, 55, '...')); ?></a></h3>
                                                             <p class="small-post-meta"><?= loadView('post/_post_meta', ['postItem' => $item]); ?></p>
                                                         </div>
@@ -304,11 +288,9 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <?php if ($post->show_right_column == 1): ?>
-                <div class="col-md-12 col-lg-4">
-                    <?= loadView('partials/_sidebar'); ?>
-                </div>
-            <?php endif; ?>
+            <div class="col-md-12 col-lg-4">
+                <?= loadView('partials/_sidebar'); ?>
+            </div>
         </div>
     </div>
 </section>

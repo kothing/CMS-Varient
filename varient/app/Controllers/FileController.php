@@ -6,6 +6,8 @@ use App\Models\FileModel;
 
 class FileController extends BaseAdminController
 {
+    protected $fileModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);

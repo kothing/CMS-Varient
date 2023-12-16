@@ -27,10 +27,10 @@
             </div>
             <div class="gallery-post-buttons">
                 <?php if ($pageNumber != 1): ?>
-                    <a href="<?= generatePostURL($post); ?>/<?= $pageNumber - 1; ?>" class="btn btn-custom btn-md pull-left"><i class="icon-arrow-left"></i> <?= trans("previous"); ?></a>
+                    <a href="<?= generatePostURL($post); ?>?p=<?= $pageNumber - 1; ?>" class="btn btn-custom btn-md pull-left"><i class="icon-arrow-left"></i> <?= trans("previous"); ?></a>
                 <?php endif;
                 if ($pageNumber < $galleryPostNumRows): ?>
-                    <a href="<?= generatePostURL($post); ?>/<?= $pageNumber + 1; ?>" class="btn btn-custom btn-md pull-right"><?= trans("next"); ?>&nbsp;<i class="icon-arrow-right"></i></a>
+                    <a href="<?= generatePostURL($post); ?>?p=<?= $pageNumber + 1; ?>" class="btn btn-custom btn-md pull-right"><?= trans("next"); ?>&nbsp;<i class="icon-arrow-right"></i></a>
                 <?php endif; ?>
             </div>
         </div>

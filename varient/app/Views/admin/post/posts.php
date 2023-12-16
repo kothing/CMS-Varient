@@ -13,23 +13,6 @@
                 <i class="fa fa-plus"></i>
                 <?= trans('add_post'); ?>
             </a>
-            <?php if (checkUserPermission('manage_all_posts')): ?>
-                <a href="<?= adminUrl('posts'); ?>" class="btn btn-default<?php isAdminNavActive(['posts']); ?> display-inline-block m-r-15">
-                    <?= trans("all_posts"); ?>
-                </a>
-                <a href="<?= adminUrl('recommended-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['recommended-posts']); ?> display-inline-block m-r-15">
-                    <?= trans("recommended_posts"); ?>
-                </a>
-                <a href="<?= adminUrl('breaking-news'); ?>" class="btn btn-default<?php isAdminNavActive(['breaking-news']); ?> display-inline-block m-r-15">
-                    <?= trans("breaking_news"); ?>
-                </a>
-                <a href="<?= adminUrl('featured-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['featured-posts']); ?> display-inline-block m-r-15">
-                    <?= trans("featured_posts"); ?>
-                </a>
-                <a href="<?= adminUrl('slider-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['slider-posts']); ?> display-inline-block m-r-15">
-                    <?= trans("slider_posts"); ?>
-                </a>
-            <?php endif; ?>
         </div>
     </div>
     <div class="box-body">
@@ -45,7 +28,6 @@
                             <?php endif; ?>
                             <th width="20"><?= trans('id'); ?></th>
                             <th><?= trans('post'); ?></th>
-                            <th><?= trans('preview'); ?></th>
                             <th><?= trans('language'); ?></th>
                             <th><?= trans('post_type'); ?></th>
                             <th><?= trans('category'); ?></th>
@@ -80,7 +62,7 @@
                                                 </a>
                                             </div>
                                             <div class="post-title">
-                                                <a href="<?= adminUrl('edit-post/' . $item->id); ?>">
+                                                <a href="<?= generatePostURL($item, generateBaseURLByLang($language)); ?>" target="_blank">
                                                     <?= esc($item->title); ?>
                                                 </a>
                                                 <div class="preview">
@@ -102,11 +84,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <a href="<?= generatePostURL($item, generateBaseURLByLang($language)); ?>" target="_blank">
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
                                     </td>
                                     <td> <?= !empty($language) ? esc($language->name) : ''; ?></td>
                                     <td class="td-post-type"><?= trans($item->post_type); ?></td>
@@ -131,18 +108,18 @@
                                         <?php endif; ?>
                                     </td>
                                     <?php if ($listType == "slider_posts"): ?>
-                                        <td style="max-width: 100px;">
+                                        <td style="max-width: 150px;">
                                             <input type="number" class="form-control input-slider-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->slider_order); ?>">
                                         </td>
                                     <?php endif;
                                     if ($listType == "featured_posts"): ?>
-                                        <td style="max-width: 100px;">
+                                        <td style="max-width: 150px;">
                                             <input type="number" class="form-control input-featured-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->featured_order); ?>">
                                         </td>
                                     <?php endif; ?>
                                     <td><?= $item->pageviews; ?></td>
                                     <td><?= $item->created_at; ?></td>
-                                    <td style="width: 100px;">
+                                    <td style="width: 180px;">
                                         <form action="<?= base_url('PostController/postOptionsPost'); ?>" method="post">
                                             <?= csrf_field(); ?>
                                             <input type="hidden" name="id" value="<?= $item->id; ?>">

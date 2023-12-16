@@ -173,6 +173,7 @@ if (!function_exists('redirectToUrl')) {
     function redirectToUrl($url)
     {
         header('Location: ' . $url);
+        exit();
     }
 }
 
@@ -263,7 +264,7 @@ if (!function_exists('checkAdmin')) {
     function checkAdmin()
     {
         if (!isAdmin()) {
-            return redirect()->to(langBaseUrl());
+            redirectToUrl(langBaseUrl());
         }
     }
 }
@@ -659,7 +660,8 @@ if (!function_exists('strSlug')) {
     {
         $str = strTrim($str);
         if (!empty($str)) {
-            return url_title(convert_accented_characters($str), "-", TRUE);
+            $str = @convert_accented_characters($str);
+            return url_title($str, '-', TRUE);
         }
     }
 }
@@ -836,19 +838,17 @@ if (!function_exists('helperSetCookie')) {
         if ($time == null) {
             $time = time() + (86400 * 30);
         }
-        if (empty($params)) {
-            $config = config('App');
-            $params = array(
-                'expires' => $time,
-                'path' => $config->cookiePath,
-                'domain' => $config->cookieDomain,
-                'secure' => $config->cookieSecure,
-                'httponly' => $config->cookieHTTPOnly,
-                'samesite' => $config->cookieSameSite,
-            );
-        }
+        $config = config('App');
+        $params = [
+            'expires' => $time,
+            'path' => $config->cookiePath,
+            'domain' => $config->cookieDomain,
+            'secure' => $config->cookieSecure,
+            'httponly' => $config->cookieHTTPOnly,
+            'samesite' => $config->cookieSameSite,
+        ];
         if (!empty(getenv('cookie.prefix'))) {
-            $name = getenv('cookie.prefix') . '_' . $name;
+            $name = getenv('cookie.prefix') . $name;
         }
         setcookie($name, $value, $params);
     }
@@ -859,7 +859,7 @@ if (!function_exists('helperGetCookie')) {
     function helperGetCookie($name)
     {
         if (!empty(getenv('cookie.prefix'))) {
-            $name = getenv('cookie.prefix') . '_' . $name;
+            $name = getenv('cookie.prefix') . $name;
         }
         if (isset($_COOKIE[$name])) {
             return $_COOKIE[$name];
@@ -872,6 +872,9 @@ if (!function_exists('helperGetCookie')) {
 if (!function_exists('helperDeleteCookie')) {
     function helperDeleteCookie($name)
     {
+        if (!empty(getenv('cookie.prefix'))) {
+            $name = getenv('cookie.prefix') . $name;
+        }
         if (!empty(helperGetCookie($name))) {
             helperSetCookie($name, '', time() - 3600);
         }
@@ -912,11 +915,14 @@ if (!function_exists('deleteSession')) {
 
 //generate unique id
 if (!function_exists('generateToken')) {
-    function generateToken()
+    function generateToken($short = false)
     {
-        $id = uniqid("", TRUE);
-        $id = strReplace(".", "-", $id);
-        return $id . "-" . rand(10000000, 99999999);
+        $token = uniqid('', TRUE);
+        $token = strReplace('.', '-', $token);
+        if ($short == false) {
+            $token = $token . '-' . rand(10000000, 99999999);
+        }
+        return $token;
     }
 }
 
@@ -962,9 +968,9 @@ if (!function_exists('getSegmentValue')) {
 
 //check admin nav
 if (!function_exists('isAdminNavActive')) {
-    function isAdminNavActive($arrayNavItems, $l = 2)
+    function isAdminNavActive($arrayNavItems)
     {
-        $segment = getSegmentValue($l);
+        $segment = getSegmentValue(2);
         if (!empty($segment) && !empty($arrayNavItems)) {
             if (in_array($segment, $arrayNavItems)) {
                 echo ' ' . 'active';
@@ -1057,6 +1063,9 @@ if (!function_exists('reCaptcha')) {
             loadLibrary('reCAPTCHA');
             $reCAPTCHA = new reCAPTCHA($generalSettings->recaptcha_site_key, $generalSettings->recaptcha_secret_key);
             $reCAPTCHA->setLanguage(Globals::$activeLang->short_form);
+            if (Globals::$darkMode) {
+                $reCAPTCHA->setTheme('dark');
+            }
             if ($action == "generate") {
                 echo $reCAPTCHA->getScript();
                 echo $reCAPTCHA->getHtml();
@@ -1222,15 +1231,17 @@ if (!function_exists('timeAgo')) {
 if (!function_exists('paginate')) {
     function paginate($perPage, $total)
     {
-        $page = @intval(inputGet('page'));
+        $page = @intval(inputGet('page') ?? '');
         if (empty($page) || $page < 1) {
             $page = 1;
         }
         $pager = \Config\Services::pager();
         $pager->makeLinks($page, $perPage, $total);
-        $pager->page = $page;
-        $pager->offset = ($page - 1) * $perPage;
-        return $pager;
+        $pageObject = new stdClass();
+        $pageObject->currentPage = $pager->getCurrentPage();
+        $pageObject->page = $page;
+        $pageObject->offset = ($page - 1) * $perPage;
+        return $pageObject;
     }
 }
 
@@ -1322,33 +1333,41 @@ if (!function_exists('calculateTotalVotePollOption')) {
 
 //get social links array
 if (!function_exists('getSocialLinksArray')) {
-    function getSocialLinksArray()
+    function getSocialLinksArray($object = null, $showPersonalWebsite = false)
     {
-        $settings = Globals::$settings;
+        if ($object == null) {
+            $object = Globals::$settings;
+        }
         $array = array();
-        if (!empty($settings->facebook_url)) {
-            array_push($array, ['name' => 'facebook', 'url' => $settings->facebook_url]);
+        if (!empty($object->facebook_url)) {
+            array_push($array, ['key' => 'facebook', 'name' => 'Facebook', 'url' => $object->facebook_url]);
         }
-        if (!empty($settings->twitter_url)) {
-            array_push($array, ['name' => 'twitter', 'url' => $settings->twitter_url]);
+        if (!empty($object->twitter_url)) {
+            array_push($array, ['key' => 'twitter', 'name' => 'Twitter', 'url' => $object->twitter_url]);
         }
-        if (!empty($settings->pinterest_url)) {
-            array_push($array, ['name' => 'pinterest', 'url' => $settings->pinterest_url]);
+        if (!empty($object->pinterest_url)) {
+            array_push($array, ['key' => 'pinterest', 'name' => 'Pinterest', 'url' => $object->pinterest_url]);
         }
-        if (!empty($settings->instagram_url)) {
-            array_push($array, ['name' => 'instagram', 'url' => $settings->instagram_url]);
+        if (!empty($object->instagram_url)) {
+            array_push($array, ['key' => 'instagram', 'name' => 'Instagram', 'url' => $object->instagram_url]);
         }
-        if (!empty($settings->linkedin_url)) {
-            array_push($array, ['name' => 'linkedin', 'url' => $settings->linkedin_url]);
+        if (!empty($object->linkedin_url)) {
+            array_push($array, ['key' => 'linkedin', 'name' => 'Linkedin', 'url' => $object->linkedin_url]);
         }
-        if (!empty($settings->vk_url)) {
-            array_push($array, ['name' => 'vk', 'url' => $settings->vk_url]);
+        if (!empty($object->vk_url)) {
+            array_push($array, ['key' => 'vk', 'name' => 'VK', 'url' => $object->vk_url]);
         }
-        if (!empty($settings->telegram_url)) {
-            array_push($array, ['name' => 'telegram', 'url' => $settings->telegram_url]);
+        if (!empty($object->telegram_url)) {
+            array_push($array, ['key' => 'telegram', 'name' => 'Telegram', 'url' => $object->telegram_url]);
         }
-        if (!empty($settings->youtube_url)) {
-            array_push($array, ['name' => 'youtube', 'url' => $settings->youtube_url]);
+        if (!empty($object->youtube_url)) {
+            array_push($array, ['key' => 'youtube', 'name' => 'YouTube', 'url' => $object->youtube_url]);
+        }
+        if (!empty($object->tiktok_url)) {
+            array_push($array, ['key' => 'tiktok', 'name' => 'TikTok', 'url' => $object->tiktok_url]);
+        }
+        if ($showPersonalWebsite && !empty($object->personal_website_url)) {
+            array_push($array, ['key' => 'globe', 'name' => 'Website URL', 'url' => $object->personal_website_url]);
         }
         return $array;
     }
@@ -1481,7 +1500,7 @@ if (!function_exists('setCacheData')) {
         $key = $key . "_lang" . Globals::$activeLang->id;
         if (Globals::$generalSettings->cache_system == 1) {
             $cache = \Config\Services::cache();
-            cache()->save($key, $data, Globals::$generalSettings->cache_refresh_time);
+            cache()->save($key, $data, $generalSettings->cache_refresh_time);
         }
     }
 }
@@ -1696,9 +1715,6 @@ if (!function_exists('getPostImage')) {
                 } elseif ($imageSize == "small") {
                     $path = $post->image_small;
                 }
-                if(empty($path)) {
-                    $path = base_url("assets/img/default_image.svg");
-                }
                 if ($post->image_storage == 'aws_s3') {
                     $path = getAWSBaseURL() . $path;
                 } else {
@@ -1764,7 +1780,7 @@ if (!function_exists('checkPostImg')) {
             }
         }
         if ($isExist == false && $type == 'class') {
-            echo " post-item-no-image post-item-default-image";
+            echo " post-item-no-image";
         } else {
             if ($type != 'class') {
                 return $isExist;
@@ -1887,6 +1903,39 @@ if (!function_exists('getQuizQuestionAnswers')) {
     {
         $model = new \App\Models\QuizModel();
         return $model->getQuizQuestionAnswers($questionId);
+    }
+}
+
+//get poll question answer by user
+if (!function_exists('getPollQuestionAnswerByUser')) {
+    function getPollQuestionAnswerByUser($post, $userPollAnswers, $questionId)
+    {
+        if (!empty($userPollAnswers)) {
+            foreach ($userPollAnswers as $item) {
+                if ($item->question_id == $questionId) {
+                    return $item->answer_id;
+                }
+            }
+        }
+        if (!empty(getSession('pollAnswer' . $questionId))) {
+            return getSession('pollAnswer' . $questionId);
+        }
+        return null;
+    }
+}
+
+//calculate percentage
+if (!function_exists('calculatePercentage')) {
+    function calculatePercentage($sum, $value)
+    {
+        $percentage = 0;
+        if (!empty($sum) && !empty($value) && $sum > 0 && $value > 0) {
+            $percentage = ($value * 100) / $sum;
+            if (!empty($percentage)) {
+                $percentage = number_format($percentage, 1);
+            }
+        }
+        return $percentage;
     }
 }
 
@@ -2063,6 +2112,49 @@ if (!function_exists('getMediaIcon')) {
                 echo '<span class="' . $cls . '"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 160 160" fill="#ffffff"><path class="st0" d="M80,10c39,0,70,31,70,70s-31,70-70,70s-70-31-70-70S41,10,80,10z M80,0C36,0,0,36,0,80s36,80,80,80s80-36,80-80S124,0,80,0L80,0z"/><path d="M62.6,94.9c-2.5-1.7-5.8-2.8-9.4-2.8c-8,0-14.4,5.1-14.4,11.5c0,6.3,6.5,11.5,14.4,11.5s14.4-5.1,14.4-11.5v-35l36.7-5.8v26.5c-2.5-1.5-5.6-2.5-9-2.5c-8,0-14.4,5.1-14.4,11.5c0,6.3,6.5,11.5,14.4,11.5c8,0,14.4-5.1,14.4-11.5c0-0.4,0-0.9-0.1-1.3h0.1V40.2l-47.2,9.5V94.9z"/></svg></span>';
             }
         }
+    }
+}
+
+//unserialize data
+if (!function_exists('unserializeData')) {
+    function unserializeData($serializedData)
+    {
+        $data = @unserialize($serializedData);
+        if (empty($data) && preg_match('/^[aOs]:/', $serializedData)) {
+            $serializedData = preg_replace_callback('/s\:(\d+)\:\"(.*?)\";/s', function ($matches) {
+                return 's:' . strlen($matches[2]) . ':"' . $matches[2] . '";';
+            }, $serializedData);
+            $data = @unserialize($serializedData);
+        }
+        return $data;
+    }
+}
+
+//parse serialized name array
+if (!function_exists('parseSerializedNameArray')) {
+    function parseSerializedNameArray($nameArray, $langId, $getMainName = true)
+    {
+        if (!empty($nameArray)) {
+            $nameArray = unserializeData($nameArray);
+            if (!empty($nameArray)) {
+                foreach ($nameArray as $item) {
+                    if ($item['lang_id'] == $langId && !empty($item['name'])) {
+                        return esc($item['name']);
+                    }
+                }
+            }
+            //if not exist
+            if ($getMainName == true) {
+                if (!empty($nameArray)) {
+                    foreach ($nameArray as $item) {
+                        if ($item['lang_id'] == Globals::$defaultLang->id && !empty($item['name'])) {
+                            return esc($item['name']);
+                        }
+                    }
+                }
+            }
+        }
+        return '';
     }
 }
 

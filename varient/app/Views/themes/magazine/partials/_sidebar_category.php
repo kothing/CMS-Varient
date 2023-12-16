@@ -4,7 +4,7 @@
             <div class="col-12">
                 <?php if (!empty($objectWidgets->widgets)):
                     foreach ($objectWidgets->widgets as $widget):
-                        echo loadView('partials/_load_widget', ['widgetKey' => $widget->type]);
+                        echo loadView('partials/_load_widget', ['widget' => $widget]);
                     endforeach;
                 endif; ?>
             </div>

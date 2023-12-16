@@ -97,13 +97,15 @@ abstract class BaseCommand
      * Actually execute a command.
      *
      * @param array<int|string, string|null> $params
+     *
+     * @return int|void
      */
     abstract public function run(array $params);
 
     /**
      * Can be used by a command to run other commands.
      *
-     * @return mixed
+     * @return int|void
      *
      * @throws ReflectionException
      */
@@ -203,7 +205,7 @@ abstract class BaseCommand
     /**
      * Makes it simple to access our protected properties.
      *
-     * @return mixed
+     * @return array|Commands|LoggerInterface|string|null
      */
     public function __get(string $key)
     {

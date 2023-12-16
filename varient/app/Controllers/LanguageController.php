@@ -6,6 +6,8 @@ use App\Models\LanguageModel;
 
 class LanguageController extends BaseAdminController
 {
+    protected $languageModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -20,7 +22,6 @@ class LanguageController extends BaseAdminController
     {
         $data["title"] = trans("language_settings");
         $data["languages"] = $this->languageModel->getLanguages();
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/language/languages', $data);
@@ -75,7 +76,7 @@ class LanguageController extends BaseAdminController
         if (empty($data['language'])) {
             return redirect()->to(adminUrl('language-settings'));
         }
-        
+
 
         echo view('admin/includes/_header', $data);
         echo view('admin/language/edit_language', $data);
@@ -120,7 +121,7 @@ class LanguageController extends BaseAdminController
         if (empty($data['language'])) {
             return redirect()->to(adminUrl('language-settings'));
         }
-        
+
         $numRows = $this->languageModel->getTranslationCount($data['language']->id);
         $pager = paginate($this->perPage, $numRows);
         $data['translations'] = $this->languageModel->getTranslationsPaginated($data['language']->id, $this->perPage, $pager->offset);
@@ -197,7 +198,7 @@ class LanguageController extends BaseAdminController
     {
         $id = inputPost('id');
         $language = $this->languageModel->getLanguage($id);
-        if ($language->id == 1) {
+        if ($language->id == $this->generalSettings->site_lang) {
             $this->session->setFlashdata('error', trans("msg_language_delete"));
             exit();
         }

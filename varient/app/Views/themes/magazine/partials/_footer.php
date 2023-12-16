@@ -23,18 +23,22 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4 footer-widget">
-                        <h4 class="widget-title"><?= trans("newsletter"); ?></h4>
-                        <div class="newsletter">
-                            <p class="description"><?= trans("newsletter_desc"); ?></p>
-                            <form id="form_newsletter_footer" class="form-newsletter">
-                                <div class="newsletter-inputs">
-                                    <input type="email" name="email" class="form-control form-input newsletter-input" maxlength="199" placeholder="<?= trans("email"); ?>">
-                                    <button type="submit" name="submit" value="form" class="btn btn-custom newsletter-button"><?= trans("subscribe"); ?></button>
-                                </div>
-                                <input type="text" name="url">
-                                <div id="form_newsletter_response"></div>
-                            </form>
-                        </div>
+                        <?php if ($generalSettings->newsletter_status == 1): ?>
+                            <h4 class="widget-title"><?= trans("newsletter"); ?></h4>
+                            <div class="newsletter">
+                                <p class="description"><?= trans("newsletter_desc"); ?></p>
+                                <form id="form_newsletter_footer" class="form-newsletter">
+                                    <div class="newsletter-inputs">
+                                        <input type="email" name="email" class="form-control form-input newsletter-input" maxlength="199" placeholder="<?= trans("email"); ?>">
+                                        <button type="submit" name="submit" value="form" class="btn btn-custom newsletter-button"><?= trans("subscribe"); ?></button>
+                                    </div>
+                                    <input type="text" name="url">
+                                    <div id="form_newsletter_response"></div>
+                                </form>
+                            </div>
+                        <?php else: ?>
+                            <h4 class="widget-title"><?= trans("footer_follow"); ?></h4>
+                        <?php endif; ?>
                         <div class="footer-social-links">
                             <ul>
                                 <?= view('common/_social_media_links', ['rssHide' => false]); ?>
@@ -69,27 +73,39 @@
             </div>
         </div>
     </footer>
-<a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>
-<?php if ($baseSettings->cookies_warning && empty(helperGetCookie('cookies_warning'))): ?>
+    <a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>
+<?php if (empty(helperGetCookie('cks_warning')) && $baseSettings->cookies_warning): ?>
     <div class="cookies-warning">
-        <div class="text"><?= $baseSettings->cookies_warning_text; ?></div>
-        <button type="button" onclick="closeCookiesWarning();" class="btn-link icon-cl" aria-label="close">
+        <button type="button" aria-label="close" class="close" onclick="closeCookiesWarning();">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
             </svg>
         </button>
+        <div class="text">
+            <?= $baseSettings->cookies_warning_text; ?>
+        </div>
+        <button type="button" class="btn btn-md btn-block btn-custom" aria-label="close" onclick="closeCookiesWarning();"><?= trans("accept_cookies"); ?></button>
     </div>
 <?php endif; ?>
     <script src="<?= base_url($assetsPath . '/js/jquery-3.6.1.min.js'); ?> "></script>
     <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?> "></script>
-    <script src="<?= base_url('assets/vendor/prism/prism.js'); ?>"></script>
-    <script src="<?= base_url('assets/vendor/prism/plugins/line-numbers/line-numbers.min.js'); ?>"></script>
     <script src="<?= base_url($assetsPath . '/js/plugins.js'); ?> "></script>
-    <script src="<?= base_url($assetsPath . '/js/main.min.js'); ?> "></script>
+    <script src="<?= base_url($assetsPath . '/js/main-2.2.min.js'); ?> "></script>
 <?= loadView('partials/_js_footer'); ?>
     <script>$("form[method='post']").append("<input type='hidden' name='sys_lang_id' value='<?= $activeLang->id; ?>'>");</script>
 <?php if ($generalSettings->pwa_status == 1): ?>
-    <script>if ('serviceWorker' in navigator) {window.addEventListener('load', function () {navigator.serviceWorker.register('<?= base_url('pwa-sw.js');?>').then(function (registration) {}, function (err) {console.log('ServiceWorker registration failed: ', err);}).catch(function (err) {console.log(err);});});} else {console.log('service worker is not supported');}</script>
+    <script>if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('<?= base_url('pwa-sw.js');?>').then(function (registration) {
+                }, function (err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            });
+        } else {
+            console.log('service worker is not supported');
+        }</script>
 <?php endif; ?>
 <?= $generalSettings->adsense_activation_code; ?>
 <?= $generalSettings->google_analytics; ?>

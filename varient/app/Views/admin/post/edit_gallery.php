@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-12">
-        <form action="<?= base_url('PostController/editPostPost'); ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('PostController/editPostPost'); ?>" method="post" enctype="multipart/form-data" onkeypress="return event.keyCode != 13;">
             <?= csrf_field(); ?>
             <input type="hidden" name="post_type" value="gallery">
             <div class="row">

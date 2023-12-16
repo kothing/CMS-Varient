@@ -4,6 +4,11 @@ use CodeIgniter\Model;
 
 class SettingsModel extends BaseModel
 {
+    protected $builder;
+    protected $builderGeneral;
+    protected $builderWidgets;
+    protected $builderFonts;
+
     public function __construct()
     {
         parent::__construct();
@@ -11,7 +16,6 @@ class SettingsModel extends BaseModel
         $this->builderGeneral = $this->db->table('general_settings');
         $this->builderWidgets = $this->db->table('widgets');
         $this->builderFonts = $this->db->table('fonts');
-        $this->checkVersion();
     }
 
     //input values
@@ -34,6 +38,7 @@ class SettingsModel extends BaseModel
             'vk_url' => inputPost('vk_url'),
             'telegram_url' => inputPost('telegram_url'),
             'youtube_url' => inputPost('youtube_url'),
+            'tiktok_url' => inputPost('tiktok_url'),
             'cookies_warning' => inputPost('cookies_warning'),
             'cookies_warning_text' => inputPost('cookies_warning_text')
         ];
@@ -143,7 +148,8 @@ class SettingsModel extends BaseModel
                 'post_format_video' => inputPost('post_format_video'),
                 'post_format_audio' => inputPost('post_format_audio'),
                 'post_format_trivia_quiz' => inputPost('post_format_trivia_quiz'),
-                'post_format_personality_quiz' => inputPost('post_format_personality_quiz')
+                'post_format_personality_quiz' => inputPost('post_format_personality_quiz'),
+                'post_format_poll' => inputPost('post_format_poll')
             ];
         } elseif ($form == 'post_deletion') {
             $data = [
@@ -158,9 +164,13 @@ class SettingsModel extends BaseModel
         return false;
     }
 
-    //update allowed file extensions post
-    public function updateAllowedFileExtensions()
+    //update file upload settings
+    public function updateFileUploadSettings()
     {
+        $data['image_file_format'] = inputPost('image_file_format');
+        if ($data['image_file_format'] != 'JPG' && $data['image_file_format'] != 'PNG' && $data['image_file_format'] != 'WEBP') {
+            $data['image_file_format'] = 'JPG';
+        }
         $input = inputPost('allowed_file_extensions');
         $extArray = @explode(',', $input);
         if (!empty($extArray)) {
@@ -171,10 +181,9 @@ class SettingsModel extends BaseModel
             if (!empty($exts)) {
                 $exts = strtolower($exts);
             }
-            $data = ['allowed_file_extensions' => $exts];
-            return $this->builderGeneral->where('id', 1)->update($data);
+            $data['allowed_file_extensions'] = $exts;
         }
-        return false;
+        return $this->builderGeneral->where('id', 1)->update($data);
     }
 
     //update seo settings
@@ -304,6 +313,15 @@ class SettingsModel extends BaseModel
         return $this->builderGeneral->where('id', 1)->update($data);
     }
 
+    //update google news settings
+    public function updateGoogleNews()
+    {
+        $data = [
+            'google_news' => inputPost('google_news')
+        ];
+        return $this->builderGeneral->where('id', 1)->update($data);
+    }
+
     //update social settings
     public function updateSocialSettings()
     {
@@ -406,7 +424,7 @@ class SettingsModel extends BaseModel
     function deleteOldSessions()
     {
         $now = date('Y-m-d H:i:s');
-        $this->db->table('ci_sessions')->where("timestamp < DATE_SUB('" . $now . "', INTERVAL 6 DAY)")->delete();
+        $this->db->table('ci_sessions')->where("timestamp < DATE_SUB('" . $now . "', INTERVAL 30 DAY)")->delete();
     }
 
     //download database backup
@@ -679,38 +697,5 @@ class SettingsModel extends BaseModel
             return $this->builderFonts->where('id', $font->id)->delete();
         }
         return false;
-    }
-
-    //check version
-    public function checkVersion()
-    {
-        if ($this->generalSettings->version != '2.x') {
-            $p = array();
-            $p["ad_space_index_top"] = "Index (Top)";
-            $p["ad_space_index_bottom"] = "Index (Bottom)";
-            $p["ad_space_post_top"] = "Post Details (Top)";
-            $p["ad_space_post_bottom"] = "Post Details (Bottom)";
-            $p["ad_space_posts_top"] = "Posts (Top)";
-            $p["ad_space_posts_bottom"] = "Posts (Bottom)";
-            $p["ad_space_in_article"] = "In-Article";
-
-            $languages = $this->db->table('languages')->get()->getResult();
-            if (!empty($languages)) {
-                foreach ($languages as $language) {
-                    foreach ($p as $key => $value) {
-                        $row = $this->db->table('language_translations')->where('label', $key)->where('lang_id', $language->id)->get()->getRow();
-                        if (empty($row)) {
-                            $new = [
-                                'lang_id' => $language->id,
-                                'label' => $key,
-                                'translation' => $value
-                            ];
-                            $this->db->table('language_translations')->insert($new);
-                        }
-                    }
-                }
-            }
-            $this->builderGeneral->where('id', 1)->update(['version' => '2.x']);
-        }
     }
 }

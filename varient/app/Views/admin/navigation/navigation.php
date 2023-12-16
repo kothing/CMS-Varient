@@ -208,11 +208,10 @@
                     var data = {
                         'json_menu_items': JSON.stringify(menu_items)
                     };
-                    addCsrf(data);
                     $.ajax({
                         type: "POST",
                         url: VrConfig.baseURL + "/AdminController/sortMenuItems",
-                        data: data,
+                        data: setAjaxData(data),
                         success: function (response) {
                         }
                     });
@@ -240,12 +239,10 @@
             $(this).addClass('btn-danger');
             $(this).text("<?= trans("hide"); ?>");
         }
-        var data = {};
-        addCsrf(data);
         $.ajax({
             type: "POST",
             url: VrConfig.baseURL + "/AdminController/hideShowHomeLink",
-            data: data,
+            data: setAjaxData({}),
             success: function (response) {
             }
         });

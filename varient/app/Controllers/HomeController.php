@@ -13,12 +13,13 @@ use App\Models\QuizModel;
 use App\Models\ReactionModel;
 use App\Models\RssModel;
 use App\Models\TagModel;
-use App\Models\UploadModel;
 use Config\Globals;
 
 
 class HomeController extends BaseController
 {
+    protected $postsPerPage;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -35,7 +36,7 @@ class HomeController extends BaseController
         $data['latestPosts'] = getLatestPosts(POST_NUM_LOAD_MORE + 2);
         $data['sliderPosts'] = $this->latestCategoryPosts;
         $data['featuredPosts'] = $this->latestCategoryPosts;
-        
+
         //slider posts
         if ($this->generalSettings->show_latest_posts_on_slider != 1) {
             $data['sliderPosts'] = getSliderPosts();
@@ -61,14 +62,14 @@ class HomeController extends BaseController
         $data['title'] = trans("posts");
         $data['description'] = trans("posts") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("posts") . "," . $this->settings->application_name;
-        
+
         $numRows = getCachedData('posts_count');
         if (empty($numRows)) {
             $numRows = $this->postModel->getPostCount();
             setCacheData('posts_count', $numRows);
         }
         $pager = paginate($this->postsPerPage, $numRows);
-        $cacheKey = 'posts_page_' . $pager->getCurrentPage();
+        $cacheKey = 'posts_page_' . $pager->currentPage;
         $data['posts'] = getCachedData($cacheKey);
         if (empty($data['posts'])) {
             $data['posts'] = $this->postModel->getPostsPaginated($this->postsPerPage, $pager->offset);
@@ -90,7 +91,7 @@ class HomeController extends BaseController
             return redirect()->to(langBaseUrl());
         }
         $pageModel = new PageModel();
-        
+
         $page = $pageModel->getPageByLang($slug, $this->activeLang->id);
         if (!empty($page)) {
             $this->page($page);
@@ -118,13 +119,17 @@ class HomeController extends BaseController
         if (empty($post)) {
             return redirect()->to(langBaseUrl());
         }
+        $pageNumber = cleanNumber(inputGet('p'));
+        if (empty($pageNumber) || $pageNumber < 1) {
+            $pageNumber = 1;
+        }
         //check post auth
         if (!authCheck() && $post->need_auth == 1) {
             $this->session->setFlashdata('error', trans("message_post_auth"));
             redirectToUrl(generateURL('register'));
             exit();
         }
-        
+
         $data['post'] = $post;
         $data['postJsonLD'] = $post;
         $data['postUser'] = getUserById($post->user_id);
@@ -165,9 +170,12 @@ class HomeController extends BaseController
             $data['sortedListItems'] = $postItemModel->getPostListItems($post->id, $post->post_type);
         }
         //quiz
-        if ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz') {
+        if ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz' || $post->post_type == 'poll') {
             $quizModel = new QuizModel();
             $data['quizQuestions'] = $quizModel->getQuizQuestions($post->id);
+            if ($post->post_type == 'poll') {
+                $data['userPollAnswers'] = $quizModel->getUserPollAnswers($post->id);
+            }
         }
 
         echo loadView('partials/_header', $data);
@@ -175,18 +183,6 @@ class HomeController extends BaseController
         echo loadView('partials/_footer', $data);
         //increase pageviews count
         $this->postModel->increasePostPageviews($post, $data['postUser']);
-    }
-
-    /**
-     * Gallery Post Page
-     */
-    public function galleryPost($slug, $pageNumber)
-    {
-        $post = $this->postModel->getPostBySlug($slug);
-        if (empty($post)) {
-            return redirect()->to(langBaseUrl());
-        }
-        $this->post($post, cleanNumber($pageNumber));
     }
 
     /**
@@ -242,7 +238,7 @@ class HomeController extends BaseController
                 setCacheData('post_count_category', $numRows);
             }
             $pager = paginate($this->postsPerPage, $numRows);
-            $cacheKey = 'posts_category_' . $category->id . '_page' . $pager->getCurrentPage();
+            $cacheKey = 'posts_category_' . $category->id . '_page' . $pager->currentPage;
             $data['posts'] = getCachedData($cacheKey);
             if (empty($data['posts'])) {
                 $data['posts'] = $this->postModel->getPostsByCategoryPaginated($category->id, $this->categories, $this->postsPerPage, $pager->offset);
@@ -261,8 +257,9 @@ class HomeController extends BaseController
     public function subCategory($parentSlug, $slug)
     {
         $categoryModel = new CategoryModel();
+        $categoryParent = $categoryModel->getCategoryBySlug($parentSlug);
         $category = $categoryModel->getCategoryBySlug($slug);
-        if (empty($category)) {
+        if (empty($categoryParent) || empty($category)) {
             return redirect()->to(langBaseUrl());
         }
         $this->category($category, false);
@@ -281,7 +278,7 @@ class HomeController extends BaseController
         $data['title'] = $data['tag']->tag;
         $data['description'] = trans("tag") . ': ' . $data['tag']->tag;
         $data['keywords'] = trans("tag") . ', ' . $data['tag']->tag;
-        
+
         $numRows = $this->postModel->getPostCountByTag($tagSlug);
         $pager = paginate($this->postsPerPage, $numRows);
         $data['posts'] = $this->postModel->getTagPostsPaginated($tagSlug, $this->postsPerPage, $pager->offset);
@@ -299,7 +296,7 @@ class HomeController extends BaseController
         $model = new GalleryModel();
         $data['galleryAlbums'] = $model->getAlbumsByLang($this->activeLang->id);
         $data['jsPage'] = "gallery";
-        
+
 
         echo loadView('partials/_header', $data);
         echo loadView('gallery/gallery', $data);
@@ -326,7 +323,7 @@ class HomeController extends BaseController
             $data['title'] = $data['page']->title;
             $data['description'] = $data['page']->description;
             $data['keywords'] = $data['page']->keywords;
-            
+
             $data['album'] = $model->getAlbum($id);
             if (empty($data['album'])) {
                 return redirect()->to(generateURL('gallery'));
@@ -351,7 +348,6 @@ class HomeController extends BaseController
         $data['title'] = trans("reading_list");
         $data['description'] = trans("reading_list") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("reading_list") . "," . $this->settings->application_name;
-        
         $numRows = $this->postModel->getReadingListPostsCount(user()->id);
         $pager = paginate($this->postsPerPage, $numRows);
         $data['posts'] = $this->postModel->getReadingListPostsPaginated(user()->id, $this->postsPerPage, $pager->offset);
@@ -381,7 +377,6 @@ class HomeController extends BaseController
         if (!empty(cleanNumber(esc(inputGet('sc'))))) {
             $data['searchInContent'] = 1;
         }
-        
         $numRows = $this->postModel->getSearchPostsCount($q, $data['searchInContent']);
         $pager = paginate($this->postsPerPage, $numRows);
         $data['posts'] = $this->postModel->getSearchPostsPaginated($q, $data['searchInContent'], $this->postsPerPage, $pager->offset);
@@ -428,7 +423,7 @@ class HomeController extends BaseController
         }
         $post = $this->postModel->getPostPreview($slug);
         if (!empty($post)) {
-            if (!checkPostOwnership(user()->id)) {
+            if (!checkPostOwnership($post->user_id)) {
                 return redirect()->to(langBaseUrl());
             }
             $this->post($post);
@@ -446,9 +441,8 @@ class HomeController extends BaseController
             $data['title'] = trans("rss_feeds");
             $data['description'] = trans("rss_feeds") . " - " . $this->settings->site_title;
             $data['keywords'] = trans("rss_feeds") . "," . $this->settings->application_name;
-            
             echo loadView('partials/_header', $data);
-            echo loadView('rss/rss_feeds', $data);
+            echo loadView('rss_feeds', $data);
             echo loadView('partials/_footer');
         } else {
             $this->error404();
@@ -461,7 +455,6 @@ class HomeController extends BaseController
     public function rssLatestPosts()
     {
         if ($this->generalSettings->show_rss == 1) {
-            
             helper('xml');
             $data['feedName'] = $this->settings->site_title . ' - ' . trans("latest_posts");
             $data['encoding'] = 'utf-8';
@@ -469,9 +462,9 @@ class HomeController extends BaseController
             $data['pageDescription'] = $this->settings->site_title . ' - ' . trans("latest_posts");
             $data['pageLanguage'] = $this->activeLang->short_form;
             $data['creatorEmail'] = '';
-            $data['posts'] = $this->postModel->getRSSPosts(null, null, 50);
+            $data['posts'] = $this->postModel->getRSSPosts(null, null, $this->categories, 50);
             header('Content-Type: application/rss+xml; charset=utf-8');
-            echo loadView('rss/rss', $data);
+            return $this->response->setXML(view('common/xml_rss', $data));
         } else {
             $this->error404();
         }
@@ -488,7 +481,6 @@ class HomeController extends BaseController
             if (empty($category)) {
                 return redirect()->to(generateURL('rss_feeds'));
             }
-            
             helper('xml');
             $data['feedName'] = $this->settings->site_title . ' - ' . trans("title_category") . ': ' . $category->name;
             $data['encoding'] = 'utf-8';
@@ -496,9 +488,9 @@ class HomeController extends BaseController
             $data['pageDescription'] = $this->settings->site_title . ' - ' . trans("title_category") . ': ' . $category->name;
             $data['pageLanguage'] = $this->activeLang->short_form;
             $data['creatorEmail'] = '';
-            $data['posts'] = $this->postModel->getRSSPosts(null, $category->id, 500);
+            $data['posts'] = $this->postModel->getRSSPosts(null, $category->id, $this->categories, 500);
             header('Content-Type: application/rss+xml; charset=utf-8');
-            echo loadView('rss/rss', $data);
+            return $this->response->setXML(view('common/xml_rss', $data));
         } else {
             $this->error404();
         }
@@ -515,7 +507,6 @@ class HomeController extends BaseController
             if (empty($user)) {
                 return redirect()->to(generateURL('rss_feeds'));
             }
-            
             helper('xml');
             $data['feedName'] = $this->settings->site_title . ' - ' . $user->username;
             $data['encoding'] = 'utf-8';
@@ -523,12 +514,25 @@ class HomeController extends BaseController
             $data['pageDescription'] = $this->settings->site_title . " - " . $user->username;
             $data['pageLanguage'] = $this->activeLang->short_form;
             $data['creatorEmail'] = '';
-            $data['posts'] = $this->postModel->getRSSPosts($user->id, null, 500);
+            $data['posts'] = $this->postModel->getRSSPosts($user->id, null, $this->categories, 500);
             header('Content-Type: application/rss+xml; charset=utf-8');
-            echo loadView('rss/rss', $data);
+            return $this->response->setXML(view('common/xml_rss', $data));
         } else {
             $this->error404();
         }
+    }
+
+    /**
+     * Google News Feeds
+     */
+    public function googleNewsFeeds()
+    {
+        if ($this->generalSettings->google_news != 1) {
+            redirectToUrl(langBaseUrl());
+            exit();
+        }
+        $data['posts'] = $this->postModel->getGoogleNewsFeeds($this->categories);
+        return $this->response->setXML(view('common/xml_google_news', $data));
     }
 
     //check page auth

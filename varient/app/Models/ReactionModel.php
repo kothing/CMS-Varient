@@ -4,6 +4,10 @@ use CodeIgniter\Model;
 
 class ReactionModel extends BaseModel
 {
+    protected $builder;
+    protected $arrayReactions;
+    protected $cookieTime;
+
     public function __construct()
     {
         parent::__construct();

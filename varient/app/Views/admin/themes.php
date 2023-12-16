@@ -92,11 +92,10 @@
         var data = {
             'theme_mode': themeMode
         };
-        addCsrf(data);
         $.ajax({
             type: 'POST',
             url: VrConfig.baseURL + '/AjaxController/setThemeModePost',
-            data: data,
+            data: setAjaxData(data),
             success: function (response) {
             }
         });

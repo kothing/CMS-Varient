@@ -1,4 +1,4 @@
-<!-- <div class="row">
+<div class="row">
     <div class="col-sm-12 form-header">
         <a href="<?= adminUrl('posts?lang_id=' . $activeLang->id); ?>"
            class="btn btn-success btn-add-new pull-right">
@@ -6,7 +6,7 @@
             <?= trans('posts'); ?>
         </a>
     </div>
-</div> -->
+</div>
 <div class="row">
     <div class="col-sm-12 form-header">
         <h1 class="form-title form-title-post-format"><?= trans('choose_post_format'); ?></h1>
@@ -17,7 +17,7 @@
         <?php $formatCount = 0;
         if ($generalSettings->post_format_article == 1):
             $formatCount += 1; ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
                 <a href="<?= adminUrl('add-post?type=article'); ?>">
                     <div class="item">
                         <div class="item-icon">
@@ -34,7 +34,7 @@
         <?php endif;
         if ($generalSettings->post_format_gallery == 1):
             $formatCount += 1; ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
                 <a href="<?= adminUrl('add-post?type=gallery'); ?>">
                     <div class="item">
                         <div class="item-icon">
@@ -51,7 +51,7 @@
         <?php endif;
         if ($generalSettings->post_format_sorted_list == 1):
             $formatCount += 1; ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
                 <a href="<?= adminUrl('add-post?type=sorted_list'); ?>">
                     <div class="item">
                         <div class="item-icon">
@@ -66,41 +66,9 @@
                 </a>
             </div>
         <?php endif;
-        if ($generalSettings->post_format_trivia_quiz == 1):
-            $formatCount += 1; ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
-                <a href="<?= adminUrl('add-post?type=trivia_quiz'); ?>">
-                    <div class="item">
-                        <div class="item-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c" class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
-                                <path d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zm9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-3zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-3zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2z"/>
-                            </svg>
-                        </div>
-                        <h5 class="title"><?= trans("trivia_quiz"); ?></h5>
-                        <p class="desc"><?= trans("trivia_quiz_exp"); ?></p>
-                    </div>
-                </a>
-            </div>
-        <?php endif;
-        if ($generalSettings->post_format_personality_quiz == 1):
-            $formatCount += 1; ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
-                <a href="<?= adminUrl('add-post?type=personality_quiz'); ?>">
-                    <div class="item">
-                        <div class="item-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c" class="bi bi-ui-checks" viewBox="0 0 16 16">
-                                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        </div>
-                        <h5 class="title"><?= trans("personality_quiz"); ?></h5>
-                        <p class="desc"><?= trans("personality_quiz_exp"); ?></p>
-                    </div>
-                </a>
-            </div>
-        <?php endif;
         if ($generalSettings->post_format_video == 1):
             $formatCount += 1; ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
                 <a href="<?= adminUrl('add-post?type=video'); ?>">
                     <div class="item">
                         <div class="item-icon">
@@ -116,7 +84,7 @@
             </div>
         <?php endif;
         if ($generalSettings->post_format_audio == 1): ?>
-            <div class="col-xs-12 col-sm-4 col-add-post">
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
                 <a href="<?= adminUrl('add-post?type=audio'); ?>">
                     <div class="item">
                         <div class="item-icon">
@@ -131,19 +99,55 @@
                     </div>
                 </a>
             </div>
-        <?php endif; ?>
-        <div class="col-xs-12 col-sm-4 col-add-post">
-            <a href="<?= adminUrl('bulk-post-upload'); ?>">
-                <div class="item">
-                    <div class="item-icon">
-                        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c">
-                            <path d="M368 384c14.16 0 26.896-6.144 35.68-15.888L464 301.088V592a48 48 0 1 0 96 0V301.088l60.32 67.024a48 48 0 1 0 71.36-64.224l-144-160C538.912 134.144 526.16 128 512 128s-26.896 6.144-35.68 15.888l-144 160A48 48 0 0 0 368 384z m512 176a48 48 0 0 0-48 48v192H192V608a48 48 0 1 0-96 0v240a48 48 0 0 0 48 48h736a48 48 0 0 0 48-48V608a48 48 0 0 0-48-48z"></path>
-                        </svg>
+        <?php endif;
+        if ($generalSettings->post_format_trivia_quiz == 1):
+            $formatCount += 1; ?>
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
+                <a href="<?= adminUrl('add-post?type=trivia_quiz'); ?>">
+                    <div class="item">
+                        <div class="item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c" class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
+                                <path d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zm9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-3zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-3zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2z"/>
+                            </svg>
+                        </div>
+                        <h5 class="title"><?= trans("trivia_quiz"); ?></h5>
+                        <p class="desc"><?= trans("trivia_quiz_exp"); ?></p>
                     </div>
-                    <h5 class="title"><?= trans("bulk_post_upload"); ?></h5>
-                    <p class="desc"><?= trans("bulk_post_upload"); ?></p>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+        <?php endif;
+        if ($generalSettings->post_format_personality_quiz == 1):
+            $formatCount += 1; ?>
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
+                <a href="<?= adminUrl('add-post?type=personality_quiz'); ?>">
+                    <div class="item">
+                        <div class="item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                        </div>
+                        <h5 class="title"><?= trans("personality_quiz"); ?></h5>
+                        <p class="desc"><?= trans("personality_quiz_exp"); ?></p>
+                    </div>
+                </a>
+            </div>
+        <?php endif;
+        if ($generalSettings->post_format_poll == 1):
+            $formatCount += 1; ?>
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
+                <a href="<?= adminUrl('add-post?type=poll'); ?>">
+                    <div class="item">
+                        <div class="item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c" class="bi bi-ui-radios-grid" viewBox="0 0 16 16">
+                                <path d="M3.5 15a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm9-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zM16 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm-9 9a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm5.5 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-9-11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 2a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                            </svg>
+                        </div>
+                        <h5 class="title"><?= trans("poll"); ?></h5>
+                        <p class="desc"><?= trans("poll_exp"); ?></p>
+                    </div>
+                </a>
+            </div>
+        <?php endif; ?>
+
     </div>
 </div>

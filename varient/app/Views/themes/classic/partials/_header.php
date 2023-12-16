@@ -8,9 +8,9 @@
 <meta name="description" content="<?= escSls($description); ?>"/>
 <meta name="keywords" content="<?= escSls($keywords); ?>"/>
 <meta name="author" content="<?= escSls($baseSettings->application_name); ?>"/>
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="<?= escSls($baseSettings->application_name); ?>"/>
+<?= csrf_meta(); ?>
 <?php if (isset($postType)): ?>
 <meta property="og:type" content="<?= $ogType; ?>"/>
 <meta property="og:title" content="<?= $ogTitle; ?>"/>
@@ -60,16 +60,17 @@ if ($generalSettings->pwa_status == 1): ?>
 <link rel="alternate" href="<?= currentFullURL(); ?>" hreflang="<?= $activeLang->language_code; ?>"/>
 <?= view('common/_fonts'); ?>
 <link href="<?= base_url('assets/vendor/bootstrap-v3/css/bootstrap.min.css'); ?>" rel="stylesheet"/>
-<link href="<?= base_url('assets/vendor/font-icons/css/font-icon-2.x.min.css'); ?>" rel="stylesheet"/>
-<link href="<?= base_url($assetsPath . '/css/style-2.x.min.css'); ?>" rel="stylesheet"/>
-<link href="<?= base_url($assetsPath . '/css/plugins.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url('assets/vendor/font-icons/css/font-icons-2.2.min.css'); ?>" rel="stylesheet">
+<link href="<?= base_url($assetsPath . '/css/style-2.2.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/plugins-2.2.css'); ?>" rel="stylesheet"/>
 <?php if ($darkMode == true) : ?>
-<link href="<?= base_url($assetsPath . '/css/dark-2.x.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/dark-2.2.min.css'); ?>" rel="stylesheet"/>
 <?php endif; ?>
-<script>var rtl = false;</script>
 <?php if ($activeLang->text_direction == "rtl"): ?>
-<link href="<?= base_url($assetsPath . '/css/rtl-2.x.min.css'); ?>" rel="stylesheet"/>
+<link href="<?= base_url($assetsPath . '/css/rtl-2.2.min.css'); ?>" rel="stylesheet"/>
 <script>var rtl = true;</script>
+<?php else: ?>
+<script>var rtl = false;</script>
 <?php endif; ?>
 <?= loadView('partials/_css_js_header'); ?>
 <?= $generalSettings->custom_header_codes; ?>

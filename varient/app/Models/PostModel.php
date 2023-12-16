@@ -4,6 +4,12 @@ use CodeIgniter\Model;
 
 class PostModel extends BaseModel
 {
+    protected $builder;
+    protected $sliderPostsLimit;
+    protected $breakingPostsLimit;
+    protected $popularPostsLimit;
+    protected $recommendedPostsLimit;
+
     public function __construct()
     {
         parent::__construct();
@@ -292,12 +298,13 @@ class PostModel extends BaseModel
     }
 
     //get rss posts
-    public function getRSSPosts($userId, $categoryId, $limit)
+    public function getRSSPosts($userId, $categoryId, $categories, $limit)
     {
         $this->builder->join('categories', 'categories.id = posts.category_id')->join('users', 'users.id = posts.user_id')
             ->select('posts.*, categories.name AS category_name, categories.name_slug AS category_slug , categories.color AS category_color, users.username AS author_username, users.slug AS author_slug');
         if (!empty($categoryId)) {
-            $categoryIds = getCategoryTree($categoryId, $this->baseCategories);
+            $categoryIds = getCategoryTree($categoryId, $categories);
+
             if (countItems($categoryIds) > 0) {
                 $this->builder->whereIn('posts.category_id', $categoryIds, false);
             }
@@ -309,12 +316,50 @@ class PostModel extends BaseModel
             ->orderBy('posts.created_at DESC')->get(cleanNumber($limit))->getResult();
     }
 
+    //get google news feeds
+    public function getGoogleNewsFeeds($categories)
+    {
+        $langId = cleanNumber(inputGet('lang'));
+        $categoryId = cleanNumber(inputGet('category'));
+        $userId = cleanNumber(inputGet('author'));
+        $limit = cleanNumber(inputGet('limit'));
+        if ($limit <= 0) {
+            $limit = 1000;
+        }
+        $key = 'google_news_lang' . $langId . '_cat' . $categoryId . '_author' . $userId . '_limit' . $limit;
+        $posts = getCachedData('$key');
+        if (!empty($posts)) {
+            return $posts;
+        }
+        $this->builder->join('categories', 'categories.id = posts.category_id')->join('users', 'users.id = posts.user_id')
+            ->select('posts.*, 
+            (SELECT short_form FROM languages WHERE languages.id = posts.lang_id) AS lang_short_form,
+            categories.name AS category_name, categories.name_slug AS category_slug , 
+            categories.color AS category_color, users.username AS author_username, users.slug AS author_slug');
+        if (!empty($langId)) {
+            $this->builder->where('posts.lang_id', $langId);
+        }
+        if (!empty($categoryId)) {
+            $categoryIds = getCategoryTree($categoryId, $categories);
+            if (countItems($categoryIds) > 0) {
+                $this->builder->whereIn('posts.category_id', $categoryIds, false);
+            }
+        }
+        if (!empty($userId)) {
+            $this->builder->where('posts.user_id', cleanNumber($userId));
+        }
+        $posts = $this->builder->where('posts.is_scheduled', 0)->where('posts.visibility', 1)->where('posts.status = 1')->orderBy('posts.created_at DESC')->get($limit)->getResult();
+        $cache = \Config\Services::cache();
+        cache()->save($key, $posts, 900);
+        return $posts;
+    }
+
     //increase post pageviews
     public function increasePostPageviews($post, $author)
     {
         $agent = $this->request->getUserAgent();
         if (!empty($post) && !empty($author) && !$agent->isRobot() && !isBot()) {
-            if (empty(helperGetCookie('post_' . $post->id))) {
+            if (empty(getSession('post_read_' . $post->id))) {
                 $userAgent = $agent->getAgentString();
                 $ipAddress = getIPAddress();
                 $rewardAmount = 0;
@@ -324,13 +369,13 @@ class PostModel extends BaseModel
                 $row = $this->db->table('post_pageviews_month')->where('post_id', $post->id)->where('ip_address', $ipAddress)->where('user_agent', $userAgent)->get(1)->getRow();
                 if (empty($row)) {
                     if ($this->builder->where('id', $post->id)->update(['pageviews' => $post->pageviews + 1])) {
-                        helperSetCookie('post_' . $post->id, '1');
+                        setSession('post_read_' . $post->id, '1');
                         $data = ['post_id' => $post->id, 'post_user_id' => $post->user_id, 'ip_address' => $ipAddress, 'user_agent' => $userAgent, 'reward_amount' => $rewardAmount, 'created_at' => date('Y-m-d H:i:s')];
                         if ($this->db->table('post_pageviews_month')->insert($data)) {
                             if ($rewardAmount > 0) {
                                 $newBalance = $author->balance + $rewardAmount;
-                                if(!empty($newBalance)){
-                                    $newBalance = number_format($newBalance,10, '.', '');
+                                if (!empty($newBalance)) {
+                                    $newBalance = number_format($newBalance, 10, '.', '');
                                 }
                                 $this->db->query("UPDATE users SET balance = ?, total_pageviews = total_pageviews + 1 WHERE id = ?", array($newBalance, $post->user_id));
                             }

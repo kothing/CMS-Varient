@@ -56,7 +56,7 @@
                             <div class="row">
                                 <a class='btn btn-success btn-sm btn-file-upload'>
                                     <?= trans('select_image'); ?>
-                                    <input type="file" id="Multifileupload" name="files[]" size="40" accept=".png, .jpg, .jpeg, .gif" multiple="multiple" required>
+                                    <input type="file" id="Multifileupload" name="files[]" size="40" accept=".png, .jpg, .webp, .jpeg, .gif" multiple="multiple" required>
                                 </a>
                                 <span>(<?= trans("select_multiple_images"); ?>)</span>
                             </div>

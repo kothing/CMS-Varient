@@ -86,7 +86,11 @@ class Rules
     public function is_not_unique(?string $str, string $field, array $data): bool
     {
         // Grab any data for exclusion of a single row.
-        [$field, $whereField, $whereValue] = array_pad(explode(',', $field), 3, null);
+        [$field, $whereField, $whereValue] = array_pad(
+            explode(',', $field),
+            3,
+            null
+        );
 
         // Break the table and field apart
         sscanf($field, '%[^.].%[^.]', $table, $field);
@@ -97,7 +101,10 @@ class Rules
             ->where($field, $str)
             ->limit(1);
 
-        if (! empty($whereField) && ! empty($whereValue) && ! preg_match('/^\{(\w+)\}$/', $whereValue)) {
+        if (
+            ! empty($whereField) && ! empty($whereValue)
+            && ! preg_match('/^\{(\w+)\}$/', $whereValue)
+        ) {
             $row = $row->where($whereField, $whereValue);
         }
 
@@ -125,7 +132,11 @@ class Rules
      */
     public function is_unique(?string $str, string $field, array $data): bool
     {
-        [$field, $ignoreField, $ignoreValue] = array_pad(explode(',', $field), 3, null);
+        [$field, $ignoreField, $ignoreValue] = array_pad(
+            explode(',', $field),
+            3,
+            null
+        );
 
         sscanf($field, '%[^.].%[^.]', $table, $field);
 
@@ -135,7 +146,10 @@ class Rules
             ->where($field, $str)
             ->limit(1);
 
-        if (! empty($ignoreField) && ! empty($ignoreValue) && ! preg_match('/^\{(\w+)\}$/', $ignoreValue)) {
+        if (
+            ! empty($ignoreField) && ! empty($ignoreValue)
+            && ! preg_match('/^\{(\w+)\}$/', $ignoreValue)
+        ) {
             $row = $row->where("{$ignoreField} !=", $ignoreValue);
         }
 
@@ -249,7 +263,6 @@ class Rules
         // If the field is present we can safely assume that
         // the field is here, no matter whether the corresponding
         // search field is present or not.
-        $fields  = explode(',', $fields);
         $present = $this->required($str ?? '');
 
         if ($present) {
@@ -258,11 +271,14 @@ class Rules
 
         // Still here? Then we fail this test if
         // any of the fields are present in $data
-        // as $fields is the lis
+        // as $fields is the list
         $requiredFields = [];
 
-        foreach ($fields as $field) {
-            if ((array_key_exists($field, $data) && ! empty($data[$field])) || (strpos($field, '.') !== false && ! empty(dot_array_search($field, $data)))) {
+        foreach (explode(',', $fields) as $field) {
+            if (
+                (array_key_exists($field, $data) && ! empty($data[$field]))
+                || (strpos($field, '.') !== false && ! empty(dot_array_search($field, $data)))
+            ) {
                 $requiredFields[] = $field;
             }
         }
@@ -271,7 +287,7 @@ class Rules
     }
 
     /**
-     * The field is required when all of the other fields are present
+     * The field is required when all the other fields are present
      * in the data but not required.
      *
      * Example (field is required when the id or email field is missing):
@@ -282,8 +298,13 @@ class Rules
      * @param string|null $otherFields The param fields of required_without[].
      * @param string|null $field       This rule param fields aren't present, this field is required.
      */
-    public function required_without($str = null, ?string $otherFields = null, array $data = [], ?string $error = null, ?string $field = null): bool
-    {
+    public function required_without(
+        $str = null,
+        ?string $otherFields = null,
+        array $data = [],
+        ?string $error = null,
+        ?string $field = null
+    ): bool {
         if ($otherFields === null || empty($data)) {
             throw new InvalidArgumentException('You must supply the parameters: otherFields, data.');
         }
@@ -291,8 +312,7 @@ class Rules
         // If the field is present we can safely assume that
         // the field is here, no matter whether the corresponding
         // search field is present or not.
-        $otherFields = explode(',', $otherFields);
-        $present     = $this->required($str ?? '');
+        $present = $this->required($str ?? '');
 
         if ($present) {
             return true;
@@ -300,10 +320,14 @@ class Rules
 
         // Still here? Then we fail this test if
         // any of the fields are not present in $data
-        foreach ($otherFields as $otherField) {
-            if ((strpos($otherField, '.') === false) && (! array_key_exists($otherField, $data) || empty($data[$otherField]))) {
+        foreach (explode(',', $otherFields) as $otherField) {
+            if (
+                (strpos($otherField, '.') === false)
+                && (! array_key_exists($otherField, $data) || empty($data[$otherField]))
+            ) {
                 return false;
             }
+
             if (strpos($otherField, '.') !== false) {
                 if ($field === null) {
                     throw new InvalidArgumentException('You must supply the parameters: field.');

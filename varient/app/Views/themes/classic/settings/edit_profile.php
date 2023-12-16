@@ -30,7 +30,7 @@
                                 <p>
                                     <a class='btn btn-md btn-success btn-file-upload btn-profile-file-upload'>
                                         <?= trans('select_image'); ?>
-                                        <input type="file" name="file" size="40" accept=".png, .jpg, .jpeg, .gif" onchange="$('#upload-file-info').html($(this).val().replace(/.*[\/\\]/, ''));">
+                                        <input type="file" name="file" size="40" accept=".png, .jpg, .webp, .jpeg, .gif" onchange="$('#upload-file-info').html($(this).val().replace(/.*[\/\\]/, ''));">
                                     </a>
                                     <span class='badge badge-info badge-profile-file-upload' id="upload-file-info"></span>
                                 </p>

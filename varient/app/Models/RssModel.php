@@ -4,6 +4,8 @@ use CodeIgniter\Model;
 
 class RssModel extends BaseModel
 {
+    protected $builder;
+
     public function __construct()
     {
         parent::__construct();
@@ -107,7 +109,7 @@ class RssModel extends BaseModel
         if (!empty($langId)) {
             $this->builder->where('lang_id', cleanNumber($langId));
         }
-        if(!isAdmin()){
+        if (!isAdmin()) {
             $this->builder->where('user_id', user()->id);
         }
         if (!empty($q)) {
@@ -271,4 +273,31 @@ class RssModel extends BaseModel
         $str = strReplace("&apos;", "'", $str);
         return $str;
     }
+
+    //create google news feed
+    public function createGoogleNewsFeed($posts)
+    {
+        $url = "";
+        $xml = '<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">';
+        if(!empty($posts)):
+            foreach ($posts as $post)
+            $xml .= '<url>
+            <loc>' . $url . '</loc>
+            <news:news>
+                <news:publication>
+                    <news:name>The Example Times</news:name>
+                    <news:language>en</news:language>
+                </news:publication>
+                <news:publication_date>2008-12-23</news:publication_date>
+                <news:title>Companies A, B in Merger Talks</news:title>
+            </news:news>
+        </url>';
+        endif;
+'</urlset>';
+
+        return $xml;
+    }
+
 }

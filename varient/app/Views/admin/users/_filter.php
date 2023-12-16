@@ -25,9 +25,15 @@
                 <label><?= trans("role"); ?></label>
                 <select name="role" class="form-control">
                     <option value=""><?= trans("all"); ?></option>
-                    <option value="moderator" <?= inputGet('role', true) == 'moderator' ? 'selected' : ''; ?>><?= @esc($authModel->getRoleByKey('moderator')->role_name); ?></option>
-                    <option value="author" <?= inputGet('role', true) == 'author' ? 'selected' : ''; ?>><?= @esc($authModel->getRoleByKey('author')->role_name); ?></option>
-                    <option value="user" <?= inputGet('role', true) == 'user' ? 'selected' : ''; ?>><?= @esc($authModel->getRoleByKey('user')->role_name); ?></option>
+                    <?php $roles = $authModel->getRolesPermissions();
+                    if (!empty($roles)):
+                        foreach ($roles as $role):
+                            if ($role->role != 'admin'):
+                                $roleName = parseSerializedNameArray($role->role_name, $activeLang->id); ?>
+                                <option value="<?= esc($role->role); ?>" <?= inputGet('role', true) == $role->role ? 'selected' : ''; ?>><?= esc($roleName); ?></option>
+                            <?php endif;
+                        endforeach;
+                    endif; ?>
                 </select>
             </div>
 

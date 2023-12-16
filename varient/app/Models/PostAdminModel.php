@@ -4,6 +4,11 @@ use CodeIgniter\Model;
 
 class PostAdminModel extends BaseModel
 {
+    protected $builder;
+    protected $builderPostImages;
+    protected $builderPostFiles;
+    protected $builderPostAudios;
+
     public function __construct()
     {
         parent::__construct();
@@ -192,6 +197,12 @@ class PostAdminModel extends BaseModel
             $data['video_embed_code'] = inputPost('video_embed_code');
             $data['video_path'] = inputPost('video_path');
             $data['video_storage'] = inputPost('video_storage');
+        }
+        $votePermission = inputPost('vote_permission');
+        if ($votePermission == 'registered') {
+            $data['is_poll_public'] = 0;
+        } else {
+            $data['is_poll_public'] = 1;
         }
         return $data;
     }
@@ -550,7 +561,7 @@ class PostAdminModel extends BaseModel
             $posts = $this->builder->where('created_at < DATE_SUB(NOW(), INTERVAL ' . cleanNumber($days) . ' DAY)')->get()->getResult();
             if (!empty($posts)) {
                 foreach ($posts as $post) {
-                   $this->deletePost($post->id);
+                    $this->deletePost($post->id);
                 }
             }
         }

@@ -8,6 +8,12 @@ use Aws\S3\Exception\S3Exception;
 
 class AwsModel extends BaseModel
 {
+    protected $key;
+    protected $secret;
+    protected $bucket;
+    protected $region;
+    protected $s3;
+
     public function __construct()
     {
         parent::__construct();
@@ -34,18 +40,15 @@ class AwsModel extends BaseModel
     }
 
     //upload file direct
-    public function uploadFileDirect($inputName, $path)
+    public function uploadFileDirect($inputName, $path, $prefix = '')
     {
         if (!empty($inputName) && !empty($path)) {
             $orjName = $_FILES[$inputName]['name'];
             $name = pathinfo($orjName, PATHINFO_FILENAME);
             $ext = pathinfo($orjName, PATHINFO_EXTENSION);
-            $name = strSlug($name);
-            if (empty($name)) {
-                $name = generateToken();
-            }
-            $this->putObjectDirect($path . $name . '.' . $ext, $_FILES[$inputName]['tmp_name']);
-            return ['orjName' => $orjName, 'path' => $path . $name . '.' . $ext];
+            $uniqueName = $prefix . generateToken(true) . '.' . $ext;
+            $this->putObjectDirect($path . $uniqueName, $_FILES[$inputName]['tmp_name']);
+            return ['orjName' => $orjName, 'path' => $path . $uniqueName];
         }
     }
 
@@ -58,9 +61,8 @@ class AwsModel extends BaseModel
     }
 
     //dowbload file
-    function downloadFile($filePath)
+    function downloadFile($fileName, $filePath)
     {
-        $fileName = pathinfo($filePath, PATHINFO_BASENAME);
         header('Content-Disposition: attachment; filename=' . $fileName);
         readfile(getAWSBaseURL() . $filePath);
         exit();

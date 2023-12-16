@@ -26,12 +26,12 @@
             <div class="d-flex justify-content-between mb-5 mt-5">
                 <div class="item">
                     <?php if ($pageNumber != 1): ?>
-                        <a href="<?= generatePostURL($post); ?>/<?= $pageNumber - 1; ?>" class="btn btn-md btn-custom"><i class="icon-arrow-left"></i>&nbsp;&nbsp;<?= trans("previous"); ?></a>
+                        <a href="<?= generatePostURL($post); ?>?p=<?= $pageNumber - 1; ?>" class="btn btn-md btn-custom"><i class="icon-arrow-left"></i>&nbsp;&nbsp;<?= trans("previous"); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="item">
                     <?php if ($pageNumber < $galleryPostNumRows): ?>
-                        <a href="<?= generatePostURL($post); ?>/<?= $pageNumber + 1; ?>" class="btn btn-md btn-custom"><?= trans("next"); ?>&nbsp;&nbsp;<i class="icon-arrow-right"></i></a>
+                        <a href="<?= generatePostURL($post); ?>?p=<?= $pageNumber + 1; ?>" class="btn btn-md btn-custom"><?= trans("next"); ?>&nbsp;&nbsp;<i class="icon-arrow-right"></i></a>
                     <?php endif; ?>
                 </div>
             </div>

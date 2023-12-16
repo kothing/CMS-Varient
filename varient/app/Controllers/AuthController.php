@@ -9,6 +9,8 @@ use App\Models\NewsletterModel;
 
 class AuthController extends BaseController
 {
+    protected $authModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -62,7 +64,7 @@ class AuthController extends BaseController
     {
         $state = generateToken();
         $fbUrl = "https://www.facebook.com/v2.10/dialog/oauth?client_id=" . $this->generalSettings->facebook_app_id . "&redirect_uri=" . langBaseUrl() . "/facebook-callback&scope=email&state=" . $state;
-        $this->session->set('oauth2state',$state);
+        $this->session->set('oauth2state', $state);
         $this->session->set('fbLoginReferrer', previous_url());
         return redirect()->to($fbUrl);
     }
@@ -97,6 +99,8 @@ class AuthController extends BaseController
             $fbUser->id = $user->getId();
             $fbUser->email = $user->getEmail();
             $fbUser->name = $user->getName();
+            $fbUser->firstName = $user->getFirstName();
+            $fbUser->lastName = $user->getLastName();
             $fbUser->pictureURL = $user->getPictureUrl();
             $model = new AuthModel();
             $model->loginWithFacebook($fbUser);
@@ -143,6 +147,8 @@ class AuthController extends BaseController
                 $gUser->id = $user->getId();
                 $gUser->email = $user->getEmail();
                 $gUser->name = $user->getName();
+                $gUser->firstName = $user->getFirstName();
+                $gUser->lastName = $user->getLastName();
                 $gUser->avatar = $user->getAvatar();
 
                 $model = new AuthModel();
@@ -295,7 +301,6 @@ class AuthController extends BaseController
         $data['title'] = trans("forgot_password");
         $data['description'] = trans("forgot_password") . " - " . $this->settings->application_name;
         $data['keywords'] = trans("forgot_password") . "," . $this->settings->application_name;
-
 
         echo loadView('partials/_header', $data);
         echo loadView('auth/forgot_password');

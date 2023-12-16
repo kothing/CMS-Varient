@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class LanguageModel extends BaseModel
 {
+    protected $builder;
+    protected $builderTranslations;
+
     public function __construct()
     {
         parent::__construct();

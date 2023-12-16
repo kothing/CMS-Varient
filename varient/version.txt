@@ -1,6 +1,6 @@
 Varient - News & Magazine Script
 
-Version 2.x
+Version 2.2
 
 By Codingest
 

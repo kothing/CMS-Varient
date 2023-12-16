@@ -16,6 +16,7 @@
                                 <p class="file-manager-file-types">
                                     <span>JPG</span>
                                     <span>JPEG</span>
+                                    <span>WEBP</span>
                                     <span>PNG</span>
                                     <span>GIF</span>
                                 </p>
@@ -79,11 +80,11 @@
             url: '<?= base_url("FileController/uploadQuizImageFile"); ?>',
             queue: true,
             allowedTypes: 'image/*',
-            extFilter: ["jpg", "jpeg", "png", "gif"],
+            extFilter: ["jpg", "jpeg", "webp", "png", "gif"],
             extraData: function (id) {
                 return {
                     "file_id": id,
-                    '<?= csrf_token() ?>': getCsrfHash()
+                    '<?= csrf_token() ?>': '<?= csrf_hash(); ?>'
                 };
             },
             onDragEnter: function () {

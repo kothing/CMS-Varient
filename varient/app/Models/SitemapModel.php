@@ -5,6 +5,8 @@ use Config\Globals;
 
 class SitemapModel extends BaseModel
 {
+    protected $urls;
+
     public function __construct()
     {
         parent::__construct();

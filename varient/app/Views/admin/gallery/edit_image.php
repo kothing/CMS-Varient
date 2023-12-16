@@ -69,7 +69,7 @@
                             <div class="col-sm-12">
                                 <a class='btn btn-success btn-sm btn-file-upload'>
                                     <?= trans('select_image'); ?>
-                                    <input type="file" id="Multifileupload" name="file" size="40" accept=".png, .jpg, .jpeg, .gif" style="cursor: pointer;">
+                                    <input type="file" id="Multifileupload" name="file" size="40" accept=".png, .jpg, .webp, .jpeg, .gif" style="cursor: pointer;">
                                 </a>
                             </div>
                         </div>

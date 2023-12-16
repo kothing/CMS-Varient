@@ -21,6 +21,7 @@ class Globals extends BaseConfig
     public static $langBaseUrl = "";
     public static $authCheck = false;
     public static $authUser = null;
+    public static $darkMode = 0;
 
     public static function setGlobals()
     {
@@ -78,6 +79,14 @@ class Globals extends BaseConfig
                 self::$authCheck = true;
                 self::$authUser = $user;
             }
+        }
+        //set dark mode
+        $mode = self::$generalSettings->theme_mode;
+        if (!empty(helperGetCookie('theme_mode'))) {
+            $mode = helperGetCookie('theme_mode');
+        }
+        if ($mode == 'dark') {
+            self::$darkMode = 1;
         }
     }
 

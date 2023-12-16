@@ -4,7 +4,7 @@
     <div class="pull-right hidden-xs">
         <strong style="font-weight: 600;"><?= $baseSettings->copyright; ?>&nbsp;</strong>
     </div>
-    <b>Version</b>&nbsp;2.x
+    <b>Version</b>&nbsp;2.2
 </footer>
 </div>
 <script src="<?= base_url('assets/admin/js/jquery-ui.min.js'); ?>"></script>
@@ -16,7 +16,7 @@
 <script src="<?= base_url('assets/admin/js/lazysizes.min.js'); ?>"></script>
 <script src="<?= base_url('assets/vendor/icheck/icheck.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/pace/pace.min.js'); ?>"></script>
-<script src="<?= base_url('assets/admin/plugins/file-manager/file-manager.js'); ?>"></script>
+<script src="<?= base_url('assets/admin/plugins/file-manager/file-manager-2.2.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/tagsinput/jquery.tagsinput.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/file-uploader/js/jquery.dm-uploader.min.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/file-uploader/js/ui.js'); ?>"></script>
@@ -24,54 +24,8 @@
 <script src="<?= base_url('assets/admin/plugins/colorpicker/bootstrap-colorpicker.min.js'); ?>"></script>
 <script src="<?= base_url('assets/vendor/bootstrap-datetimepicker/moment.min.js'); ?>"></script>
 <script src="<?= base_url('assets/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js'); ?>"></script>
-<script src="<?= base_url('assets/admin/js/custom-2.0.js'); ?>"></script>
-<script src="<?= base_url('assets/admin/js/post-types-2.1.js'); ?>"></script>
-<script src="<?= base_url('assets/admin/plugins/tippy/popper.min.js'); ?>"></script>
-<script src="<?= base_url('assets/admin/plugins/tippy/tippy-bundle.min.js'); ?>"></script>
-<script>
-    const { roundArrow } = tippy;
-    const tippyInst = [];
-    const sideMenuPopper = (isCollapse) => {
-        if(!isCollapse) {
-            tippyInst.forEach(item => item.destroy());
-            return;
-        }
-        const sidebarMenuList = document.querySelectorAll('.sidebar .sidebar-menu li');
-        Array.from(sidebarMenuList).forEach((listItem) => {
-            const listChildren = listItem.children;
-            const treeMenu = listItem.querySelector('.treeview-menu');
-            const label = listItem.querySelector('.label-name');
-            const tipContent = (treeMenu || label) ? (treeMenu || label).cloneNode(true) : null;
-            if(tipContent) {
-                tipContent.style.display = "block";
-                const inst = tippy(listItem, {
-                    appendTo: () => document.body,
-                    allowHTML: true,
-                    content: tipContent,
-                    placement: 'right',
-                    arrow: roundArrow,
-                    interactive: true,
-                });
-                tippyInst.push(inst);
-            }
-        }); 
-    }
-    const obsTarget = document.body;
-    const nodeListener = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === "attributes" && mutation.attributeName === "class") {
-          const mutationTarget = mutation.target;
-          const isCollapse = mutationTarget.classList.contains('sidebar-collapse');
-          sideMenuPopper(isCollapse);
-        }
-      });
-    });
-    nodeListener.observe(obsTarget, {
-        attributes: true,
-        childList: true,
-        characterData: true,
-    });
-</script>
+<script src="<?= base_url('assets/admin/js/custom-2.2.js'); ?>"></script>
+<script src="<?= base_url('assets/admin/js/post-types-2.2.js'); ?>"></script>
 <script src="<?= base_url('assets/admin/plugins/tinymce/tinymce.min.js'); ?>"></script>
 <script>
     function initTinyMCE(selector, minHeight) {
@@ -85,6 +39,7 @@
             min_height: minHeight,
             valid_elements: '*[*]',
             relative_urls: false,
+            entity_encoding: 'raw',
             remove_script_host: false,
             directionality: directionality,
             language: '<?= $activeLang->text_editor_lang; ?>',
@@ -105,7 +60,9 @@
         initTinyMCE('.tinyMCEQuiz', 205);
     }
 </script>
-<style>.pagination a, .pagination span {border-radius: 0 !important;}</style>
+<style>.pagination a, .pagination span {
+        border-radius: 0 !important;
+    }</style>
 <?php if (isset($langSearchColumn)): ?>
     <script>
         var table = $('#cs_datatable_lang').DataTable({
@@ -113,7 +70,7 @@
             "order": [[0, "desc"]],
             "aLengthMenu": [[15, 30, 60, 100], [15, 30, 60, 100, "All"]]
         });
-        $('<label class="table-label"><label/>').text('<?= trans('language'); ?>').appendTo('#table_dropdown');
+        $('<label class="table-label"><label/>').text('Language').appendTo('#table_dropdown');
         $select = $('<select class="form-control input-sm"><select/>').appendTo('#table_dropdown');
         $('<option/>').val('').text('<?= trans("all"); ?>').appendTo($select);
         <?php foreach ($activeLanguages as $lang): ?>

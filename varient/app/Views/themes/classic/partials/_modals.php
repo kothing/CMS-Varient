@@ -1,33 +1,33 @@
 <?php if (!authCheck() && $generalSettings->registration_system == 1): ?>
-    <div class="modal fade auth-modal" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade auth-modal" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><i class="icon-close" aria-hidden="true"></i></button>
-                        <h4 class="modal-title font-1"><?= trans("login"); ?></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="auth-box">
-                            <div class="social-login">
-                                <?= view("common/_social_login", ['orText' => trans("or_register_with_email")]); ?>
-                            </div>
-                            <div id="result-login"></div>
-                            <form id="form-login">
-                                <div class="form-group">
-                                    <input type="email" name="email" class="form-control auth-form-input" placeholder="<?= trans("email"); ?>" value="<?= old('email'); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" class="form-control auth-form-input" placeholder="<?= trans("password"); ?>" value="<?= old('password'); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
-                                </div>
-                                <div class="form-group text-right">
-                                    <a href="<?= generateURL('forgot_password'); ?>" class="link-forget"><?= trans("forgot_password"); ?>?</a>
-                                </div>
-                                <div class="form-group m-t-15 m-b-0">
-                                    <button type="submit" class="btn btn-md btn-custom btn-block"><?= trans("login"); ?></button>
-                                </div>
-                            </form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="icon-close" aria-hidden="true"></i></button>
+                    <h4 class="modal-title font-1"><?= trans("login"); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-box">
+                        <div class="social-login">
+                            <?= view("common/_social_login", ['orText' => trans("or_register_with_email")]); ?>
                         </div>
+                        <div id="result-login"></div>
+                        <form id="form-login">
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control auth-form-input" placeholder="<?= trans("email"); ?>" value="<?= old('email'); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control auth-form-input" placeholder="<?= trans("password"); ?>" value="<?= old('password'); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
+                            </div>
+                            <div class="form-group text-right">
+                                <a href="<?= generateURL('forgot_password'); ?>" class="link-forget"><?= trans("forgot_password"); ?>?</a>
+                            </div>
+                            <div class="form-group m-t-15 m-b-0">
+                                <button type="submit" class="btn btn-md btn-custom btn-block"><?= trans("login"); ?></button>
+                            </div>
+                        </form>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -42,9 +42,7 @@ if (authCheck()): ?>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <?php $formatCount = 0;
-                        if ($generalSettings->post_format_article == 1):
-                            $formatCount += 1; ?>
+                        <?php if ($generalSettings->post_format_article == 1): ?>
                             <div class="col-xs-12 col-sm-4 col-add-post">
                                 <a href="<?= adminUrl('add-post?type=article'); ?>">
                                     <div class="item">
@@ -60,8 +58,7 @@ if (authCheck()): ?>
                                 </a>
                             </div>
                         <?php endif;
-                        if ($generalSettings->post_format_gallery == 1):
-                            $formatCount += 1; ?>
+                        if ($generalSettings->post_format_gallery == 1): ?>
                             <div class="col-xs-12 col-sm-4 col-add-post">
                                 <a href="<?= adminUrl('add-post?type=gallery'); ?>">
                                     <div class="item">
@@ -77,8 +74,7 @@ if (authCheck()): ?>
                                 </a>
                             </div>
                         <?php endif;
-                        if ($generalSettings->post_format_sorted_list == 1):
-                            $formatCount += 1; ?>
+                        if ($generalSettings->post_format_sorted_list == 1): ?>
                             <div class="col-xs-12 col-sm-4 col-add-post">
                                 <a href="<?= adminUrl('add-post?type=sorted_list'); ?>">
                                     <div class="item">
@@ -94,40 +90,7 @@ if (authCheck()): ?>
                                 </a>
                             </div>
                         <?php endif;
-                        if ($generalSettings->post_format_trivia_quiz == 1):
-                            $formatCount += 1; ?>
-                            <div class="col-xs-12 col-sm-4 col-add-post">
-                                <a href="<?= adminUrl('add-post?type=trivia_quiz'); ?>">
-                                    <div class="item">
-                                        <div class="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="<?= $activeTheme->theme_color; ?>" class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
-                                                <path d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zm9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-3zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-3zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2z"/>
-                                            </svg>
-                                        </div>
-                                        <h5 class="title"><?= trans("trivia_quiz"); ?></h5>
-                                        <p class="desc"><?= trans("trivia_quiz_exp"); ?></p>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endif;
-                        if ($generalSettings->post_format_personality_quiz == 1):
-                            $formatCount += 1; ?>
-                            <div class="col-xs-12 col-sm-4 col-add-post">
-                                <a href="<?= adminUrl('add-post?type=personality_quiz'); ?>">
-                                    <div class="item">
-                                        <div class="item-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="<?= $activeTheme->theme_color; ?>" class="bi bi-ui-checks" viewBox="0 0 16 16">
-                                                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                                            </svg>
-                                        </div>
-                                        <h5 class="title"><?= trans("personality_quiz"); ?></h5>
-                                        <p class="desc"><?= trans("personality_quiz_exp"); ?></p>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endif;
-                        if ($generalSettings->post_format_video == 1):
-                            $formatCount += 1; ?>
+                        if ($generalSettings->post_format_video == 1): ?>
                             <div class="col-xs-12 col-sm-4 col-add-post">
                                 <a href="<?= adminUrl('add-post?type=video'); ?>">
                                     <div class="item">
@@ -144,7 +107,7 @@ if (authCheck()): ?>
                             </div>
                         <?php endif;
                         if ($generalSettings->post_format_audio == 1): ?>
-                            <div class="col-xs-12 col-sm-4 <?= $formatCount == 6 ? 'col-sm-offset-4 ' : ''; ?>col-add-post">
+                            <div class="col-xs-12 col-sm-4 col-add-post">
                                 <a href="<?= adminUrl('add-post?type=audio'); ?>">
                                     <div class="item">
                                         <div class="item-icon">
@@ -156,6 +119,51 @@ if (authCheck()): ?>
                                         </div>
                                         <h5 class="title"><?= trans("audio"); ?></h5>
                                         <p class="desc"><?= trans("audio_post_exp"); ?></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endif;
+                        if ($generalSettings->post_format_trivia_quiz == 1): ?>
+                            <div class="col-xs-12 col-sm-4 col-add-post">
+                                <a href="<?= adminUrl('add-post?type=trivia_quiz'); ?>">
+                                    <div class="item">
+                                        <div class="item-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="<?= $activeTheme->theme_color; ?>" class="bi bi-ui-checks-grid" viewBox="0 0 16 16">
+                                                <path d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zm9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-3zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-3zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2z"/>
+                                            </svg>
+                                        </div>
+                                        <h5 class="title"><?= trans("trivia_quiz"); ?></h5>
+                                        <p class="desc"><?= trans("trivia_quiz_exp"); ?></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endif;
+                        if ($generalSettings->post_format_personality_quiz == 1): ?>
+                            <div class="col-xs-12 col-sm-4 col-add-post">
+                                <a href="<?= adminUrl('add-post?type=personality_quiz'); ?>">
+                                    <div class="item">
+                                        <div class="item-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="<?= $activeTheme->theme_color; ?>" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                                                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                            </svg>
+                                        </div>
+                                        <h5 class="title"><?= trans("personality_quiz"); ?></h5>
+                                        <p class="desc"><?= trans("personality_quiz_exp"); ?></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endif;
+                        if ($generalSettings->post_format_poll == 1): ?>
+                            <div class="col-xs-12 col-sm-4 col-add-post">
+                                <a href="<?= adminUrl('add-post?type=poll'); ?>">
+                                    <div class="item">
+                                        <div class="item-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="<?= $activeTheme->theme_color; ?>" class="bi bi-ui-radios-grid" viewBox="0 0 16 16">
+                                                <path d="M3.5 15a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm9-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zM16 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm-9 9a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm5.5 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-9-11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 2a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                            </svg>
+                                        </div>
+                                        <h5 class="title"><?= trans("poll"); ?></h5>
+                                        <p class="desc"><?= trans("poll_exp"); ?></p>
                                     </div>
                                 </a>
                             </div>

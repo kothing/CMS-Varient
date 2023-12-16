@@ -115,7 +115,7 @@
                 return {
                     "file_id": id,
                     "download_button": $('input[name=audio_download_button]:checked').val(),
-                    '<?= csrf_token() ?>': getCsrfHash()
+                    '<?= csrf_token() ?>': '<?= csrf_hash(); ?>'
                 };
             },
             onDragEnter: function () {

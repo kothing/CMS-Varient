@@ -9,6 +9,9 @@ use App\Models\ProfileModel;
 
 class ProfileController extends BaseController
 {
+    protected $authModel;
+    protected $profileModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -31,7 +34,6 @@ class ProfileController extends BaseController
 
         $countKey = 'posts_count_profile' . $data['user']->id;
         $postsKey = 'posts_profile' . $data['user']->id;
-
         $postModel = new PostModel();
         $data['numRows'] = getCachedData($countKey);
         if (empty($data['numRows'])) {
@@ -39,10 +41,10 @@ class ProfileController extends BaseController
             setCacheData($countKey, $data['numRows']);
         }
         $pager = paginate($this->generalSettings->pagination_per_page, $data['numRows']);
-        $data['posts'] = getCachedData($postsKey . '_page' . $pager->getCurrentPage());
+        $data['posts'] = getCachedData($postsKey . '_page' . $pager->currentPage);
         if (empty($data['posts'])) {
             $data['posts'] = $postModel->getUserPostsPaginated($data['user']->id, $this->generalSettings->pagination_per_page, $pager->offset);
-            setCacheData($postsKey . '_page' . $pager->getCurrentPage(), $data['posts']);
+            setCacheData($postsKey . '_page' . $pager->currentPage, $data['posts']);
         }
         $data['following'] = $this->profileModel->getFollowingUsers($data['user']->id);
         $data['followers'] = $this->profileModel->getFollowers($data['user']->id);
@@ -137,6 +139,7 @@ class ProfileController extends BaseController
         $data['title'] = trans("social_accounts");
         $data['description'] = trans("social_accounts") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("social_accounts") . "," . $this->settings->application_name;
+
         $data['activeTab'] = 'social_accounts';
 
         echo loadView('partials/_header', $data);
@@ -171,6 +174,7 @@ class ProfileController extends BaseController
         $data['title'] = trans("preferences");
         $data['description'] = trans("preferences") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("preferences") . "," . $this->settings->application_name;
+
         $data['activeTab'] = 'preferences';
 
         echo loadView('partials/_header', $data);
@@ -205,6 +209,7 @@ class ProfileController extends BaseController
         $data['title'] = trans("change_password");
         $data['description'] = trans("change_password") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("change_password") . "," . $this->settings->application_name;
+
         $data['activeTab'] = 'change_password';
 
         echo loadView('partials/_header', $data);
@@ -250,6 +255,7 @@ class ProfileController extends BaseController
         $data['title'] = trans("delete_account");
         $data['description'] = trans("delete_account") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("delete_account") . "," . $this->settings->application_name;
+
         $data['activeTab'] = 'delete_account';
 
         echo loadView('partials/_header', $data);

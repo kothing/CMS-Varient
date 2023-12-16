@@ -4,6 +4,8 @@ use CodeIgniter\Model;
 
 class TagModel extends BaseModel
 {
+    protected $builder;
+
     public function __construct()
     {
         parent::__construct();

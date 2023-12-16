@@ -74,6 +74,8 @@
                         echo loadView('post/details/_sorted_list', ['post' => $post]);
                     elseif ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz'):
                         echo loadView('post/details/_quiz', ['post' => $post]);
+                    elseif ($post->post_type == 'poll'):
+                        echo loadView('post/details/_poll', ['post' => $post]);
                     else:
                         echo loadView('post/details/_article', ['post' => $post]);
                     endif;

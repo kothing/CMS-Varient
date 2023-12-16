@@ -18,6 +18,13 @@ use App\Models\SitemapModel;
 
 class AdminController extends BaseAdminController
 {
+    protected $postAdminModel;
+    protected $settingsModel;
+    protected $pageModel;
+    protected $authModel;
+    protected $commonModel;
+    protected $newsletterModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -56,7 +63,6 @@ class AdminController extends BaseAdminController
         $data['pendingPostsCount'] = $this->postAdminModel->getPendingPostsCount();
         $data['draftsCount'] = $this->postAdminModel->getDraftsCount();
         $data['scheduledPostsCount'] = $this->postAdminModel->getScheduledPostsCount();
-        
 
         $this->commonModel->fixNullRecords();
 
@@ -77,7 +83,6 @@ class AdminController extends BaseAdminController
             return redirect()->to(adminUrl('navigation?lang=' . $data["selectedLang"]));
         }
         $data['title'] = trans("navigation");
-        
         $data['menuLinks'] = $this->pageModel->getMenuLinks($data["selectedLang"]);
 
         echo view('admin/includes/_header', $data);
@@ -119,7 +124,6 @@ class AdminController extends BaseAdminController
         if (empty($data['page'])) {
             return redirect()->to(adminUrl('navigation'));
         }
-        
         $data['menuLinks'] = $this->pageModel->getMenuLinks($data["page"]->lang_id);
 
         echo view('admin/includes/_header', $data);
@@ -247,7 +251,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('pages');
         $data['title'] = trans("pages");
-        
+
         $data['pages'] = $this->pageModel->getPages();
         $data['langSearchColumn'] = 2;
 
@@ -401,7 +405,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('widgets');
         $data['title'] = trans("widgets");
-        
+
         $data['widgets'] = $this->settingsModel->getWidgets();
         $data['langSearchColumn'] = 2;
 
@@ -506,7 +510,7 @@ class AdminController extends BaseAdminController
         checkPermission('polls');
         $data['title'] = trans("polls");
         $pollModel = new PollModel();
-        
+
         $data['polls'] = $pollModel->getPolls();
         $data['langSearchColumn'] = 2;
 
@@ -621,7 +625,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('comments_contact');
         $data['title'] = trans("contact_messages");
-        
+
         $data['messages'] = $this->commonModel->getContactMessages();
 
         echo view('admin/includes/_header', $data);
@@ -664,7 +668,7 @@ class AdminController extends BaseAdminController
         checkPermission('comments_contact');
         $data['title'] = trans("approved_comments");
         $data['topButtonText'] = trans("pending_comments");
-        
+
         $data['topButtonURL'] = adminUrl('pending-comments');
         $data['showApproveButton'] = false;
 
@@ -684,7 +688,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('comments_contact');
         $data['title'] = trans("pending_comments");
-        
+
         $data['topButtonText'] = trans("approved_comments");
         $data['topButtonURL'] = adminUrl('comments');
         $data['showApproveButton'] = true;
@@ -759,7 +763,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('newsletter');
         $data['title'] = trans("newsletter");
-        
+
         $data['subscribers'] = $this->newsletterModel->getSubscribers();
         $data['users'] = $this->authModel->getAllUsers();
 
@@ -842,7 +846,7 @@ class AdminController extends BaseAdminController
         if (empty($data['adSpaceKey'])) {
             $data['adSpaceKey'] = 'header';
         }
-        
+
         $lang = getLanguage($data['langId']);
         if (empty($lang)) {
             $data['langId'] = $this->activeLang->id;
@@ -907,7 +911,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('users');
         $data['title'] = trans("users");
-        
+
         $numRows = $this->authModel->getUsersCount();
         $pager = paginate($this->perPage, $numRows);
         $data['users'] = $this->authModel->getUsersPaginated($this->perPage, $pager->offset);
@@ -925,7 +929,7 @@ class AdminController extends BaseAdminController
         checkAdmin();
         $data['title'] = trans("administrators");
         $data['users'] = $this->authModel->getAdministrators();
-        
+
 
         echo view('admin/includes/_header', $data);
         echo view('admin/users/administrators');
@@ -1129,7 +1133,6 @@ class AdminController extends BaseAdminController
     {
         checkAdmin();
         $data['title'] = trans("roles_permissions");
-        
         $data['roles'] = $this->authModel->getRolesPermissions();
 
         echo view('admin/includes/_header', $data);
@@ -1143,10 +1146,6 @@ class AdminController extends BaseAdminController
     public function editRole($id)
     {
         checkAdmin();
-        if ($id == 1) {
-            return redirect()->to(adminUrl('roles-permissions'));
-        }
-        
         $data['title'] = trans("edit_role");
         $data['role'] = $this->authModel->getRole($id);
         if (empty($data['role'])) {
@@ -1181,10 +1180,10 @@ class AdminController extends BaseAdminController
         checkPermission('seo_tools');
         $data['title'] = trans("seo_tools");
         $data["selectedLangId"] = inputGet('lang');
-        
         if (empty($data["selectedLangId"])) {
             $data["selectedLangId"] = $this->activeLang->id;
         }
+        $data['seoSettings'] = $this->settingsModel->getSettings($data["selectedLangId"]);
 
         echo view('admin/includes/_header', $data);
         echo view('admin/seo_tools', $data);
@@ -1304,13 +1303,38 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Google News
+     */
+    public function googleNews()
+    {
+        checkAdmin();
+        $data['title'] = trans("google_news");
+        $data['users'] = $this->authModel->getActiveUsers();
+        echo view('admin/includes/_header', $data);
+        echo view('admin/google_news', $data);
+        echo view('admin/includes/_footer');
+    }
+
+    /**
+     * Google News Post
+     */
+    public function googleNewsPost()
+    {
+        if ($this->settingsModel->updateGoogleNews()) {
+            $this->session->setFlashdata('success', trans("msg_updated"));
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
+        return redirect()->to(adminUrl('google-news'));
+    }
+
+    /**
      * Preferences
      */
     public function preferences()
     {
         checkPermission('settings');
         $data['title'] = trans("preferences");
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/settings/preferences', $data);
@@ -1333,12 +1357,12 @@ class AdminController extends BaseAdminController
     }
 
     /**
-     * Allowed File Extensions Post
+     * File Upload Settings Post
      */
-    public function allowedFileExtensionsPost()
+    public function fileUploadSettingsPost()
     {
         checkPermission('settings');
-        if ($this->settingsModel->updateAllowedFileExtensions()) {
+        if ($this->settingsModel->updateFileUploadSettings()) {
             $this->session->setFlashdata('success', trans("msg_updated"));
         } else {
             $this->session->setFlashdata('error', trans("msg_error"));
@@ -1354,7 +1378,6 @@ class AdminController extends BaseAdminController
         checkAdmin();
         $data['title'] = trans("route_settings");
         $data['routes'] = $this->settingsModel->getRoutes();
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/settings/route_settings', $data);
@@ -1384,7 +1407,6 @@ class AdminController extends BaseAdminController
     {
         checkPermission('settings');
         $data['title'] = trans("email_settings");
-        
         $data['service'] = inputGet('service');
         $data['protocol'] = inputGet('protocol');
         if (empty($data['service'])) {
@@ -1479,7 +1501,7 @@ class AdminController extends BaseAdminController
         if (empty($data["selectedLangId"])) {
             $data["selectedLangId"] = $this->activeLang->id;
         }
-        
+
         $data['title'] = trans("font_settings");
         $data['fonts'] = $this->settingsModel->getFonts();
 
@@ -1585,7 +1607,7 @@ class AdminController extends BaseAdminController
     {
         checkPermission('settings');
         $data['title'] = trans("social_login_settings");
-        
+
 
         echo view('admin/includes/_header', $data);
         echo view('admin/social_login', $data);
@@ -1618,7 +1640,7 @@ class AdminController extends BaseAdminController
             $data["settingsLangId"] = $this->activeLang->id;
             return redirect()->to(adminUrl('general-settings?lang=' . $data["settingsLangId"]));
         }
-        
+
         $data['title'] = trans("settings");
         $data['settings'] = $this->settingsModel->getSettings($data["settingsLangId"]);
 

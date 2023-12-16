@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class PollModel extends BaseModel
 {
+    protected $builder;
+    protected $builderVotes;
+
     public function __construct()
     {
         parent::__construct();

@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class ProfileModel extends BaseModel
 {
+    protected $builder;
+    protected $builderFollowers;
+
     public function __construct()
     {
         parent::__construct();
@@ -61,7 +64,9 @@ class ProfileModel extends BaseModel
             'linkedin_url' => inputPost('linkedin_url'),
             'vk_url' => inputPost('vk_url'),
             'telegram_url' => inputPost('telegram_url'),
-            'youtube_url' => inputPost('youtube_url')
+            'youtube_url' => inputPost('youtube_url'),
+            'tiktok_url' => inputPost('tiktok_url'),
+            'personal_website_url' => inputPost('personal_website_url')
         ];
         return $this->builder->where('id', cleanNumber(user()->id))->update($data);
     }

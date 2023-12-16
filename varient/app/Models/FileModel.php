@@ -4,6 +4,14 @@ use CodeIgniter\Model;
 
 class FileModel extends BaseModel
 {
+    protected $builder;
+    protected $uploadModel;
+    protected $builderQuizImages;
+    protected $builderFiles;
+    protected $builderVideos;
+    protected $builderAudios;
+    protected $fileManagerLimit;
+
     public function __construct()
     {
         parent::__construct();
@@ -42,8 +50,8 @@ class FileModel extends BaseModel
                 $data['image_slider'] = $this->uploadModel->uploadPostImage($tempFile['path'], 'slider');
                 $data['image_mid'] = $this->uploadModel->uploadPostImage($tempFile['path'], 'mid');
                 $data['image_small'] = $this->uploadModel->uploadPostImage($tempFile['path'], 'small');
-                $data['image_mime'] = 'jpg';
-                $data['file_name'] = $tempFile['orjName'];
+                $data['image_mime'] = $this->uploadModel->getFileExtension($data['image_big']);
+                $data['file_name'] = $this->uploadModel->createFileNameByExt($tempFile['orjName'], $data['image_mime']);
             }
             $data['user_id'] = user()->id;
             $data['storage'] = $this->generalSettings->storage;
@@ -137,8 +145,8 @@ class FileModel extends BaseModel
             } else {
                 $data['image_default'] = $this->uploadModel->uploadQuizImage($tempFile['path'], 'default');
                 $data['image_small'] = $this->uploadModel->uploadQuizImage($tempFile['path'], 'small');
-                $data['image_mime'] = 'jpg';
-                $data['file_name'] = $tempFile['orjName'];
+                $data['image_mime'] = $this->uploadModel->getFileExtension($data['image_default']);
+                $data['file_name'] = $this->uploadModel->createFileNameByExt($tempFile['orjName'], $data['image_mime']);
             }
             $data['user_id'] = user()->id;
             $data['storage'] = $this->generalSettings->storage;
@@ -218,7 +226,7 @@ class FileModel extends BaseModel
             $awsModel = new AwsModel();
             $directory = $this->uploadModel->createUploadDirectory('files');
             $path = 'uploads/files/' . $directory;
-            $file = $awsModel->uploadFileDirect('file', $path);
+            $file = $awsModel->uploadFileDirect('file', $path, 'file_');
             if (!empty($file['orjName'])) {
                 $data = [
                     'file_name' => $file['orjName'],
@@ -300,7 +308,7 @@ class FileModel extends BaseModel
             $awsModel = new AwsModel();
             $directory = $this->uploadModel->createUploadDirectory('videos');
             $path = 'uploads/videos/' . $directory;
-            $file = $awsModel->uploadFileDirect('file', $path);
+            $file = $awsModel->uploadFileDirect('file', $path, 'video_');
             if (!empty($file['orjName'])) {
                 $data = [
                     'video_name' => $file['orjName'],
@@ -382,7 +390,7 @@ class FileModel extends BaseModel
             $awsModel = new AwsModel();
             $directory = $this->uploadModel->createUploadDirectory('audios');
             $path = 'uploads/audios/' . $directory;
-            $file = $awsModel->uploadFileDirect('file', $path);
+            $file = $awsModel->uploadFileDirect('file', $path, 'audio_');
             if (!empty($file['orjName'])) {
                 $data = [
                     'audio_name' => $file['orjName'],

@@ -590,6 +590,22 @@ if ($tab != "general" && $tab != "homepage" && $tab != "posts" && $tab != "post_
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <label><?= trans('poll'); ?></label>
+                                </div>
+                                <div class="col-sm-6 col-md-5 col-xs-12 col-option">
+                                    <input type="radio" name="post_format_poll" value="1" id="post_format_poll_1" class="square-purple" <?= $generalSettings->post_format_poll == 1 ? 'checked' : ''; ?>>
+                                    <label for="post_format_poll_1" class="option-label"><?= trans('enable'); ?></label>
+                                </div>
+                                <div class="col-sm-6 col-md-7 col-xs-12 col-option">
+                                    <input type="radio" name="post_format_poll" value="0" id="post_format_poll_2" class="square-purple" <?= $generalSettings->post_format_poll != 1 ? 'checked' : ''; ?>>
+                                    <label for="post_format_poll_2" class="option-label"><?= trans('disable'); ?></label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group text-right" style="margin-top: 60px;">
                             <button type="submit" name="submit" value="post_formats" class="btn btn-primary"><?= trans('save_changes'); ?></button>
                         </div>
@@ -652,13 +668,32 @@ if ($tab != "general" && $tab != "homepage" && $tab != "posts" && $tab != "post_
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><?= trans('allowed_file_extensions'); ?>&nbsp;(<?= trans("file_manager") ?>)</h3>
+                        <h3 class="box-title"><?= trans("file_upload") ?></h3>
                     </div>
-                    <form action="<?= base_url('AdminController/allowedFileExtensionsPost'); ?>" method="post">
+                    <form action="<?= base_url('AdminController/fileUploadSettingsPost'); ?>" method="post">
                         <?= csrf_field(); ?>
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="control-label"><?= trans("file_extensions"); ?></label>
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12">
+                                        <label><?= trans('image_file_format'); ?></label>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12 col-option">
+                                        <input type="radio" id="image_file_format_1" name="image_file_format" value="JPG" class="square-purple" <?= $generalSettings->image_file_format == 'JPG' ? 'checked' : ''; ?>>
+                                        <label for="image_file_format_1" class="cursor-pointer">JPG</label>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12 col-option">
+                                        <input type="radio" id="image_file_format_2" name="image_file_format" value="WEBP" class="square-purple" <?= $generalSettings->image_file_format == 'WEBP' ? 'checked' : ''; ?>>
+                                        <label for="image_file_format_2" class="cursor-pointer">WEBP</label>
+                                    </div>
+                                    <div class="col-sm-4 col-xs-12 col-option">
+                                        <input type="radio" id="image_file_format_3" name="image_file_format" value="PNG" class="square-purple" <?= $generalSettings->image_file_format == 'PNG' ? 'checked' : ''; ?>>
+                                        <label for="image_file_format_3" class="cursor-pointer">PNG</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"><?= trans('allowed_file_extensions'); ?></label>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <input id="input_allowed_file_extensions" type="text" name="allowed_file_extensions" value="<?= strReplace('"', '', $generalSettings->allowed_file_extensions); ?>" class="form-control tags"/>

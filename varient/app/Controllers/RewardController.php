@@ -6,6 +6,8 @@ use App\Models\RewardModel;
 
 class RewardController extends BaseAdminController
 {
+    protected $rewardModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -22,7 +24,6 @@ class RewardController extends BaseAdminController
     public function rewardSystem()
     {
         $data['title'] = trans("reward_system");
-
 
         echo view('admin/includes/_header', $data);
         echo view('admin/reward/reward_system', $data);
@@ -76,7 +77,6 @@ class RewardController extends BaseAdminController
         $data['title'] = trans("earnings");
         $numRows = $this->rewardModel->getEarningsCount();
         $pager = paginate($this->perPage, $numRows);
-
         $data['earnings'] = $this->rewardModel->getEarningsPaginated($this->perPage, $pager->offset);
 
         echo view('admin/includes/_header', $data);
@@ -92,7 +92,6 @@ class RewardController extends BaseAdminController
         $data['title'] = trans("payouts");
         $numRows = $this->rewardModel->getPayoutsCount();
         $pager = paginate($this->perPage, $numRows);
-
         $data['payouts'] = $this->rewardModel->getPayoutsPaginated($this->perPage, $pager->offset);
 
         echo view('admin/includes/_header', $data);
@@ -156,7 +155,6 @@ class RewardController extends BaseAdminController
         $data['title'] = trans("pageviews");
         $numRows = $this->rewardModel->getPageviewsCount();
         $pager = paginate($this->perPage, $numRows);
-
         $data['pageviews'] = $this->rewardModel->getPageviewsPaginated($this->perPage, $pager->offset);
 
         echo view('admin/includes/_header', $data);

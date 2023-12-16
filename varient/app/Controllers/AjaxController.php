@@ -132,10 +132,10 @@ class AjaxController extends BaseController
     {
         $pollId = inputPost('poll_id');
         $option = inputPost('option');
-        $jsonData = array(
+        $jsonData = [
             'result' => 1,
             'htmlContent' => '',
-        );
+        ];
         if (is_null($option) || $option == '') {
             $jsonData['htmlContent'] = 'required';
         } else {
@@ -154,6 +154,28 @@ class AjaxController extends BaseController
                 } else {
                     $jsonData['htmlContent'] = 'voted';
                 }
+            }
+        }
+        echo json_encode($jsonData);
+    }
+
+    /**
+     * Add Post Poll Vote
+     */
+    public function addPostPollVote()
+    {
+        $questionId = inputPost('question_id');
+        $answerId = inputPost('answer_id');
+        $jsonData = [
+            'result' => 0
+        ];
+        if (!empty($questionId) && !empty($answerId)) {
+            $quizModel = new QuizModel();
+            if ($quizModel->addPostPollVote($questionId, $answerId)) {
+                $jsonData['result'] = 1;
+                $result = $quizModel->getPollQuestionVotes($questionId);
+                $jsonData['arrayVotes'] = $result['arrayVotes'];
+                $jsonData['totalVotes'] = $result['totalVotes'];
             }
         }
         echo json_encode($jsonData);
@@ -331,6 +353,6 @@ class AjaxController extends BaseController
      */
     public function closeCookiesWarningPost()
     {
-        helperSetCookie('cookies_warning', '1');
+        helperSetCookie('cks_warning', '1');
     }
 }

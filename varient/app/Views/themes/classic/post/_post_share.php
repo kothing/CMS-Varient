@@ -65,7 +65,7 @@ $postTitle = urlencode($post->title); ?>
     else:
         if ($generalSettings->registration_system == 1): ?>
             <li>
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-login" data-toggle-tool="tooltip" data-placement="top" title="<?= trans("add_reading_list"); ?>" class="social-btn-sm add-reading-list">
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#modalLogin" data-toggle-tool="tooltip" data-placement="top" title="<?= trans("add_reading_list"); ?>" class="social-btn-sm add-reading-list">
                     <i class="icon-star"></i>
                 </a>
             </li>

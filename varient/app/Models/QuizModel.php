@@ -4,12 +4,18 @@ use CodeIgniter\Model;
 
 class QuizModel extends BaseModel
 {
+    protected $builderQuestions;
+    protected $builderAnswers;
+    protected $builderResults;
+    protected $builderVotes;
+
     public function __construct()
     {
         parent::__construct();
         $this->builderQuestions = $this->db->table('quiz_questions');
         $this->builderAnswers = $this->db->table('quiz_answers');
         $this->builderResults = $this->db->table('quiz_results');
+        $this->builderVotes = $this->db->table('post_poll_votes');
     }
 
     /*
@@ -398,6 +404,76 @@ class QuizModel extends BaseModel
                 $this->deleteQuizResult($result->id);
             }
         }
+    }
+
+    /*
+    *-------------------------------------------------------------------------------------------------
+    * POLL
+    *-------------------------------------------------------------------------------------------------
+    */
+
+    //add poll vote
+    public function addPostPollVote($questionId, $answerId)
+    {
+        if (!empty(getSession('pollAnswer' . $questionId))) {
+            return false;
+        }
+        if (authCheck() && $this->builderVotes->where('user_id', user()->id)->where('question_id', cleanNumber($questionId))->countAllResults() > 0) {
+            return false;
+        }
+        $question = $this->getQuizQuestion($questionId);
+        if (!empty($question)) {
+            $post = getPostById($question->post_id);
+            if (!empty($post)) {
+                $userId = 0;
+                if (authCheck()) {
+                    $userId = user()->id;
+                }
+                if ($post->is_poll_public == 0 && $userId == 0) {
+                    return false;
+                }
+                if ($userId != 0) {
+                    $data = [
+                        'post_id' => $post->id,
+                        'question_id' => cleanNumber($questionId),
+                        'answer_id' => cleanNumber($answerId),
+                        'user_id' => $userId
+                    ];
+                    $this->builderVotes->insert($data);
+                }
+                setSession('pollAnswer' . $questionId, $answerId);
+                return $this->db->query('UPDATE quiz_answers SET total_votes = total_votes + 1 WHERE id = ' . cleanNumber($answerId));
+            }
+        }
+        return false;
+    }
+
+    //get poll question votes
+    public function getPollQuestionVotes($questionId)
+    {
+        $answers = $this->getQuizQuestionAnswers($questionId);
+        $totalVotes = 0;
+        $arrayVotes = [];
+        if (!empty($answers)) {
+            foreach ($answers as $answer) {
+                $totalVotes += $answer->total_votes;
+            }
+            foreach ($answers as $answer) {
+                $percentage = calculatePercentage($totalVotes, $answer->total_votes);
+                $item = ['answerId' => $answer->id, 'votes' => $answer->total_votes, 'percentage' => $percentage];
+                array_push($arrayVotes, $item);
+            }
+        }
+        return ['arrayVotes' => $arrayVotes, 'totalVotes' => $totalVotes];
+    }
+
+    //get user poll question answers
+    public function getUserPollAnswers($postId)
+    {
+        if (authCheck()) {
+            return $this->builderVotes->where('user_id', user()->id)->where('post_id', cleanNumber($postId))->get()->getResult();
+        }
+        return [];
     }
 
 }

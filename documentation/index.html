@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Documentation - Varient - News & Magazine Script</title>
     <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png"/>
-
-    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/prism/prism.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="stylesheet" href="assets/custom.css">
 </head>
 <body data-spy="scroll" data-target="#mainScrollspy">
 <div class="page-wrapper toggled light-theme">
@@ -20,7 +21,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12">
-                            <img src="assets/img/logo.svg" class="logo" align="varient">
+                            <img src="assets/logo.svg" class="logo" align="varient">
                             <a href="https://codecanyon.net/item/varient-news-magazine-script/21035226" target="_blank" class="visit-link">Visit on CodeCanyon</a>
                         </div>
                     </div>
@@ -29,7 +30,7 @@
 
             </header>
         </div>
-    </div>
+    </div>  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <div class="container-fluid">
         <div class="row">
@@ -70,7 +71,8 @@
                                 <a class="nav-link" href="#seo">SEO Tools</a>
                                 <a class="nav-link" href="#social_login">Social Login Settings</a>
                                 <a class="nav-link" href="#storage">Storage</a>
-                                <a class="nav-link" href="#cache">Cache System</a>
+                                <a class="nav-link" href="#cache">Cache System</a>                          
+                                <a class="nav-link" href="#google_news">Google News</a>
                                 <a class="nav-link" href="#cron_job">Cron Job</a>
                                 <a class="nav-link" href="#preferences">Preferences</a>
                                 <a class="nav-link" href="#pwa">Progressive Web Apps (PWA)</a>
@@ -92,7 +94,7 @@
                     <div class="row row-main">
                         <div id="getting_started" class="item-content">
                             <div class="content-inner">
-                                <h1 class="main-title">Varient - News & Magazine Script&nbsp;<span>v2.x</span></h1>
+                                <h1 class="main-title">Varient - News & Magazine Script&nbsp;<span>v2.2</span></h1>
                                 <h2 class="sub-main-title">by Codingest</h2>
                                 <h3 class="title">Getting Started</h3>
                                 <p class="prepend-top append-0">Thank you for purchasing our script. If you have any questions that are beyond the scope of this help file, please feel free to contact us via
@@ -942,30 +944,13 @@
                                     <li><b>Show on Menu: </b> You can show or hide your categories on the menu.</li>
                                     <li><b>Show at Homepage: </b> You can show or hide your categories at Homepage.</li>
                                     <li><b>Category Block Style: </b> You should select a block style for category.</li>
+                                    <li><b>Parent Category: </b> You should select a top (parent) category.</li>
                                 </ul>
 
                                 <h4 class="subtitle">Update Category</h4>
                                 <p>Go to "Categories" section from navigation and click Categories. On the category list you can make changes on categories by selecting "Edit" option for each categories.</p>
                                 <h4 class="subtitle">Delete Category</h4>
                                 <p>On the same list you can delete categories by selecting "Delete" option for each categories.</p>
-
-                                <h4 class="subtitle">Subcategories</h4>
-                                <p>You can add, update or delete subcategories from this section</p>
-                                <h4 class="subtitle">Add Subcategory</h4>
-                                <p>Go to "Categories" section from navigation and click Subcategories. Then fill out the Add Subcategory form.</p>
-                                <ul>
-                                    <li><b>Category Name: </b> Category name.</li>
-                                    <li><b>Category Slug : </b> Slug for SEO friendly url. If your category name consists of special characters your
-                                        slug will not be generated. In this case you should add custom slug.
-                                    </li>
-                                    <li><b>Category Description: </b> You can add Description (Meta Tag) for category.</li>
-                                    <li><b>Category Keywords: </b> You can add Keywords (Meta Tag) for category.</li>
-                                    <li><b>Parent Category: </b> You should select a top (parent) category.</li>
-                                </ul>
-                                <h4 class="subtitle">Update Subcategory</h4>
-                                <p>Go to "Categories" section from navigation and click Subcategories. On the category list you can make changes on categories by selecting "Edit" option for each categories.</p>
-                                <h4 class="subtitle">Delete Subcategory</h4>
-                                <p> On the same list you can delete categories by selecting "Delete" option for each categories.</p>
                             </div>
                         </div>
 
@@ -1234,23 +1219,33 @@
                                     <h4 class="title">Facebook Login</h4>
                                     <ol>
                                         <li>Go to <a href="https://developers.facebook.com/" target="_blank">https://developers.facebook.com/</a> URL.</li>
-                                        <li>Click <strong>"My Apps"</strong> option.<br><br><img src="assets/images/fb1.jpg" alt=""><br><br><br></li>
-                                        <li>Click <strong>"Create App"</strong> option.<br><br><img src="assets/images/fb2.jpg" alt=""><br><br><br></li>
-                                        <li>Select <strong>"Consumer"</strong> option.<br><br><img src="assets/images/fb3.jpg" alt=""><br><br><br></li>
-                                        <li>Fill the form and click <strong>"Create App"</strong> button.<br><br><img src="assets/images/fb4.jpg" alt=""><br><br></li>
-                                        <li>Select <strong>"Facebook Login"</strong> option. <br><br><img src="assets/images/fb5.jpg" alt=""><br><br><br></li>
-                                        <li>Select <strong>"Web"</strong> option. <br><br><img src="assets/images/fb6.jpg" alt=""><br><br><br></li>
-                                        <li>Enter your site URL and click "Save" button. It should be a HTTPS URL. E.g: https://domain.com <br><br><img src="assets/images/fb7.jpg" alt=""><br><br><br></li>
-                                        <li>Click <strong>"Facebook Login > Settings"</strong> link from sidebar menu.<br>Enter redirect URL: <strong>"https://your domain.com/facebook-callback"</strong> and click <strong>"Save Changes"</strong> button. <br><br><img src="assets/images/fb8.jpg" alt=""><br><br></li>
-                                        <li>Click <strong>"Settings > Basic"</strong> link from sidebar menu.<br> Enter your domain to <strong>"App Domains"</strong> and <strong>"Privacy Policy
-                                            URL"</strong> fields. <br>
-                                            Enter your Terms & Conditions page link to the <b>"User Data Deletion"</b> field.
-                                            <br>Select a category for your application and click <strong>"Save Changes"</strong> button.<br><br><img src="assets/images/fb9.jpg" alt=""><br><br></li>
-                                        <li>Click <strong>"App Review &gt; Permissions and Features"</strong> link from the sidebar menu. Give "Advanced Access" for the "<strong>public_profile</strong>" and "<strong>email</strong>" permissions. <br/><br/>
-                                            <p><img src="assets/images/fb-permissions.png" alt=""/></p>
-                                            <br/><br/></li>
-                                        <li>Change your APP Status to <strong>"Live"</strong>.<br>Copy <strong>"App ID"</strong> and <strong>"App Secret"</strong> values from this page and enter these
-                                            values from <strong>"Social Login"</strong> section in the Admin panel.<br><br><img src="assets/images/fb10.jpg" alt=""></li>
+                                        <li>Click <strong>"My Apps"</strong> option.<br><br><img src="assets/images/fb01.jpg" alt=""><br><br><br></li>
+                                        <li>Click <strong>"Create App"</strong> option.<br><br><img src="assets/images/fb02.jpg" alt=""><br><br><br></li>
+                                        <li>Go to  <strong>"Set up Facebook Login"</strong> option and click "Next".<br><br><img src="assets/images/fb03.jpg" alt=""><br><br><br></li>
+                                        <li>Fill the form and click <strong>"Create App"</strong> button.<br><br><img src="assets/images/fb04.jpg" alt=""><br><br></li>
+                                        <li>Click the <b>"Use Cases"</b> link from sidebar and click on the <b>"Edit"</b> button for the <b>"Authentication and account creation
+                                            "</b> option. Then click <b>"Add"</b> option for email permission.<br><br><img src="assets/images/fb05.jpg" alt=""><br><br><img src="assets/images/fb06.jpg" alt=""><br><br><br></li>
+                                        <li>Click the <b>"Products"</b> link from sidebar.<br> Then click the <b>"Configure > Settings"</b> option.
+                                            Enter Valid OAuth Redirect URIs: <b>"https://your domain.com/facebook-callback"</b> and click <strong>"Save Changes"</strong> button. 
+                                            <br><br><img src="assets/images/fb07.jpg" alt="">
+                                            <br><br><img src="assets/images/fb08.jpg" alt=""><br><br>
+                                        </li>
+                                        <li>Click the <b>"Settings > Basic"</b> link from sidebar.<br> Enter your domain to <strong>"App Domains"</strong>field. <br>
+                                            Enter your Terms & Conditions page link to the <b>"User Data Deletion"</b> and <b>"Privacy Policy URL"</b> fields.
+                                           <br>Select a category for your application and click <strong>"Save Changes"</strong> button.
+                                           <br> <br>
+                                                   
+                                          <p class="text-danger">
+                                            **Copy <strong>"App ID"</strong> and <strong>"App Secret"</strong> values from this page and enter these
+                                            values from <strong>"Social Login"</strong> section in the Admin panel.
+                                          </p> 
+                                           
+                                           <img src="assets/images/fb09.jpg" alt=""><br><br>                     
+                                        </li>
+
+                                       <li>Click the <b>"Go Live"</b> link from sidebar. Then click the <b>"Go Live"</b> button.
+                                            <br><br><img src="assets/images/fb10.jpg" alt=""><br><br>
+                                        </li>
                                     </ol>
                                 </div>
 
@@ -1305,33 +1300,44 @@
                                 <br>
                                 <strong>AWS S3 Integration:</strong><br>
                                 <ol>
-                                    <li>Go to <a href="https://aws.amazon.com/s3/" target="_blank" rel="noopener">https://aws.amazon.com/s3/</a> and create your account.<br/><br/></li>
-                                    <li>Click AWS Management Console<br/>
-                                        <p><img src="assets/images/aws1.png" alt=""/><br/><br/></p>
+                                    <li>Go to <a href="https://aws.amazon.com/s3/" target="_blank" rel="noopener">https://aws.amazon.com/s3/</a> URL and create your account.<br/><br/></li>
+                                    <li>Click the "AWS Management Console" link.<br/><br/>
+                                        <p><img src="assets/images/aws1.jpg" alt=""/><br/><br/></p>
                                     </li>
-                                    <li>Click S3 under the Storage menu<br/>
-                                        <p></p>
+                                    <li>Click the "Services" link from the top menu and then click the "S3" link under the "Storage" section.<br/>
+                                        <br/>
                                         <p><img src="assets/images/aws2.jpg" alt=""/></p>
                                         <br/><br/></li>
                                     <li>Click the "Create bucket" button. <br/><br/>
-                                        <p><img src="assets/images/aws3.png" alt=""/></p>
+                                        <p><img src="assets/images/aws3.jpg" alt=""/></p>
                                         <br/><br/></li>
                                     <li>Enter your "bucket name" and select your region. "<strong>us-east-1</strong>" will be your region code and you need to enter this value from the Admin panel. Your region code can be different according to your location.<br/><br/>
-                                        <p><img src="assets/images/aws4.png" alt=""/></p>
+                                        <p><img src="assets/images/aws4.jpg" alt=""/></p>
                                         <p><br/>Select the "<strong>ACLs enabled</strong>" option.<br/><br/></p>
-                                        <p><img src="assets/images/aws_acls.png" alt=""/></p>
+                                        <p><img src="assets/images/aws5.jpg" alt=""/></p>
                                         <p><br/><br/>Unselect the "<strong>Block all public</strong>" option and select "I acknowledge that the..." option.<br/><br/></p>
-                                        <p><img src="assets/images/aws5.png" alt=""/></p>
-                                        <p><br/>Click the "<strong>Create bucket</strong>" button.<br/><br/></p>
-                                        <p><img src="assets/images/aws6.png" alt=""/></p>
+                                        <p><img src="assets/images/aws6.jpg" alt=""/></p>
+                                        <p><br/>Select these options and Click the "<strong>Create bucket</strong>" button.<br/><br/></p>
+                                        <p><img src="assets/images/aws7.jpg" alt=""/></p>
                                         <p><br/><br/></p>
                                     </li>
-                                    <li>Click the <strong>My Security Credentials</strong> option.<br/>
-                                        <p><img src="assets/images/aws8.png" alt=""/></p>
-                                        <br/><br/></li>
-                                    <li>Click <strong>Access keys</strong> tab. Then click <strong>Create New Access Key</strong> button and create your access keys. You can need to enter these keys from "<strong>AWS S3 Storage</strong>" section in Admin panel. <br/>
-                                        <p><img src="assets/images/aws9.png" alt=""/></p>
-                                        <br/><br/></li>
+                                    <li>Click the <strong>Security Credentials</strong> option.<br/><br/>
+                                        <p><img src="assets/images/aws8.jpg" alt=""/></p>
+                                        <br/><br/>
+                                    </li>
+                                    <li>Go to the <strong>Access keys</strong> section and click the <strong>Create Access Key</strong> button. and create your access keys.<br/><br/>
+                                        <p><img src="assets/images/aws9.jpg" alt=""/></p>
+                                        <br/><br/>
+                                    </li>
+                                    <li>Select the option and click the <strong>Create Access Key</strong> button.<br/><br/>
+                                        <p><img src="assets/images/aws10.jpg" alt=""/></p>
+                                        <br/><br/>
+                                    </li>
+                                    <li>Copy your keys and add them from the "<strong>Storage / AWS S3 Storage</strong>" section in the Admin panel. 
+                                        <br/><br/>
+                                        <p><img src="assets/images/aws11.jpg" alt=""/></p>
+                                        <br/><br/>
+                                    </li>
                                 </ol>
 
                                 <strong>Adding Created API Keys from the Admin Panel:</strong><br/><br/>
@@ -1353,6 +1359,24 @@
                                     <li><b>Refresh Cache Files When Database Changes: </b> If you select yes, the cache files will be refreshed, if there is a change in the database.</li>
                                     <li><b>Cache Refresh Time (Minute) : </b> Cache files will automatically refresh after this time.</li>
                                 </ul>
+                            </div>
+                        </div>
+
+                        <div class="seperator"></div>
+
+                        <div id="google_news" class="item-content">
+                            <div class="content-inner">
+                                <h3 class="title">Google News</h3>
+                                Google News is a news aggregator service developed by Google. It presents a continuous flow of links to articles organized from thousands of publishers and magazines.
+                                With this option, you can send the publications of your own website to Google News and increase the number of visitors to your site.
+                                <h4 class="subtitle">How It Works?</h4>
+                                To use Google News, there must be an RSS link for your site's latest feeds. You can generate this feed from the "Generate Feed URL" section. In this section,
+                                you can select different options (language, category etc.) to generate your feed. After selecting the options, you can click on the "Generate Feed URL" button and get the
+                                feed URL. After generating your feed URL, you can submit this to Google News.<br>
+                                To submit your site to Google News, please read the Google documentation: <a href="https://support.google.com/news/publisher-center/answer/9607025" target="_blank">Show up in Google News
+                                </a>
+                                <br><br>
+                                <b class="text-danger">**This RSS feed uses cache system and it will be reset every 15 minutes. So an article you add will be added to this feed after the cache is reset.</b>
                             </div>
                         </div>
 
@@ -1451,9 +1475,14 @@
                                     </p>
                                 </div>
                                 <br>
-                                <h4 class="subtitle">Allowed File Extensions (File Manager)</h4>
-                                <p>Hackers often hack websites by uploading some files. To prevent such security issues, the system allows only allowed file types to be uploaded.
-                                    You can add the extensions of the file types you want to be uploaded to your site from this field. <br><span class="text-danger"> We do not recommend you to add files extensions that can create security problems. Example, <strong>PHP, PY, ASP, JSP, SH, JS etc.</strong></span></p>
+                                <h4 class="subtitle">File Upload</h4>
+                                <ul>
+                                    <li><b>Image File Format:</b> Uploaded images will be converted to the selected image format. You can choose the format you want with this option.</li>
+                                    <li><b>Allowed File Extensions:</b> Hackers often hack websites by uploading some files. To prevent such security issues, the system allows only allowed file types to be uploaded.
+                                        You can add the extensions of the file types you want to be uploaded to your site from this field.
+                                        <p><span class="text-danger"> We do not recommend you to add files extensions that can create security problems. Example, <strong>PHP, PY, ASP, JSP, SH, JS etc.</strong></span></p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
@@ -1743,66 +1772,13 @@ alert('Hello!');
                                 <iframe width="800" height="542" src="https://www.youtube.com/embed/e9_aD4SO-9k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                                 <div class="item-sub-content">
-                                    <h4 class="title">Update from v2.1 to v2.x</h4>
-                                    <ol>
-                                        <li>
-                                            Open your FTP (this is usually the "public_html" folder on your server) and replace these files with the files in the version 2.x.<br><br>
-                                            <figure class="highlight">
-                                                app/Common.php<br>
-                                                app/Config/Constants.php<br>
-                                                app/Controllers/BaseController.php<br>
-                                                app/Controllers/AdminController.php<br><br>
-                                                app/Models/CommonModel.php<br>
-                                                app/Models/SettingsModel.php<br>
-                                                app/Models/PostAdminModel.php<br>
-                                                app/Models/CategoryModel.php<br>
-                                                app/Models/SitemapModel.php<br><br>
-                                                app/Views/themes/classic/post/post.php<br>
-                                                app/Views/themes/magazine/index.php<br>
-                                                app/Views/themes/magazine/profile/profile.php<br>
-                                                app/Views/themes/magazine/nav/_nav_main.php<br>
-                                                app/Views/themes/magazine/partials/_header.php<br>
-                                                app/Views/themes/magazine/partials/_category_block_type_5.php<br>
-                                                app/Views/themes/magazine/post/post.php<br>
-                                                app/Views/themes/magazine/post/_post_item_mid.php<br>
-                                                app/Views/themes/magazine/post/_post_meta.php<br><br>
-                                                app/Views/admin/includes/_footer.php<br>
-                                                app/Views/admin/post/_form_edit_post_left.php<br>
-                                                app/Views/admin/post/_form_add_post_left.php<br>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            Upload the following files to the "assets/themes/magazine/css/" folder:<br><br>
-                                            <figure class="highlight">
-                                                assets/themes/magazine/css/dark-2.x.css<br>
-                                                assets/themes/magazine/css/dark-2.x.min.css<br>
-                                                assets/themes/magazine/css/rtl-2.x.css<br>
-                                                assets/themes/magazine/css/rtl-2.x.min.css<br>
-                                                assets/themes/magazine/css/style-2.x.css<br>
-                                                assets/themes/magazine/css/style-2.x.min.css<br>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            Clear your browser cache. This is important. If you do not clear, your browser may continue to run old codes.
-                                        </li>
-                                    </ol>
-                                    <br>
-                                    <p>
-                                        <strong class="text-danger">**There is no change in the database, so if you follow only these steps, the update will be completed (there is no update_database.php file for this update).</strong>
-                                    </p>
-                                    <p>
-                                        <strong>**If you don't want to update the files one by one, you can replace all the files with the new version. If you want to update with this method,<br>you can follow these steps: <a href="#update_ftp_files"><strong>Updating FTP Files (Click Here)</strong></a>
-                                    </p>
-                                </div>
-
-                                <div class="item-sub-content">
-                                    <h4 class="title">Update from v2.0.x to v2.x</h4>
+                                    <h4 class="title">Update from v2.1.x to v2.2</h4>
                                     <ol>
                                         <li>
                                             Follow all steps in the <a href="#update_ftp_files"><strong>Updating FTP Files (Click Here)</strong></a> section.
                                         </li>
                                         <li>
-                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v2.0.x to v2.x"</strong> folder.
+                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v2.1.x to v2.2"</strong> folder.
                                         </li>
                                         <li>
                                             Clear your browser cache. This is important. If you do not clear, your browser may continue to run old codes.
@@ -1811,13 +1787,28 @@ alert('Hello!');
                                 </div>
 
                                 <div class="item-sub-content">
-                                    <h4 class="title">Update from v1.9.x to v2.x</h4>
+                                    <h4 class="title">Update from v2.0.x to v2.2</h4>
                                     <ol>
                                         <li>
                                             Follow all steps in the <a href="#update_ftp_files"><strong>Updating FTP Files (Click Here)</strong></a> section.
                                         </li>
                                         <li>
-                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v1.9.x to v2.x"</strong> folder.
+                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v2.0.x to v2.2"</strong> folder.
+                                        </li>
+                                        <li>
+                                            Clear your browser cache. This is important. If you do not clear, your browser may continue to run old codes.
+                                        </li>
+                                    </ol>
+                                </div>
+
+                                <div class="item-sub-content">
+                                    <h4 class="title">Update from v1.9.x to v2.2</h4>
+                                    <ol>
+                                        <li>
+                                            Follow all steps in the <a href="#update_ftp_files"><strong>Updating FTP Files (Click Here)</strong></a> section.
+                                        </li>
+                                        <li>
+                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v1.9.x to v2.2"</strong> folder.
                                         </li>
                                         <li>
                                             Clear your browser cache. This is important. If you do not clear, your browser may continue to run old codes.
@@ -1827,13 +1818,13 @@ alert('Hello!');
 
 
                                 <div class="item-sub-content">
-                                    <h4 class="title">Update from v1.8.x to v2.x</h4>
+                                    <h4 class="title">Update from v1.8.x to v2.2</h4>
                                     <ol>
                                         <li>
                                             Follow all steps in the <a href="#update_ftp_files"><strong>Updating FTP Files (Click Here)</strong></a> section.
                                         </li>
                                         <li>
-                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v1.8.x to v2.x"</strong> folder.
+                                            Follow all steps in the <a href="#update_database"><strong>Updating Database (Click Here)</strong></a> section. You can find <strong>update_database.php</strong> file in the <strong>"documentation/updates/Update from v1.8.x to v2.2"</strong> folder.
                                         </li>
                                         <li>
                                             Clear your browser cache. This is important. If you do not clear, your browser may continue to run old codes.
@@ -1936,28 +1927,6 @@ alert('Hello!');
 
 </div>
 <!-- page-wrapper -->
-
-
-<script src="assets/js/jquery-3.3.1.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/bootstrap/js/popper.min.js"></script>
-<script src="assets/prism/prism.js"></script>
-<script>
-    $(document).ready(function () {
-        $('body').scrollspy({target: "#mainScrollspy", offset: 50});
-        $("#mainScrollspy a").on('click', function (event) {
-            if (this.hash !== "") {
-                event.preventDefault();
-                var hash = this.hash;
-                $('html, body').animate({
-                    scrollTop: $(hash).offset().top
-                }, 800, function () {
-                    window.location.hash = hash;
-                });
-            }
-        });
-    });
-</script>
 
 </body>
 </html>

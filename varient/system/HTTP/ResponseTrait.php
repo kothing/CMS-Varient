@@ -15,6 +15,7 @@ use CodeIgniter\Cookie\Cookie;
 use CodeIgniter\Cookie\CookieStore;
 use CodeIgniter\Cookie\Exceptions\CookieException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
+use CodeIgniter\I18n\Time;
 use CodeIgniter\Pager\PagerInterface;
 use CodeIgniter\Security\Exceptions\SecurityException;
 use Config\Cookie as CookieConfig;
@@ -28,8 +29,6 @@ use InvalidArgumentException;
  *
  * Additional methods to make a PSR-7 Response class
  * compliant with the framework's own ResponseInterface.
- *
- * @property array $statusCodes
  *
  * @see https://github.com/php-fig/http-message/blob/master/src/ResponseInterface.php
  */
@@ -48,6 +47,8 @@ trait ResponseTrait
      * Content security policy handler
      *
      * @var ContentSecurityPolicy
+     *
+     * @deprecated Will be protected. Use `getCSP()` instead.
      */
     public $CSP;
 
@@ -173,7 +174,7 @@ trait ResponseTrait
     /**
      * Sets the date header
      *
-     * @return Response
+     * @return $this
      */
     public function setDate(DateTime $date)
     {
@@ -189,7 +190,7 @@ trait ResponseTrait
      *
      * @see http://tools.ietf.org/html/rfc5988
      *
-     * @return Response
+     * @return $this
      *
      * @todo Recommend moving to Pager
      */
@@ -220,7 +221,7 @@ trait ResponseTrait
      * Sets the Content Type header for this response with the mime type
      * and, optionally, the charset.
      *
-     * @return Response
+     * @return $this
      */
     public function setContentType(string $mime, string $charset = 'UTF-8')
     {
@@ -284,7 +285,7 @@ trait ResponseTrait
     /**
      * Retrieves the current body into XML and returns it.
      *
-     * @return mixed|string
+     * @return bool|string|null
      *
      * @throws InvalidArgumentException If the body property is not array.
      */
@@ -334,7 +335,7 @@ trait ResponseTrait
      * Sets the appropriate headers to ensure this response
      * is not cached by the browsers.
      *
-     * @return Response
+     * @return $this
      *
      * @todo Recommend researching these directives, might need: 'private', 'no-transform', 'no-store', 'must-revalidate'
      *
@@ -342,8 +343,8 @@ trait ResponseTrait
      */
     public function noCache()
     {
-        $this->removeHeader('Cache-control');
-        $this->setHeader('Cache-control', ['no-store', 'max-age=0', 'no-cache']);
+        $this->removeHeader('Cache-Control');
+        $this->setHeader('Cache-Control', ['no-store', 'max-age=0', 'no-cache']);
 
         return $this;
     }
@@ -372,7 +373,7 @@ trait ResponseTrait
      *  - proxy-revalidate
      *  - no-transform
      *
-     * @return Response
+     * @return $this
      */
     public function setCache(array $options = [])
     {
@@ -396,7 +397,7 @@ trait ResponseTrait
             unset($options['last-modified']);
         }
 
-        $this->setHeader('Cache-control', $options);
+        $this->setHeader('Cache-Control', $options);
 
         return $this;
     }
@@ -409,7 +410,7 @@ trait ResponseTrait
      *
      * @param DateTime|string $date
      *
-     * @return Response
+     * @return $this
      */
     public function setLastModified($date)
     {
@@ -430,7 +431,7 @@ trait ResponseTrait
     /**
      * Sends the output to the browser.
      *
-     * @return Response
+     * @return $this
      */
     public function send()
     {
@@ -452,7 +453,7 @@ trait ResponseTrait
     /**
      * Sends the headers of this HTTP response to the browser.
      *
-     * @return Response
+     * @return $this
      */
     public function sendHeaders()
     {
@@ -464,7 +465,7 @@ trait ResponseTrait
         // Per spec, MUST be sent with each request, if possible.
         // http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html
         if (! isset($this->headers['Date']) && PHP_SAPI !== 'cli-server') {
-            $this->setDate(DateTime::createFromFormat('U', (string) time()));
+            $this->setDate(DateTime::createFromFormat('U', (string) Time::now()->getTimestamp()));
         }
 
         // HTTP Status
@@ -481,7 +482,7 @@ trait ResponseTrait
     /**
      * Sends the Body of the message to the browser.
      *
-     * @return Response
+     * @return $this
      */
     public function sendBody()
     {
@@ -493,8 +494,8 @@ trait ResponseTrait
     /**
      * Perform a redirect to a new URL, in two flavors: header or location.
      *
-     * @param string $uri  The URI to redirect to
-     * @param int    $code The type of redirection, defaults to 302
+     * @param string   $uri  The URI to redirect to
+     * @param int|null $code The type of redirection, defaults to 302
      *
      * @return $this
      *
@@ -502,20 +503,32 @@ trait ResponseTrait
      */
     public function redirect(string $uri, string $method = 'auto', ?int $code = null)
     {
-        // Assume 302 status code response; override if needed
-        if (empty($code)) {
-            $code = 302;
-        }
-
         // IIS environment likely? Use 'refresh' for better compatibility
-        if ($method === 'auto' && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false) {
+        if (
+            $method === 'auto'
+            && isset($_SERVER['SERVER_SOFTWARE'])
+            && strpos($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') !== false
+        ) {
             $method = 'refresh';
+        } elseif ($method !== 'refresh' && $code === null) {
+            // override status code for HTTP/1.1 & higher
+            if (
+                isset($_SERVER['SERVER_PROTOCOL'], $_SERVER['REQUEST_METHOD'])
+                && $this->getProtocolVersion() >= 1.1
+            ) {
+                if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                    $code = 302;
+                } elseif (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE'], true)) {
+                    // reference: https://en.wikipedia.org/wiki/Post/Redirect/Get
+                    $code = 303;
+                } else {
+                    $code = 307;
+                }
+            }
         }
 
-        // override status code for HTTP/1.1 & higher
-        // reference: http://en.wikipedia.org/wiki/Post/Redirect/Get
-        if (isset($_SERVER['SERVER_PROTOCOL'], $_SERVER['REQUEST_METHOD']) && $this->getProtocolVersion() >= 1.1 && $method !== 'refresh') {
-            $code = ($_SERVER['REQUEST_METHOD'] !== 'GET') ? 303 : ($code === 302 ? 307 : $code);
+        if ($code === null) {
+            $code = 302;
         }
 
         switch ($method) {
@@ -587,7 +600,7 @@ trait ResponseTrait
         }
 
         if (is_numeric($expire)) {
-            $expire = $expire > 0 ? time() + $expire : 0;
+            $expire = $expire > 0 ? Time::now()->getTimestamp() + $expire : 0;
         }
 
         $cookie = new Cookie($name, $value, [
@@ -794,5 +807,10 @@ trait ResponseTrait
         }
 
         return $response;
+    }
+
+    public function getCSP(): ContentSecurityPolicy
+    {
+        return $this->CSP;
     }
 }

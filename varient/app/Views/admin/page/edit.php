@@ -163,7 +163,7 @@
                         </div>
                     </div>
 
-                    <?php if ($page->slug != "contact" && $page->slug != "gallery"): ?>
+                    <?php if ($page->page_default_name != "contact" && $page->page_default_name != "gallery"): ?>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-3 col-xs-12">
@@ -200,7 +200,6 @@
                     <?php endif; ?>
                 </div>
                 <div class="box-footer">
-                    <a class="btn btn-default" href="<?= adminUrl('pages/'); ?>"><?= trans('cancel'); ?></a>
                     <button type="submit" class="btn btn-primary pull-right"><?= trans('save_changes'); ?></button>
                 </div>
             </form>

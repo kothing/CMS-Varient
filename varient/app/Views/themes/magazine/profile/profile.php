@@ -45,7 +45,7 @@
                                         </form>
                                     <?php endif;
                                 else: ?>
-                                    <button type="submit" class="btn btn-lg btn-custom btn-follow" data-toggle="modal" data-target="#modal-login">
+                                    <button type="submit" class="btn btn-lg btn-custom btn-follow" data-bs-toggle="modal" data-bs-target="#modalLogin">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                                             <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                             <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
@@ -81,30 +81,12 @@
                                 </div>
                                 <div class="d-flex flex-row mb-4">
                                     <ul class="profile-social-links">
-                                        <?php if (!empty($user->facebook_url)): ?>
-                                            <li><a href="<?= esc($user->facebook_url); ?>" target="_blank"><i class="icon-facebook"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->twitter_url)): ?>
-                                            <li><a href="<?= esc($user->twitter_url); ?>" target="_blank"><i class="icon-twitter"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->instagram_url)): ?>
-                                            <li><a href="<?= esc($user->instagram_url); ?>" target="_blank"><i class="icon-instagram"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->pinterest_url)): ?>
-                                            <li><a href="<?= esc($user->pinterest_url); ?>" target="_blank"><i class="icon-pinterest"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->linkedin_url)): ?>
-                                            <li><a href="<?= esc($user->linkedin_url); ?>" target="_blank"><i class="icon-linkedin"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->vk_url)): ?>
-                                            <li><a href="<?= esc($user->vk_url); ?>" target="_blank"><i class="icon-vk"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->telegram_url)): ?>
-                                            <li><a href="<?= esc($user->telegram_url); ?>" target="_blank"><i class="icon-telegram"></i></a></li>
-                                        <?php endif;
-                                        if (!empty($user->youtube_url)): ?>
-                                            <li><a href="<?= esc($user->youtube_url); ?>" target="_blank"><i class="icon-youtube"></i></a></li>
-                                        <?php endif;
+                                        <?php $socialLinks = getSocialLinksArray($user, true);
+                                        if (!empty($socialLinks)):
+                                            foreach ($socialLinks as $socialLink): ?>
+                                                <li><a href="<?= $socialLink['url']; ?>" target="_blank"><i class="icon-<?= esc($socialLink['key']); ?>"></i></a></li>
+                                            <?php endforeach;
+                                        endif;
                                         if ($user->show_rss_feeds): ?>
                                             <li><a href="<?= langBaseUrl('rss/author/' . $user->slug); ?>"><i class="icon-rss"></i></a></li>
                                         <?php endif; ?>
@@ -117,7 +99,7 @@
                                 <div class="widget-head"><h4 class="title"><?= trans('following'); ?>&nbsp;(<?= countItems($following); ?>)</h4></div>
                                 <div class="widget-body">
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-12 list-followers">
                                             <?php if (!empty($following)):
                                                 foreach ($following as $item):?>
                                                     <div class="img-follower">
@@ -137,7 +119,7 @@
                                 <div class="widget-head"><h4 class="title"><?= trans('followers'); ?>&nbsp;(<?= countItems($followers); ?>)</h4></div>
                                 <div class="widget-body">
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-12 list-followers">
                                             <?php if (!empty($followers)):
                                                 foreach ($followers as $item):?>
                                                     <div class="img-follower">

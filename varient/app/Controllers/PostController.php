@@ -12,6 +12,12 @@ use App\Models\UploadModel;
 
 class PostController extends BaseAdminController
 {
+    protected $postAdminModel;
+    protected $postItemModel;
+    protected $categoryModel;
+    protected $quizModel;
+    protected $authModel;
+
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
@@ -34,7 +40,6 @@ class PostController extends BaseAdminController
     {
         checkPermission('add_post');
         $data['title'] = trans("choose_post_format");
-        
 
         echo view('admin/includes/_header', $data);
         echo view('admin/post/post_format', $data);
@@ -48,7 +53,7 @@ class PostController extends BaseAdminController
     {
         checkPermission('add_post');
         $type = inputGet('type');
-        if ($type != 'article' && $type != 'gallery' && $type != 'sorted_list' && $type != 'video' && $type != 'audio' && $type != 'trivia_quiz' && $type != 'personality_quiz') {
+        if ($type != 'article' && $type != 'gallery' && $type != 'sorted_list' && $type != 'video' && $type != 'audio' && $type != 'trivia_quiz' && $type != 'personality_quiz' && $type != 'poll') {
             $type = 'article';
         }
         $postFormat = "post_format_" . $type;
@@ -59,10 +64,12 @@ class PostController extends BaseAdminController
         $data['title'] = trans($title);
         $data['postType'] = $type;
         $data['parentCategories'] = $this->categoryModel->getParentCategoriesByLang($this->activeLang->id);
-        
         $view = $title;
         if ($type == 'trivia_quiz' || $type == 'personality_quiz') {
             $view = 'quiz/' . $title;
+        }
+        if ($type == 'poll') {
+            $view = 'poll/' . $title;
         }
 
         echo view('admin/includes/_header', $data);
@@ -106,6 +113,8 @@ class PostController extends BaseAdminController
                     $this->quizModel->addQuizResults($postId);
                 } elseif ($postType == 'personality_quiz') {
                     $this->quizModel->addQuizResults($postId);
+                    $this->quizModel->addQuizQuestions($postId);
+                } elseif ($postType == 'poll') {
                     $this->quizModel->addQuizQuestions($postId);
                 }
                 //add post files
@@ -152,18 +161,21 @@ class PostController extends BaseAdminController
                 $data['subCategoryId'] = $category->id;
             }
         }
-        
         $data['categories'] = $this->categoryModel->getParentCategoriesByLang($data['post']->lang_id);
         $data['subCategories'] = $this->categoryModel->getSubCategoriesByParentId($data['parentCategoryId']);
         $data['postListItems'] = $this->postItemModel->getPostListItems($data['post']->id, $data['post']->post_type);
 
         $view = 'edit_' . $data['post']->post_type;
         if ($data['post']->post_type == 'trivia_quiz' || $data['post']->post_type == 'personality_quiz') {
-            $data['title'] = trans('update_' . $data['post']->post_type);
             $view = 'quiz/edit_' . $data['post']->post_type;
             $quizModel = new QuizModel();
             $data['quizQuestions'] = $quizModel->getQuizQuestions($data['post']->id);
             $data['quizResults'] = $quizModel->getQuizResults($data['post']->id);
+        }
+        if ($data['post']->post_type == 'poll') {
+            $view = 'poll/edit_' . $data['post']->post_type;
+            $quizModel = new QuizModel();
+            $data['quizQuestions'] = $quizModel->getQuizQuestions($data['post']->id);
         }
         echo view('admin/includes/_header', $data);
         echo view('admin/post/' . $view, $data);
@@ -213,6 +225,8 @@ class PostController extends BaseAdminController
                 } elseif ($postType == 'personality_quiz') {
                     $this->quizModel->editQuizResults($post);
                     $this->quizModel->editQuizQuestions($post);
+                } elseif ($postType == 'poll') {
+                    $this->quizModel->editQuizQuestions($post);
                 }
                 //add post files
                 if ($postType != 'gallery' && $postType != 'sorted_list') {
@@ -237,7 +251,6 @@ class PostController extends BaseAdminController
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('posts');
         $data['listType'] = 'posts';
-        
         $numRows = $this->postAdminModel->getPostsCount('posts');
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getPostsPaginated('posts', $this->perPage, $pager->offset);
@@ -257,7 +270,7 @@ class PostController extends BaseAdminController
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('slider-posts');
         $data['listType'] = 'slider_posts';
-        
+
         $numRows = $this->postAdminModel->getPostsCount('slider_posts');
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getPostsPaginated('slider_posts', $this->perPage, $pager->offset);
@@ -277,7 +290,7 @@ class PostController extends BaseAdminController
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('featured-posts');
         $data['listType'] = 'featured_posts';
-        
+
         $numRows = $this->postAdminModel->getPostsCount('featured_posts');
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getPostsPaginated('featured_posts', $this->perPage, $pager->offset);
@@ -297,7 +310,7 @@ class PostController extends BaseAdminController
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('breaking-news');
         $data['listType'] = 'breaking_news';
-        
+
         $numRows = $this->postAdminModel->getPostsCount('breaking_news');
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getPostsPaginated('breaking_news', $this->perPage, $pager->offset);
@@ -317,7 +330,7 @@ class PostController extends BaseAdminController
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('recommended-posts');
         $data['listType'] = 'recommended_posts';
-        
+
         $numRows = $this->postAdminModel->getPostsCount('recommended_posts');
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getPostsPaginated('recommended_posts', $this->perPage, $pager->offset);
@@ -336,7 +349,7 @@ class PostController extends BaseAdminController
         $data['title'] = trans('pending_posts');
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('pending-posts');
-        
+
         $numRows = $this->postAdminModel->getPendingPostsCount();
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getPendingPostsPaginated($this->perPage, $pager->offset);
@@ -355,7 +368,7 @@ class PostController extends BaseAdminController
         $data['title'] = trans('scheduled_posts');
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('scheduled-posts');
-        
+
         $numRows = $this->postAdminModel->getScheduledPostsCount();
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getScheduledPostsPaginated($this->perPage, $pager->offset);
@@ -374,7 +387,7 @@ class PostController extends BaseAdminController
         $data['title'] = trans('drafts');
         $data['authors'] = $this->authModel->getUsersHavePosts();
         $data['formAction'] = adminUrl('drafts');
-        
+
         $numRows = $this->postAdminModel->getDraftsCount();
         $pager = paginate($this->perPage, $numRows);
         $data['posts'] = $this->postAdminModel->getDraftsPaginated($this->perPage, $pager->offset);
@@ -811,7 +824,6 @@ class PostController extends BaseAdminController
     {
         checkPermission('add_post');
         $data['title'] = trans("bulk_post_upload");
-        
         echo view('admin/includes/_header', $data);
         echo view('admin/post/bulk_post_upload', $data);
         echo view('admin/includes/_footer');

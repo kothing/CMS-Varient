@@ -4,6 +4,9 @@ use CodeIgniter\Model;
 
 class AuthModel extends BaseModel
 {
+    protected $builder;
+    protected $builderRoles;
+
     public function __construct()
     {
         parent::__construct();
@@ -68,6 +71,7 @@ class AuthModel extends BaseModel
                     'email' => $fbUser->email,
                     'email_status' => 1,
                     'token' => generateToken(),
+                    'role' => 'user',
                     'username' => $username,
                     'slug' => $slug,
                     'avatar' => '',
@@ -87,10 +91,10 @@ class AuthModel extends BaseModel
                 if ($user->status == 0) {
                     return false;
                 }
-                //login
                 $this->loginUser($user);
             }
         }
+        return false;
     }
 
     //login with google
@@ -109,6 +113,7 @@ class AuthModel extends BaseModel
                     'email' => $gUser->email,
                     'email_status' => 1,
                     'token' => generateToken(),
+                    'role' => 'user',
                     'username' => $username,
                     'slug' => $slug,
                     'avatar' => '',
@@ -128,7 +133,6 @@ class AuthModel extends BaseModel
                 if ($user->status == 0) {
                     return false;
                 }
-                //login
                 $this->loginUser($user);
             }
         }
@@ -150,6 +154,7 @@ class AuthModel extends BaseModel
                     'email' => $vkUser->email,
                     'email_status' => 1,
                     'token' => generateToken(),
+                    'role' => 'user',
                     'username' => $username,
                     'slug' => $slug,
                     'avatar' => '',
@@ -432,25 +437,43 @@ class AuthModel extends BaseModel
     //update role
     public function editRole($id)
     {
-        $data = [
-            'admin_panel' => inputPost('admin_panel') == 1 ? 1 : 0,
-            'add_post' => inputPost('add_post') == 1 ? 1 : 0,
-            'manage_all_posts' => inputPost('manage_all_posts') == 1 ? 1 : 0,
-            'navigation' => inputPost('navigation') == 1 ? 1 : 0,
-            'pages' => inputPost('pages') == 1 ? 1 : 0,
-            'rss_feeds' => inputPost('rss_feeds') == 1 ? 1 : 0,
-            'categories' => inputPost('categories') == 1 ? 1 : 0,
-            'widgets' => inputPost('widgets') == 1 ? 1 : 0,
-            'polls' => inputPost('polls') == 1 ? 1 : 0,
-            'gallery' => inputPost('gallery') == 1 ? 1 : 0,
-            'comments_contact' => inputPost('comments_contact') == 1 ? 1 : 0,
-            'newsletter' => inputPost('newsletter') == 1 ? 1 : 0,
-            'ad_spaces' => inputPost('ad_spaces') == 1 ? 1 : 0,
-            'users' => inputPost('users') == 1 ? 1 : 0,
-            'seo_tools' => inputPost('seo_tools') == 1 ? 1 : 0,
-            'settings' => inputPost('settings') == 1 ? 1 : 0,
-        ];
-        return $this->builderRoles->where('id', cleanNumber($id))->update($data);
+        $role = $this->getRole($id);
+        if (!empty($role)) {
+            $data = [
+                'admin_panel' => inputPost('admin_panel') == 1 ? 1 : 0,
+                'add_post' => inputPost('add_post') == 1 ? 1 : 0,
+                'manage_all_posts' => inputPost('manage_all_posts') == 1 ? 1 : 0,
+                'navigation' => inputPost('navigation') == 1 ? 1 : 0,
+                'pages' => inputPost('pages') == 1 ? 1 : 0,
+                'rss_feeds' => inputPost('rss_feeds') == 1 ? 1 : 0,
+                'categories' => inputPost('categories') == 1 ? 1 : 0,
+                'widgets' => inputPost('widgets') == 1 ? 1 : 0,
+                'polls' => inputPost('polls') == 1 ? 1 : 0,
+                'gallery' => inputPost('gallery') == 1 ? 1 : 0,
+                'comments_contact' => inputPost('comments_contact') == 1 ? 1 : 0,
+                'newsletter' => inputPost('newsletter') == 1 ? 1 : 0,
+                'ad_spaces' => inputPost('ad_spaces') == 1 ? 1 : 0,
+                'users' => inputPost('users') == 1 ? 1 : 0,
+                'seo_tools' => inputPost('seo_tools') == 1 ? 1 : 0,
+                'settings' => inputPost('settings') == 1 ? 1 : 0,
+            ];
+
+            if ($role->role == 'admin') {
+                $data = [];
+            }
+            $nameArray = array();
+            foreach ($this->activeLanguages as $language) {
+                $item = [
+                    'lang_id' => $language->id,
+                    'name' => inputPost('role_name_' . $language->id)
+                ];
+                array_push($nameArray, $item);
+            }
+            $data['role_name'] = serialize($nameArray);
+
+            return $this->builderRoles->where('id', cleanNumber($id))->update($data);
+        }
+        return false;
     }
 
     //edit user

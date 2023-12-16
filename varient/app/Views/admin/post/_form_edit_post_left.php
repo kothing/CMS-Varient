@@ -30,18 +30,36 @@
             <input type="text" class="form-control" name="keywords" placeholder="<?= trans('keywords'); ?> (<?= trans('meta_tag'); ?>)" value="<?= esc($post->keywords); ?>">
         </div>
 
+        <?php if ($post->post_type == 'poll'): ?>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <label><?= trans('vote_permission'); ?></label>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 col-option">
+                        <input type="radio" name="vote_permission" value="registered" id="vote_permission2" class="square-purple" <?= $post->is_poll_public == 0 ? 'checked' : ''; ?>>
+                        <label for="vote_permission2" class="option-label"><?= trans('registered_users_can_vote'); ?></label>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 col-option">
+                        <input type="radio" name="vote_permission" value="all" id="vote_permission1" class="square-purple" <?= $post->is_poll_public != 0 ? 'checked' : ''; ?>>
+                        <label for="vote_permission1" class="option-label"><?= trans('all_users_can_vote'); ?></label>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-sm-4 col-xs-12 col-lang">
+                    <div class="col-sm-4 col-xs-12">
                         <label><?= trans('visibility'); ?></label>
                     </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 col-lang">
-                        <input type="radio" id="rb_visibility_1" name="visibility" value="1" class="square-purple" <?= $post->visibility == 1 ? 'checked' : ''; ?>>&nbsp;&nbsp;
+                    <div class="col-md-3 col-sm-6 col-xs-12 col-option">
+                        <input type="radio" id="rb_visibility_1" name="visibility" value="1" class="square-purple" <?= $post->visibility == 1 ? 'checked' : ''; ?>>
                         <label for="rb_visibility_1" class="cursor-pointer"><?= trans('show'); ?></label>
                     </div>
-                    <div class="col-md-2 col-sm-4 col-xs-12 col-lang">
-                        <input type="radio" id="rb_visibility_2" name="visibility" value="0" class="square-purple" <?= $post->visibility == 0 ? 'checked' : ''; ?>>&nbsp;&nbsp;
+                    <div class="col-md-3 col-sm-6 col-xs-12 col-option">
+                        <input type="radio" id="rb_visibility_2" name="visibility" value="0" class="square-purple" <?= $post->visibility == 0 ? 'checked' : ''; ?>>
                         <label for="rb_visibility_2" class="cursor-pointer"><?= trans('hide'); ?></label>
                     </div>
                 </div>
@@ -54,21 +72,25 @@
             <?php endif;
         endif; ?>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-sm-4 col-xs-12">
-                    <label><?= trans('show_right_column'); ?></label>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
-                    <input type="radio" name="show_right_column" value="1" id="right_column_enabled" class="square-purple" <?= $post->show_right_column == 1 ? 'checked' : ''; ?>>
-                    <label for="right_column_enabled" class="option-label"><?= trans('yes'); ?></label>
-                </div>
-                <div class="col-md-2 col-sm-4 col-xs-12 col-option">
-                    <input type="radio" name="show_right_column" value="0" id="right_column_disabled" class="square-purple" <?= $post->show_right_column == 0 ? 'checked' : ''; ?>>
-                    <label for="right_column_disabled" class="option-label"><?= trans('no'); ?></label>
+        <?php if ($activeTheme->theme == 'classic'): ?>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <label><?= trans('show_right_column'); ?></label>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                        <input type="radio" name="show_right_column" value="1" id="right_column_enabled" class="square-purple" <?= $post->show_right_column == 1 ? 'checked' : ''; ?>>
+                        <label for="right_column_enabled" class="option-label"><?= trans('yes'); ?></label>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-12 col-option">
+                        <input type="radio" name="show_right_column" value="0" id="right_column_disabled" class="square-purple" <?= $post->show_right_column == 0 ? 'checked' : ''; ?>>
+                        <label for="right_column_disabled" class="option-label"><?= trans('no'); ?></label>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php else: ?>
+            <input type="hidden" name="show_right_column" value="<?= $post->show_right_column; ?>">
+        <?php endif; ?>
 
         <?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">

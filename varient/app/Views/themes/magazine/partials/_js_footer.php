@@ -35,8 +35,8 @@
         });
     </script>
 <?php endif;
-if (!empty($post) && ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz')): ?>
-    <script src="<?= base_url('assets/vendor/quiz/quiz-2.0.min.js'); ?>"></script>
+if (!empty($post) && ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz' || $post->post_type == 'poll')): ?>
+    <script src="<?= base_url('assets/vendor/quiz/quiz-2.2.min.js'); ?>"></script>
     <script>
         $(document).ready(function () {
             getQuizAnswers('<?= $post->id; ?>');

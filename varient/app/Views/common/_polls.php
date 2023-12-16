@@ -1,9 +1,9 @@
-<div class="sidebar-widget">
-    <div class="widget-head"><h4 class="title"><?= esc($widget->title); ?></h4></div>
-    <div class="widget-body">
-        <?php $polls = getPollsByActiveLang();
-        if (!empty($polls)):
-            foreach ($polls as $poll):
+<?php $polls = getPollsByActiveLang();
+if (!empty($polls)):?>
+    <div class="sidebar-widget">
+        <div class="widget-head"><h4 class="title"><?= esc($widget->title); ?></h4></div>
+        <div class="widget-body">
+            <?php foreach ($polls as $poll):
                 if ($poll->status == 1):
                     if ($poll->vote_permission == "all"): ?>
                         <div id="poll_<?= $poll->id; ?>" class="poll">
@@ -69,7 +69,9 @@
                                     <?php endif;
                                     endif;
                                 endfor; ?>
-                                <p><button type="button" onclick="viewPollOptions('<?= $poll->id; ?>');" class="btn-link a-view-results m-0"><?= trans("view_options"); ?></button></p>
+                                <p>
+                                    <button type="button" onclick="viewPollOptions('<?= $poll->id; ?>');" class="btn-link a-view-results m-0"><?= trans("view_options"); ?></button>
+                                </p>
                             </div>
                         </div>
                     <?php else: ?>
@@ -105,8 +107,8 @@
                                     <?php else:
                                         if ($activeTheme->theme == 'classic'):?>
                                             <p class="button-cnt">
-                                                <button type="button" class="btn btn-md btn-custom" data-toggle="modal" data-target="#modal-login"><?= trans("vote"); ?></button>
-                                                <button type="button" data-toggle="modal" data-target="#modal-login" class="btn-link a-view-results"><?= trans("view_results"); ?></button>
+                                                <button type="button" class="btn btn-md btn-custom" data-toggle="modal" data-target="#modalLogin"><?= trans("vote"); ?></button>
+                                                <button type="button" data-toggle="modal" data-target="#modalLogin" class="btn-link a-view-results"><?= trans("view_results"); ?></button>
                                             </p>
                                         <?php else: ?>
                                             <p class="button-cnt">
@@ -150,12 +152,14 @@
                                     <?php endif;
                                     endif;
                                 endfor; ?>
-                                <p><button type="button" onclick="viewPollOptions('<?= $poll->id; ?>');" class="btn-link a-view-results m-0"><?= trans("view_options"); ?></button></p>
+                                <p>
+                                    <button type="button" onclick="viewPollOptions('<?= $poll->id; ?>');" class="btn-link a-view-results m-0"><?= trans("view_options"); ?></button>
+                                </p>
                             </div>
                         </div>
                     <?php endif;
                 endif;
-            endforeach;
-        endif; ?>
+            endforeach; ?>
+        </div>
     </div>
-</div>
+<?php endif; ?>
