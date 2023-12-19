@@ -97,7 +97,7 @@ Varient is a multi-purpose news & magazine script. It has clean, responsive and 
 # Install
 
 **Folder Permissions**  
-775 or 777 
+chmod 777 
 - .env
 - writable
 - uploads
