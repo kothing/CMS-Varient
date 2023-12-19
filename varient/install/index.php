@@ -124,7 +124,9 @@ if (!isset($license_code)) {
                                         <div class="tab_1">
                                             <h1 class="step-title">Start</h1>
                                             <div class="form-group text-center">
-                                                <strong><a href="https://www.youtube.com/watch?v=EW2axJa1rgA" target="_blank">Watch the installation video</a></strong>
+                                                <div class="alert alert-success">
+                                                    Enter your license code
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">License Code</label>
