@@ -26,7 +26,7 @@ if (isset($_POST["btn_install"])) {
 		} else if ($database->create_tables($_POST) == false) {
 			$message = $core->show_message('error', "The database tables could not be created, please check your database credentials!");
 		} else if ($core->write_config($_POST) == false) {
-			$message = $core->show_message('error', "The database configuration file could not be written, please chmod application/config/database.php file to 777");
+			$message = $core->show_message('error', "The database configuration file could not be written, please chmod app/Config/Database.php file to 777");
 		}
 		// If no errors, redirect to index
 		if (!isset($message)) {
