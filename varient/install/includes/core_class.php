@@ -18,7 +18,7 @@ class Core {
 	function write_config($data) {
 
 		// Config path
-		$template_path 	= 'config/Database.php';
+		$template_path 	= 'config/database.php';
 		$output_path 	= '../app/Config/Database.php';
 
 		// Open the file
