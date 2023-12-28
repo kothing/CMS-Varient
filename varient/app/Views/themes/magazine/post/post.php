@@ -1,7 +1,7 @@
 <section class="section section-page">
     <div class="container-xl">
         <div class="row">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb" class="<?php echo ($post->show_right_column == 1) ? 'col-sm-8' : 'col-sm-10 offset-sm-1'; ?> col-xs-12">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= langBaseUrl(); ?>"><?= trans("home"); ?></a></li>
                     <?php $categories = getParentCategoryTree($post->category_id, $baseCategories);
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item active"> <?= esc(characterLimiter($post->title, 160, '...')); ?></li>
                 </ol>
             </nav>
-            <div class="<?php echo ($post->show_right_column == 1) ? 'col-sm-8' : 'col-sm-12'; ?> col-xs-12">
+            <div class="<?php echo ($post->show_right_column == 1) ? 'col-sm-8' : 'col-sm-10 offset-sm-1'; ?> col-xs-12">
                 <div class="post-content">
                     <div class="d-flex justify-content-center align-items-center mb-3">
                         <div class="bd-highlight">
@@ -249,14 +249,20 @@
                                                 if ($i < 3):?>
                                                     <div class="col-sm-12 col-md-6 col-lg-4">
                                                         <div class="post-item<?= checkPostImg($item, 'class'); ?>">
-                                                            <?php /* if (checkPostImg($item)): */ ?>
+                                                            <!--<?php if (checkPostImg($item)): ?>-->
                                                                 <div class="image ratio">
                                                                     <a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>>
                                                                         <img src="<?= IMG_BASE64_450x280; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="269" height="160"/>
                                                                         <?php getMediaIcon($item, 'media-icon'); ?>
                                                                     </a>
                                                                 </div>
-                                                            <?php /* endif; */ ?>
+                                                            <?php else: ?>
+                                                                <div class="image ratio">
+                                                                    <a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>>
+                                                                        <img src="<?= IMG_BASE64_450x280; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="269" height="160"/>
+                                                                    </a>
+                                                                </div>
+                                                            <!--<?php endif; ?>-->
                                                             <h3 class="title fsize-16"><a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($this, $item); ?>><?= esc(characterLimiter($item->title, 55, '...')); ?></a></h3>
                                                             <p class="small-post-meta"><?= loadView('post/_post_meta', ['postItem' => $item]); ?></p>
                                                         </div>
