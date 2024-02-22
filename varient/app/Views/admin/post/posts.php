@@ -14,19 +14,19 @@
                 <?= trans('add_post'); ?>
             </a>
             <?php if (checkUserPermission('manage_all_posts')): ?>
-                <a href="<?= adminUrl('posts'); ?>" class="btn btn-default<?php isAdminNavActive(['posts']); ?> display-inline-block m-r-15">
+                <a href="<?= adminUrl('posts'); ?>" class="btn btn-default<?php isAdminNavActive(['posts']); ?> display-inline-block m-r-5 m-b-5">
                     <?= trans("all_posts"); ?>
                 </a>
-                <a href="<?= adminUrl('recommended-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['recommended-posts']); ?> display-inline-block m-r-15">
+                <a href="<?= adminUrl('recommended-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['recommended-posts']); ?> display-inline-block m-r-5 m-b-5">
                     <?= trans("recommended_posts"); ?>
                 </a>
-                <a href="<?= adminUrl('breaking-news'); ?>" class="btn btn-default<?php isAdminNavActive(['breaking-news']); ?> display-inline-block m-r-15">
+                <a href="<?= adminUrl('breaking-news'); ?>" class="btn btn-default<?php isAdminNavActive(['breaking-news']); ?> display-inline-block m-r-5 m-b-5">
                     <?= trans("breaking_news"); ?>
                 </a>
-                <a href="<?= adminUrl('featured-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['featured-posts']); ?> display-inline-block m-r-15">
+                <a href="<?= adminUrl('featured-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['featured-posts']); ?> display-inline-block m-r-5 m-b-5">
                     <?= trans("featured_posts"); ?>
                 </a>
-                <a href="<?= adminUrl('slider-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['slider-posts']); ?> display-inline-block m-r-15">
+                <a href="<?= adminUrl('slider-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['slider-posts']); ?> display-inline-block m-r-5 m-b-5">
                     <?= trans("slider_posts"); ?>
                 </a>
             <?php endif; ?>
