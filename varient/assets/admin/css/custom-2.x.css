@@ -564,6 +564,21 @@ div.tagsinput {
   float: right;
 }
 
+/* box-linkup */
+.box-linkup {
+    padding: 0 20px;
+}
+.box-linkup .group-list {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.box-linkup .group-list li {
+    display: inline-block;
+}
+
 /* table */
 .index-table {
   max-height: 300px;
