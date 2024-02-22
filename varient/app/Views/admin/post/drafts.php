@@ -15,56 +15,6 @@
             </a>
         </div>
     </div>
-    <?php if (checkUserPermission('manage_all_posts')): ?>
-        <div class="box-linkup">
-            <ul class="group-list">
-                <li class="post-list__all-posts">
-                    <a href="<?= adminUrl('posts'); ?>" class="btn btn-default<?php isAdminNavActive(['posts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("all_posts"); ?>
-                    </a>
-                </li>
-            </ul>
-            <ul class="group-list">
-                <li class="post-list__recommended-posts">
-                    <a href="<?= adminUrl('recommended-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['recommended-posts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("recommended_posts"); ?>
-                    </a>
-                </li>
-                <li class="post-list__breaking-news">
-                    <a href="<?= adminUrl('breaking-news'); ?>" class="btn btn-default<?php isAdminNavActive(['breaking-news']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("breaking_news"); ?>
-                    </a>
-                </li>
-                <li class="post-list__featured-posts">
-                    <a href="<?= adminUrl('featured-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['featured-posts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("featured_posts"); ?>
-                    </a>
-                </li>
-                <li class="post-list__slider-posts">
-                    <a href="<?= adminUrl('slider-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['slider-posts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("slider_posts"); ?>
-                    </a>
-                </li>
-            </ul>
-            <ul class="group-list">
-                <li class="post-list__pending-posts">
-                    <a href="<?= adminUrl('pending-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['pending-posts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("pending_posts"); ?>
-                    </a>
-                </li>
-                <li class="post-list__scheduled-posts">
-                    <a href="<?= adminUrl('scheduled-posts'); ?>" class="btn btn-default<?php isAdminNavActive(['scheduled-posts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("scheduled_posts"); ?>
-                    </a>
-                </li>
-                <li class="post-list__drafts">
-                    <a href="<?= adminUrl('drafts'); ?>" class="btn btn-default<?php isAdminNavActive(['drafts']); ?> display-inline-block m-r-5 m-b-5">
-                        <?= trans("drafts"); ?>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    <?php endif; ?>
     <div class="box-body">
         <div class="row">
             <div class="col-sm-12">

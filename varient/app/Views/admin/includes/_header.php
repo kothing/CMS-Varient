@@ -194,68 +194,80 @@
                                         <span class="label-name"><?= trans("pages"); ?></span>
                                     </a>
                                 </li>
-                            <?php endif;
-                            if (checkUserPermission('add_post')): ?>
-                                <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format', 'add-post', 'bulk-post-upload']); ?>">
-                                    <a href="<?= adminUrl('post-format'); ?>">
-                                        <i class="fa fa-cubes"></i>
-                                        <span class="label-name"><?= trans("add_post"); ?></span>
-                                    </a>
-                                </li>
-                                <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
-                                    <a href="#">
-                                        <i class="fa fa-bars"></i> 
-                                        <span class="label-name"><?= trans("posts"); ?></span>
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li class="nav-posts<?php isAdminNavActive(['posts', 'edit-post']); ?>">
-                                            <a href="<?= adminUrl('posts'); ?>"><?= trans("all_posts"); ?></a>
-                                        </li>
-                                        <li class="nav-pending-posts<?php isAdminNavActive(['pending-posts']); ?>">
-                                            <a href="<?= adminUrl('pending-posts'); ?>">
-                                                <?= trans("pending_posts"); ?>
+                            <?php endif; ?>
+                            
+                            <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory', 'post-format', 'add-post', 'bulk-post-upload','recommended-posts', 'breaking-news', 'featured-posts', 'slider-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i> 
+                                    <span class="label-name"><?= trans("post"); ?></span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <?php if (checkUserPermission('add_post')): ?>
+                                        <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format', 'add-post', 'bulk-post-upload']); ?>">
+                                            <a href="<?= adminUrl('post-format'); ?>">
+                                                <i class="fa fa-cubes"></i>
+                                                <span class="label-name"><?= trans("add_post"); ?></span>
                                             </a>
                                         </li>
-                                        <li class="nav-scheduled-posts<?php isAdminNavActive(['scheduled-posts']); ?>">
-                                            <a href="<?= adminUrl('scheduled-posts'); ?>">
-                                                <?= trans("scheduled_posts"); ?>
+                                    <?php endif;
+                                    if (checkUserPermission('categories')): ?>
+                                        <li class="nav-treeview treeview<?php isAdminNavActive(['categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory']); ?>">
+                                            <a href="#">
+                                                <i class="fa fa-folder-open"></i>
+                                                <span class="label-name"><?= trans("categories"); ?></span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
                                             </a>
+                                            <ul class="treeview-menu">
+                                                <li class="nav-categories<?php isAdminNavActive(['categories']); ?>">
+                                                    <a href="<?= adminUrl('categories'); ?>">
+                                                        <?= trans("categories"); ?>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-subcategories<?php isAdminNavActive(['subcategories']); ?>">
+                                                    <a href="<?= adminUrl('subcategories'); ?>">
+                                                        <?= trans("subcategories"); ?>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
-                                        <li class="nav-drafts<?php isAdminNavActive(['drafts']); ?>">
-                                            <a href="<?= adminUrl('drafts'); ?>">
-                                                <?= trans("drafts"); ?>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            <?php endif;
-                            if (checkUserPermission('categories')): ?>
-                                <li class="nav-treeview treeview<?php isAdminNavActive(['categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory']); ?>">
-                                    <a href="#">
-                                        <i class="fa fa-folder-open"></i>
-                                        <span class="label-name"><?= trans("categories"); ?></span>
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li class="nav-categories<?php isAdminNavActive(['categories']); ?>">
-                                            <a href="<?= adminUrl('categories'); ?>">
-                                                <?= trans("categories"); ?>
-                                            </a>
-                                        </li>
-                                        <li class="nav-subcategories<?php isAdminNavActive(['subcategories']); ?>">
-                                            <a href="<?= adminUrl('subcategories'); ?>">
-                                                <?= trans("subcategories"); ?>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            <?php endif;
-                            if (checkUserPermission('rss_feeds')): ?>
+                                    <?php endif; ?>
+                                    <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
+                                        <a href="#">
+                                            <i class="fa fa-bars"></i> 
+                                            <span class="label-name"><?= trans("posts"); ?></span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li class="nav-posts<?php isAdminNavActive(['posts', 'edit-post']); ?>">
+                                                <a href="<?= adminUrl('posts'); ?>"><?= trans("all_posts"); ?></a>
+                                            </li>
+                                            <li class="nav-pending-posts<?php isAdminNavActive(['pending-posts']); ?>">
+                                                <a href="<?= adminUrl('pending-posts'); ?>">
+                                                    <?= trans("pending_posts"); ?>
+                                                </a>
+                                            </li>
+                                            <li class="nav-scheduled-posts<?php isAdminNavActive(['scheduled-posts']); ?>">
+                                                <a href="<?= adminUrl('scheduled-posts'); ?>">
+                                                    <?= trans("scheduled_posts"); ?>
+                                                </a>
+                                            </li>
+                                            <li class="nav-drafts<?php isAdminNavActive(['drafts']); ?>">
+                                                <a href="<?= adminUrl('drafts'); ?>">
+                                                    <?= trans("drafts"); ?>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <?php if (checkUserPermission('rss_feeds')): ?>
                                 <li class="nav-feeds<?php isAdminNavActive(['feeds']); ?>">
                                     <a href="<?= adminUrl('feeds'); ?>">
                                         <i class="fa fa-rss" aria-hidden="true"></i>
