@@ -50,6 +50,7 @@
                     content: tipContent,
                     placement: 'right',
                     arrow: roundArrow,
+                    animation: 'shift-away-subtle',
                     interactive: true,
                 });
                 tippyInst.push(inst);

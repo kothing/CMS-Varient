@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/file-uploader/css/jquery.dm-uploader.min.css'); ?>"/>
     <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/file-uploader/css/styles-1.0.css'); ?>"/>
+    <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/tippy/animation.css'); ?>"/>
     <link rel="stylesheet" href="<?= base_url('assets/admin/plugins/tippy/svg-arrow.css'); ?>"/>
     <link rel="stylesheet" href="<?= base_url('assets/admin/css/custom-2.1.css'); ?>">
     <script src="<?= base_url('assets/admin/js/jquery.min.js'); ?>"></script>
