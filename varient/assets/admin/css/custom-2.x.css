@@ -35,6 +35,14 @@
   color: #fcfcfc;
 }
 
+.tippy-box .tippy-content .treeview-menu .treeview-menu {
+  margin-left: 24px;
+}
+
+.tippy-box .tippy-content .treeview-menu i.fa-angle-left {
+  display: none;
+}
+
 .main-header {
   z-index: 100 !important;
 }
