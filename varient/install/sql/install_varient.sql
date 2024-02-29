@@ -622,6 +622,9 @@ INSERT INTO `language_translations` (`id`, `lang_id`, `label`, `translation`) VA
 (187, 1, 'contact_settings', 'Contact Settings'),
 (188, 1, 'contact_text', 'Contact Text'),
 (189, 1, 'content', 'Content'),
+-- 
+(1890, 1, 'content_management', 'Content Management'),
+-- 
 (190, 1, 'cookies_warning', 'Cookies Warning'),
 (191, 1, 'cookie_prefix', 'Cookie Prefix'),
 (192, 1, 'copyright', 'Copyright'),
@@ -1228,6 +1231,9 @@ INSERT INTO `language_translations` (`id`, `lang_id`, `label`, `translation`) VA
 (793, 1, 'user_agent', 'User-Agent'),
 (794, 1, 'user_agreement', 'User Agreement'),
 (795, 1, 'user_id', 'User Id'),
+-- new row
+(7950, 1, 'user_role', 'Users & Roles'),
+-- new row
 (796, 1, 'vertical', 'Vertical'),
 (797, 1, 'video', 'Video'),
 (798, 1, 'videos', 'Videos'),
