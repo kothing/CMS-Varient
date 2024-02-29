@@ -249,7 +249,7 @@
                                                 if ($i < 3):?>
                                                     <div class="col-sm-12 col-md-6 col-lg-4">
                                                         <div class="post-item<?= checkPostImg($item, 'class'); ?>">
-                                                            <!--<?php if (checkPostImg($item)): ?>-->
+                                                            <?php if (checkPostImg($item)): ?>
                                                                 <div class="image ratio">
                                                                     <a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($item); ?>>
                                                                         <img src="<?= IMG_BASE64_450x280; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="269" height="160"/>
@@ -262,7 +262,7 @@
                                                                         <img src="<?= IMG_BASE64_450x280; ?>" data-src="<?= getPostImage($item, 'mid'); ?>" alt="<?= esc($item->title); ?>" class="img-fluid lazyload" width="269" height="160"/>
                                                                     </a>
                                                                 </div>
-                                                            <!--<?php endif; ?>-->
+                                                            <?php endif; ?>
                                                             <h3 class="title fsize-16"><a href="<?= generatePostURL($item); ?>"<?php postURLNewTab($this, $item); ?>><?= esc(characterLimiter($item->title, 55, '...')); ?></a></h3>
                                                             <p class="small-post-meta"><?= loadView('post/_post_meta', ['postItem' => $item]); ?></p>
                                                         </div>
