@@ -199,7 +199,7 @@
                             
                             <li class="nav-treeview treeview<?php isAdminNavActive(['posts', 'categories', 'subcategories', 'add-category', 'add-subcategory', 'edit-category', 'edit-subcategory', 'post-format', 'add-post', 'bulk-post-upload','recommended-posts', 'breaking-news', 'featured-posts', 'slider-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'edit-post']); ?>">
                                 <a href="#">
-                                    <i class="fa fa-bars"></i> 
+                                    <i class="fa fa-cubes"></i> 
                                     <span class="label-name"><?= trans("post"); ?></span>
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
@@ -209,7 +209,7 @@
                                     <?php if (checkUserPermission('add_post')): ?>
                                         <li class="nav-post-format nav-add-post<?php isAdminNavActive(['post-format', 'add-post', 'bulk-post-upload']); ?>">
                                             <a href="<?= adminUrl('post-format'); ?>">
-                                                <i class="fa fa-cubes"></i>
+                                                <i class="fa fa-plus-square"></i>
                                                 <span class="label-name"><?= trans("add_post"); ?></span>
                                             </a>
                                         </li>

@@ -39,8 +39,12 @@
   margin-left: 24px;
 }
 
-.tippy-box .tippy-content .treeview-menu i.fa-angle-left {
-  display: none;
+.tippy-box .tippy-content .treeview-menu .pull-right-container .pull-right {
+  float: none !important;
+}
+
+.tippy-box .tippy-content .treeview-menu .pull-right-container i.fa-angle-left {
+  transform: rotate(-90deg);
 }
 
 .main-header {
